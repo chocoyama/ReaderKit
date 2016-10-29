@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "807606F51DC1AE6B0019A7D6"
-               BuildableName = "ReaderKit.framework"
-               BlueprintName = "ReaderKit"
+               BlueprintIdentifier = "807607121DC1AF1E0019A7D6"
+               BuildableName = "ReaderKitFatBinary"
+               BlueprintName = "ReaderKitFatBinary"
                ReferencedContainer = "container:ReaderKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "807606FE1DC1AE6B0019A7D6"
-               BuildableName = "ReaderKitTests.xctest"
-               BlueprintName = "ReaderKitTests"
-               ReferencedContainer = "container:ReaderKit.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "807606F51DC1AE6B0019A7D6"
-            BuildableName = "ReaderKit.framework"
-            BlueprintName = "ReaderKit"
-            ReferencedContainer = "container:ReaderKit.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -64,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "807606F51DC1AE6B0019A7D6"
-            BuildableName = "ReaderKit.framework"
-            BlueprintName = "ReaderKit"
+            BlueprintIdentifier = "807607121DC1AF1E0019A7D6"
+            BuildableName = "ReaderKitFatBinary"
+            BlueprintName = "ReaderKitFatBinary"
             ReferencedContainer = "container:ReaderKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "807606F51DC1AE6B0019A7D6"
-            BuildableName = "ReaderKit.framework"
-            BlueprintName = "ReaderKit"
+            BlueprintIdentifier = "807607121DC1AF1E0019A7D6"
+            BuildableName = "ReaderKitFatBinary"
+            BlueprintName = "ReaderKitFatBinary"
             ReferencedContainer = "container:ReaderKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
