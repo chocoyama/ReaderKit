@@ -2,7 +2,7 @@
 //  ReaderKit.h
 //  ReaderKit
 //
-//  Created by takyokoy on 2016/10/27.
+//  Created by chocoyama on 2016/10/27.
 //  Copyright © 2016年 chocoyama. All rights reserved.
 //
 

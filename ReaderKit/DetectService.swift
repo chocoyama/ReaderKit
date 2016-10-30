@@ -21,7 +21,7 @@ open class DetectService {
             "application/rss+xml",
             "application/rdf+xml",
             "application/xml"
-            ].filter{ $0 == mimeType }.count > 0
+        ].filter{ $0 == mimeType }.count > 0
     }
     
     func determineDocumentType(from feedUrl: URL) -> DocumentType? {
@@ -59,6 +59,16 @@ open class DetectService {
             case .some("application/rss+xml"):
                 rssUrlString = $0.attributes["href"]
             default: break
+            }
+        }
+        
+        // linkにrssが設定されていなかった場合、本文にアンカーで貼ってある場合がある。
+        if atomUrlString == nil && rssUrlString == nil {
+            jiDoc?.xPath("//a")?.forEach {
+                let href = $0.attributes["href"]
+                if href?.hasSuffix("rss.xml") == true {
+                    rssUrlString = href
+                }
             }
         }
         

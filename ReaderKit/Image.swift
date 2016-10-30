@@ -9,15 +9,15 @@
 import Foundation
 
 public struct Image {
-    struct FetchResult {
-        let data: Data
-        let image: UIImage
-        let size: CGSize
+    public struct FetchResult {
+        public let data: Data
+        public let image: UIImage
+        public let size: CGSize
     }
     
     private(set) var imageUrl: String
     private(set) var destinationUrl: String?
-    private(set) var fetchResult: FetchResult?
+    public var fetchResult: FetchResult?
     
     init(imageUrl: String, destinationUrl: String?, fetchResult: FetchResult? = nil) {
         self.imageUrl = imageUrl
@@ -25,7 +25,7 @@ public struct Image {
         self.fetchResult = fetchResult
     }
     
-    func fetch(_ completion: @escaping (_ image: Image) -> Void) {
+    public func fetch(_ completion: @escaping (_ image: Image) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             guard let url = URL.init(string: self.imageUrl),
                 let imageData = try? Data.init(contentsOf: url),
@@ -50,10 +50,14 @@ public struct Image {
 public extension UIImageView {
     func set(image: Image) {
         if let fetchResult = image.fetchResult {
-            self.image = fetchResult.image
+            DispatchQueue.main.async {
+                self.image = fetchResult.image
+            }
         } else {
             image.fetch({ [weak self] (image) in
-                self?.image = image.fetchResult?.image
+                DispatchQueue.main.async {
+                    self?.image = image.fetchResult?.image
+                }
             })
         }
     }

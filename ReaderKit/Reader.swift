@@ -13,7 +13,7 @@ open class Reader {
     private let documentProvider = DocumentProvider.init()
     private let configuration: Configuration
     
-    init(with configuration: Configuration = .default) {
+    public init(with configuration: Configuration = .default) {
         self.configuration = configuration
     }
     
@@ -23,13 +23,13 @@ open class Reader {
         }
     }
     
-    open func next(handler: (_ document: Document?, _ items: [DocumentItem], _ error: Error?) -> Void) {
+    open func next(handler: (_ document: Documentable?, _ items: [DocumentItem], _ error: Error?) -> Void) {
         
     }
     
 }
 
-struct Configuration {
+public struct Configuration {
     var saveDocument: Bool
 }
 

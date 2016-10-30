@@ -30,8 +30,8 @@ open class DocumentProvider {
             }
             
             
-            if let document = self?.createDocument(from: data, response: response) {
-                handler(document, nil)
+            if let documentable = self?.createDocumentable(from: data, response: response) {
+                handler(documentable.toDocument(), nil)
             } else {
                 handler(nil, NSError.init(domain: "", code: 0, userInfo: nil))
             }
@@ -39,7 +39,7 @@ open class DocumentProvider {
         task?.resume()
     }
     
-    private func createDocument(from data: Data, response: URLResponse) -> Document? {
+    private func createDocumentable(from data: Data, response: URLResponse) -> Documentable? {
         let detectService = DetectService.init()
         let isXml = detectService.determineXmlType(from: response)
         

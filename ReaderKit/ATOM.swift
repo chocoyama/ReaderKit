@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyXMLParser
 
-public struct ATOM: Document {
+public struct ATOM: Documentable {
     struct Feed {
         struct Entry {
             let id: String
@@ -44,7 +44,7 @@ public struct ATOM: Document {
             DocumentItem(
                 title: $0.title,
                 link: $0.link,
-                description: $0.summary,
+                desc: $0.summary,
                 date: $0.updated
             )
         }

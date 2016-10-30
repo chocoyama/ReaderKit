@@ -9,11 +9,11 @@
 import Foundation
 import SwiftyXMLParser
 
-public struct RSS1_0: Document {
+public struct RSS1_0: Documentable {
     struct Channel {
         let title: String
         let link: URL
-        let description: String
+        let desc: String
         let date: String
         let language: String
     }
@@ -21,7 +21,7 @@ public struct RSS1_0: Document {
     struct Item {
         let title: String
         let link: URL
-        let description: String
+        let desc: String
         let creator: String
         let date: String
     }
@@ -43,7 +43,7 @@ public struct RSS1_0: Document {
             DocumentItem(
                 title: $0.title,
                 link: $0.link,
-                description: $0.description,
+                desc: $0.desc,
                 date: $0.date
             )
         }
@@ -55,7 +55,7 @@ public struct RSS1_0: Document {
         let channel = RSS1_0.Channel(
             title: channelXml["title"].text ?? "",
             link: url,
-            description: channelXml["description"].text ?? "",
+            desc: channelXml["description"].text ?? "",
             date: channelXml["dc:date"].text ?? "",
             language: channelXml["dc:language"].text ?? ""
         )
@@ -67,7 +67,7 @@ public struct RSS1_0: Document {
                 let item = RSS1_0.Item(
                     title: $0["title"].text ?? "",
                     link: link,
-                    description: $0["description"].text ?? "",
+                    desc: $0["description"].text ?? "",
                     creator: $0["dc:creator"].text ?? "",
                     date: $0["dc:date"].text ?? ""
                 )

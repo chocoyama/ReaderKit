@@ -9,30 +9,15 @@
 import XCTest
 @testable import ReaderKit
 
-struct ReaderKitTestsResources {
-    static let atomSiteUrl = URL(string: "http://himaratsu.hatenablog.com/")!
-    
-    static let rss1_0url = URL(string: "https://www.nttdocomo.co.jp/info/rss/whatsnew.rdf")!
-    static let rss2_0url = URL(string: "http://himaratsu.hatenablog.com/rss")!
-    static let atomurl = URL(string: "http://himaratsu.hatenablog.com/feed")!
-    static var rss1_0data: Data { return try! Data.init(contentsOf: rss1_0url) }
-    static var rss2_0data: Data { return try! Data.init(contentsOf: rss2_0url) }
-    static var atomdata: Data { return try! Data.init(contentsOf: atomurl) }
-    
-    static var contentsPage = URL(string: "http://vipsister23.com/archives/8629268.html")!
-}
-
 class ReaderKitTests: XCTestCase {
     
     private let reader = Reader.init()
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
@@ -40,12 +25,14 @@ class ReaderKitTests: XCTestCase {
         let expectation: XCTestExpectation? = self.expectation(description: "fetch")
         let url = ReaderKitTestsResources.atomSiteUrl
         reader.read(url) { (document, error) in
+            defer {
+                expectation?.fulfill()
+            }
             if let document = document {
-                XCTAssertTrue(document.documentItems.count > 0)
+                XCTAssertTrue(document.items.count > 0)
             } else {
                 XCTFail()
             }
-            expectation?.fulfill()
         }
         waitForExpectations(timeout: 2.0, handler: nil)
     }
