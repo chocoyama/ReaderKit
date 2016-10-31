@@ -10,6 +10,8 @@ import Foundation
 
 struct ReaderKitTestsResources {
     static let atomSiteUrl = URL(string: "http://himaratsu.hatenablog.com/")!
+    static let rss1_0SiteUrl = URL(string: "http://blog.illusion.jp/archives/14043")!
+    static let rss1_0SiteData = try! Data(contentsOf: rss1_0SiteUrl)
     
     static let rss1_0url = URL(string: "https://www.nttdocomo.co.jp/info/rss/whatsnew.rdf")!
     static let rss2_0url = URL(string: "http://news.yahoo.co.jp/pickup/domestic/rss.xml")!

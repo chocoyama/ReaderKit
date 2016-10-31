@@ -34,18 +34,31 @@ open class DocumentRepository {
     
     open func recent(_ link: URL, completion: @escaping (Document?) -> Void) {
         fetch(link) { [ weak self] (error) in
-            guard let strongSelf = self, error == nil else {
+            guard error == nil else {
                 completion(nil)
                 return
             }
             
-            do {
-                let document = try strongSelf.get(link)
-                completion(document)
-            } catch let error {
-                print(error)
-                completion(nil)
+            let document = self?.get(link)
+            completion(document)
+        }
+    }
+    
+    open func get(_ link: URL) -> Document? {
+        do {
+            let realmDocument = try getRealmDocument(from: link)
+            var documentItems = [DocumentItem]()
+            for realmItem in realmDocument.items {
+                if let documentItem = realmItem.toDocumentItem() {
+                    documentItems.append(documentItem)
+                }
             }
+            
+            let document = Document(title: realmDocument.title, link: link, items: documentItems)
+            return document
+        } catch let error {
+            print(error.localizedDescription)
+            return nil
         }
     }
     
@@ -78,23 +91,6 @@ extension DocumentRepository {
                 }
             }
         })
-    }
-    
-    internal func get(_ link: URL) throws -> Document {
-        do {
-            let realmDocument = try getRealmDocument(from: link)
-            var documentItems = [DocumentItem]()
-            for realmItem in realmDocument.items {
-                if let documentItem = realmItem.toDocumentItem() {
-                    documentItems.append(documentItem)
-                }
-            }
-            
-            let document = Document(title: realmDocument.title, link: link, items: documentItems)
-            return document
-        } catch let error {
-            throw error
-        }
     }
     
     internal func update(_ document: Document) throws {

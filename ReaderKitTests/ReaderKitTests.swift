@@ -22,9 +22,16 @@ class ReaderKitTests: XCTestCase {
     }
     
     func testReader() {
-        let expectation: XCTestExpectation? = self.expectation(description: "fetch")
         let url = ReaderKitTestsResources.atomSiteUrl
-        reader.read(url) { (document, error) in
+        
+        let choices = reader.choices(from: url)
+        XCTAssertEqual(choices[0].url, URL(string: "http://himaratsu.hatenablog.com/feed")!)
+        XCTAssertEqual(choices[0].title, "Atom")
+        XCTAssertEqual(choices[1].url, URL(string: "http://himaratsu.hatenablog.com/rss")!)
+        XCTAssertEqual(choices[1].title, "RSS2.0")
+        
+        let expectation: XCTestExpectation? = self.expectation(description: "fetch")
+        reader.read(choices[0].url) { (document, error) in
             defer {
                 expectation?.fulfill()
             }
@@ -35,6 +42,12 @@ class ReaderKitTests: XCTestCase {
             }
         }
         waitForExpectations(timeout: 2.0, handler: nil)
+    }
+    
+    func testExtractFeedUrl() {
+        let detectService = DetectService.init()
+        let extractedUrl = detectService.extractFeedUrl(from: ReaderKitTestsResources.rss1_0SiteData)!.absoluteString
+        XCTAssertEqual(extractedUrl, "http://blog.illusion.jp/feed")
     }
     
     func testDetectService() {

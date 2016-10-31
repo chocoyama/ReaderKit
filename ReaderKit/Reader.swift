@@ -19,8 +19,16 @@ open class Reader {
     
     open func read(_ url: URL, handler: @escaping (_ document: Document?, _ error: Error?) -> Void) {
         documentProvider.get(from: url) { (document, error) in
-            handler(document, error)
+            DispatchQueue.main.async {
+                handler(document, error)
+            }
         }
+    }
+    
+    open func choices(from url: URL) -> [Choice] {
+        let detectService = DetectService.init()
+        let choices = detectService.extractChoices(from: url)
+        return choices
     }
     
     open func next(handler: (_ document: Documentable?, _ items: [DocumentItem], _ error: Error?) -> Void) {

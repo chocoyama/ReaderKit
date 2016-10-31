@@ -47,6 +47,8 @@
 		807607051DC1AE6B0019A7D6 /* ReaderKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807607041DC1AE6B0019A7D6 /* ReaderKitTests.swift */; };
 		807607071DC1AE6B0019A7D6 /* ReaderKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 807606F91DC1AE6B0019A7D6 /* ReaderKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		807607111DC1AEB80019A7D6 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807607101DC1AEB80019A7D6 /* Reader.swift */; };
+		808DAD191DC769F200926105 /* SearchChoiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808DAD181DC769F200926105 /* SearchChoiceTableViewCell.swift */; };
+		808DAD1B1DC76D5C00926105 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808DAD1A1DC76D5C00926105 /* DocumentViewController.swift */; };
 		809D647D1DC58FFE0070FD0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D647C1DC58FFE0070FD0C /* AppDelegate.swift */; };
 		809D647F1DC58FFE0070FD0C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D647E1DC58FFE0070FD0C /* SearchViewController.swift */; };
 		809D64841DC58FFE0070FD0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 809D64831DC58FFE0070FD0C /* Assets.xcassets */; };
@@ -138,6 +140,8 @@
 		807607041DC1AE6B0019A7D6 /* ReaderKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderKitTests.swift; sourceTree = "<group>"; };
 		807607061DC1AE6B0019A7D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		807607101DC1AEB80019A7D6 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
+		808DAD181DC769F200926105 /* SearchChoiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchChoiceTableViewCell.swift; sourceTree = "<group>"; };
+		808DAD1A1DC76D5C00926105 /* DocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
 		809D647A1DC58FFE0070FD0C /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		809D647C1DC58FFE0070FD0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		809D647E1DC58FFE0070FD0C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -249,6 +253,7 @@
 			children = (
 				809D647E1DC58FFE0070FD0C /* SearchViewController.swift */,
 				806174F91DC6F25A004446CB /* SubscribedListViewController.swift */,
+				808DAD1A1DC76D5C00926105 /* DocumentViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -258,6 +263,7 @@
 			children = (
 				809D64AF1DC5973B0070FD0C /* SearchItemTableViewCell.swift */,
 				806174FB1DC6F4FF004446CB /* SubscribedListTableViewCell.swift */,
+				808DAD181DC769F200926105 /* SearchChoiceTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -647,9 +653,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				808DAD191DC769F200926105 /* SearchChoiceTableViewCell.swift in Sources */,
 				809D647F1DC58FFE0070FD0C /* SearchViewController.swift in Sources */,
 				809D64B01DC5973B0070FD0C /* SearchItemTableViewCell.swift in Sources */,
 				806174FA1DC6F25A004446CB /* SubscribedListViewController.swift in Sources */,
+				808DAD1B1DC76D5C00926105 /* DocumentViewController.swift in Sources */,
 				806174FC1DC6F4FF004446CB /* SubscribedListTableViewCell.swift in Sources */,
 				809D647D1DC58FFE0070FD0C /* AppDelegate.swift in Sources */,
 			);

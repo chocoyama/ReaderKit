@@ -155,16 +155,16 @@ class ReaderKitRealmTests: XCTestCase {
 
         do {
             try DocumentRepository.shared.update(newDocument)
-            let gotDocument = try DocumentRepository.shared.get(documentLink)
-            XCTAssertTrue(gotDocument.items.count == itemCount)
+            let gotDocument = DocumentRepository.shared.get(documentLink)
+            XCTAssertTrue(gotDocument?.items.count == itemCount)
             
             var newItems = items.enumerated().filter{ $0.offset < 10 }.map{ $0.element }
             let newlink = URL(string: "http://www.yahoo.co.jp/new")!
             newItems.append(DocumentItem.init(title: "test", link: newlink, desc: "test", date: "test"))
             let newDocument = Document.init(title: "test", link: documentLink, items: newItems)
             try DocumentRepository.shared.update(newDocument)
-            let newGotDocument = try DocumentRepository.shared.get(documentLink)
-            XCTAssertTrue(newGotDocument.items.count == itemCount + 1)
+            let newGotDocument = DocumentRepository.shared.get(documentLink)
+            XCTAssertTrue(newGotDocument?.items.count == itemCount + 1)
         } catch let error {
             XCTFail(error.localizedDescription)
         }
@@ -180,12 +180,8 @@ class ReaderKitRealmTests: XCTestCase {
                 XCTFail()
             }
             
-            do {
-                let document  = try DocumentRepository.shared.get(link)
-                XCTAssertTrue(document.link == link)
-            } catch let error {
-                XCTFail(error.localizedDescription)
-            }
+            let document  = DocumentRepository.shared.get(link)
+            XCTAssertTrue(document?.link == link)
         }
         waitForExpectations(timeout: 2.0, handler: nil)
     }

@@ -9,6 +9,11 @@
 import Foundation
 import Ji
 
+public struct Choice {
+    public let url: URL
+    public let title: String
+}
+
 open class DetectService {
     
     func determineXmlType(from response: URLResponse) -> Bool {
@@ -46,38 +51,45 @@ open class DetectService {
         }
     }
     
-    func extractFeedUrl(from htmlData: Data) -> URL? {
+    func extractChoices(from url: URL) -> [Choice] {
+        guard let data = try? Data(contentsOf: url) else {
+            return []
+        }
+        let jiDoc = Ji(data: data, encoding: .utf8, isXML: false)
+        if let _ = determineDocumentType(from: jiDoc) {
+            let title = jiDoc?.xPath("//title")?.first?.content ?? ""
+            return [Choice.init(url: url, title: title)]
+        }
+        return extractChoices(from: data)
+    }
+    
+    private func extractChoices(from htmlData: Data) -> [Choice] {
         let jiDoc = Ji(htmlData: htmlData)
         
-        var atomUrlString: String?
-        var rssUrlString: String?
-        
+        var choices = [Choice]()
         jiDoc?.xPath("//link")?.forEach {
             switch $0.attributes["type"] {
-            case .some("application/atom+xml"):
-                atomUrlString = $0.attributes["href"]
-            case .some("application/rss+xml"):
-                rssUrlString = $0.attributes["href"]
+            case .some("application/atom+xml"), .some("application/rss+xml"):
+                if let href = $0.attributes["href"], let url = URL(string: href) {
+                    choices.append(.init(url: url, title: $0.attributes["title"] ?? ""))
+                }
             default: break
             }
         }
         
-        // linkにrssが設定されていなかった場合、本文にアンカーで貼ってある場合がある。
-        if atomUrlString == nil && rssUrlString == nil {
-            jiDoc?.xPath("//a")?.forEach {
-                let href = $0.attributes["href"]
-                if href?.hasSuffix("rss.xml") == true {
-                    rssUrlString = href
-                }
+        jiDoc?.xPath("//a")?.forEach {
+            if let href = $0.attributes["href"],
+                href.hasSuffix("rss.xml"),
+                let url = URL(string: href) {
+                choices.append(.init(url: url, title: ""))
             }
         }
         
-        if let atomUrlString = atomUrlString, let atomUrl = URL(string: atomUrlString) {
-            return atomUrl
-        } else if let rssUrlString = rssUrlString, let rssUrl = URL(string: rssUrlString) {
-            return rssUrl
-        } else {
-            return nil
-        }
+        return choices
+    }
+    
+    func extractFeedUrl(from htmlData: Data) -> URL? {
+        let choice = extractChoices(from: htmlData)
+        return choice.first?.url
     }
 }

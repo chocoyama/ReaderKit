@@ -13,21 +13,14 @@ import SafariServices
 class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var navItem: UINavigationItem!
-    @IBOutlet weak var rightBarButton: UIBarButtonItem!
     @IBOutlet weak var searchBar: UISearchBar!
 
     private let reader = Reader.init()
-    private var document: Document? {
+    private var choices = [Choice]() {
         didSet {
-            if let document = document {
-                navItem.title = document.title
-                rightBarButton.title = document.subscribed ? "購読解除" : "購読する"
-            } else {
-                navItem.title = "検索"
-                rightBarButton.title = ""
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
             }
-            tableView.reloadData()
         }
     }
     
@@ -35,29 +28,21 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     // MARK:- TableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchItemTableViewCell", for: indexPath) as! SearchItemTableViewCell
-        
-        guard let item = document?.items[indexPath.row] else {
-            return cell
-        }
-        
-        cell.configure(item: item)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchChoiceTableViewCell", for: indexPath) as! SearchChoiceTableViewCell
+        cell.configure(with: choices[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return document?.items.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let item = document?.items[indexPath.row] else {
-            return
-        }
-        let safariVC = SFSafariViewController.init(url: item.link)
-        present(safariVC, animated: true, completion: nil)
+        return choices.count
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -72,35 +57,21 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return
         }
         
-        reader.read(url) { [weak self] (document, error) in
-            DispatchQueue.main.async {
-                self?.document = document
-            }
-        }
+        choices = reader.choices(from: url)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.characters.count == 0 {
-            document = nil
+            choices = []
         }
     }
     
-    // MARK:- NavigationItem
-    
-    @IBAction func didTappedRightBarButton(_ sender: UIBarButtonItem) {
-        guard let document = document else {
-            rightBarButton.title = ""
-            return
-        }
-        
-        defer {
-            self.document = document
-        }
-        
-        if document.subscribed {
-            try? document.unSubscribe()
-        } else {
-            try? document.subscribe()
+    // Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let documentVC = segue.destination as? DocumentViewController,
+            let indexPath = tableView.indexPathForSelectedRow {
+            let choice = choices[indexPath.row]
+            documentVC.choice = choice
         }
     }
 }
