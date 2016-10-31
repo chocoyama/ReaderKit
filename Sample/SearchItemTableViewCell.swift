@@ -1,5 +1,5 @@
 //
-//  ItemTableViewCell.swift
+//  SearchItemTableViewCell.swift
 //  ReaderKit
 //
 //  Created by chocoyama on 2016/10/30.
@@ -9,7 +9,7 @@
 import UIKit
 import ReaderKit
 
-class ItemTableViewCell: UITableViewCell {
+class SearchItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!

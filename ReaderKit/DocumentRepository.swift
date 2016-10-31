@@ -14,7 +14,7 @@ open class DocumentRepository {
     open static let shared = DocumentRepository()
     fileprivate let documentProvider = DocumentProvider.init()
     
-    open func subscribedDocuments() throws -> [Document] {
+    open var subscribedDocuments: [Document] {
         do {
             let realm = try Realm()
             let result = realm.objects(RealmDocument.self)
@@ -27,7 +27,8 @@ open class DocumentRepository {
             }
             return documents
         } catch let error {
-            throw error
+            print(error.localizedDescription)
+            return []
         }
     }
     
@@ -48,7 +49,7 @@ open class DocumentRepository {
         }
     }
     
-    open func deleteAll() throws {
+    open func unsubscriveAll() throws {
         do {
             let realm = try Realm()
             try realm.write {
@@ -129,4 +130,5 @@ extension DocumentRepository {
             throw error
         }
     }
+    
 }

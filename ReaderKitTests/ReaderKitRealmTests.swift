@@ -25,7 +25,7 @@ class ReaderKitRealmTests: XCTestCase {
     
     private func deleteAll() {
         do {
-            try DocumentRepository.shared.deleteAll()
+            try DocumentRepository.shared.unsubscriveAll()
         } catch let error {
             XCTFail(error.localizedDescription)
         }
@@ -33,7 +33,7 @@ class ReaderKitRealmTests: XCTestCase {
     
     func testDeleteAll() {
         do {
-            try DocumentRepository.shared.deleteAll()
+            try DocumentRepository.shared.unsubscriveAll()
         } catch let error {
             XCTFail(error.localizedDescription)
         }
@@ -140,12 +140,8 @@ class ReaderKitRealmTests: XCTestCase {
         }
         
         self.measure {
-            do {
-                let documents = try DocumentRepository.shared.subscribedDocuments()
-                XCTAssertTrue(documents.count == documentsCount)
-            } catch let error {
-                XCTFail(error.localizedDescription)
-            }
+            let documents = DocumentRepository.shared.subscribedDocuments
+            XCTAssertTrue(documents.count == documentsCount)
         }
     }
 
