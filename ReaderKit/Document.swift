@@ -40,16 +40,33 @@ public enum DocumentType {
 }
 
 public struct Document {
+    public let id: String
     public let title: String
     public let link: URL
     public let items: [DocumentItem]
+    
+    init(title: String, link: URL, items: [DocumentItem]) {
+        self.id = link.absoluteString
+        self.title = title
+        self.link = link
+        self.items = items
+    }
 }
 
 public struct DocumentItem {
+    public let id: String
     public let title: String
     public let link: URL
     public let desc: String
     public let date: String
+    
+    init(title: String, link: URL, desc: String, date: String) {
+        self.id = link.absoluteString + date
+        self.title = title
+        self.link = link
+        self.desc = desc
+        self.date = date
+    }
     
     // Urlのみ
     public var nonFetchedImages: [Image] {

@@ -40,6 +40,7 @@
 		805FA3111DC4DCE80056698D /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 805FA30F1DC4DCE80056698D /* Realm.framework */; };
 		805FA3121DC4DCE80056698D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 805FA3101DC4DCE80056698D /* RealmSwift.framework */; };
 		805FA3141DC4E0D80056698D /* RealmDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FA3131DC4E0D80056698D /* RealmDocument.swift */; };
+		806174F01DC6CEFF004446CB /* Document+RealmExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806174EF1DC6CEFF004446CB /* Document+RealmExtension.swift */; };
 		807607001DC1AE6B0019A7D6 /* ReaderKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 807606F61DC1AE6B0019A7D6 /* ReaderKit.framework */; };
 		807607051DC1AE6B0019A7D6 /* ReaderKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807607041DC1AE6B0019A7D6 /* ReaderKitTests.swift */; };
 		807607071DC1AE6B0019A7D6 /* ReaderKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 807606F91DC1AE6B0019A7D6 /* ReaderKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -125,6 +126,7 @@
 		805FA30F1DC4DCE80056698D /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		805FA3101DC4DCE80056698D /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		805FA3131DC4E0D80056698D /* RealmDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmDocument.swift; sourceTree = "<group>"; };
+		806174EF1DC6CEFF004446CB /* Document+RealmExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Document+RealmExtension.swift"; sourceTree = "<group>"; };
 		807606F61DC1AE6B0019A7D6 /* ReaderKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ReaderKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		807606F91DC1AE6B0019A7D6 /* ReaderKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReaderKit.h; sourceTree = "<group>"; };
 		807606FA1DC1AE6B0019A7D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 			children = (
 				80202E081DC3B3650023D33D /* DocumentRepository.swift */,
 				805FA3131DC4E0D80056698D /* RealmDocument.swift */,
+				806174EF1DC6CEFF004446CB /* Document+RealmExtension.swift */,
 			);
 			name = Repository;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				806174F01DC6CEFF004446CB /* Document+RealmExtension.swift in Sources */,
 				80202E061DC395820023D33D /* DetectService.swift in Sources */,
 				805FA3141DC4E0D80056698D /* RealmDocument.swift in Sources */,
 				807607111DC1AEB80019A7D6 /* Reader.swift in Sources */,

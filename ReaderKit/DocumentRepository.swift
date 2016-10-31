@@ -12,25 +12,39 @@ import RealmSwift
 open class DocumentRepository {
     private init() {}
     open static let shared = DocumentRepository()
-    private let documentProvider = DocumentProvider.init()
+    fileprivate let documentProvider = DocumentProvider.init()
     
-    open func get(_ link: URL, completion: @escaping (Document?) -> Void) {
-        fetch(link) { [weak self] in
-            guard let strongSelf = self,
-                let realmDocument = try? strongSelf.getRealmDocument(from: link) else {
+    open func subscribedDocuments() throws -> [Document] {
+        do {
+            let realm = try Realm()
+            let result = realm.objects(RealmDocument.self)
+            
+            var documents = [Document]()
+            result.forEach {
+                if let document = $0.toDocument() {
+                    documents.append(document)
+                }
+            }
+            return documents
+        } catch let error {
+            throw error
+        }
+    }
+    
+    open func recent(_ link: URL, completion: @escaping (Document?) -> Void) {
+        fetch(link) { [ weak self] (error) in
+            guard let strongSelf = self, error == nil else {
                 completion(nil)
                 return
             }
             
-            var documentItems = [DocumentItem]()
-            for realmItem in realmDocument.items {
-                if let documentItem = realmItem.toDocumentItem() {
-                    documentItems.append(documentItem)
-                }
+            do {
+                let document = try strongSelf.get(link)
+                completion(document)
+            } catch let error {
+                print(error)
+                completion(nil)
             }
-            
-            let document = Document(title: realmDocument.title, link: link, items: documentItems)
-            completion(document)
         }
     }
     
@@ -44,26 +58,53 @@ open class DocumentRepository {
             throw error
         }
     }
+}
+
+extension DocumentRepository {
     
-    private func fetch(_ link: URL, completion: @escaping () -> Void) {
+    internal func fetch(_ link: URL, completion: @escaping (_ error: Error?) -> Void) {
         documentProvider.get(from: link, handler: { [weak self] (document, error) in
+            guard let document = document else {
+                completion(NSError.init(domain: "", code: 0, userInfo: nil))
+                return
+            }
             DispatchQueue.main.async {
-                if let document = document {
-                    try? self?.update(document)
-                } else {
-                    completion()
+                do {
+                    try self?.update(document)
+                    completion(nil)
+                } catch let error {
+                    completion(error)
                 }
             }
         })
     }
     
-    private func update(_ document: Document) throws {
+    internal func get(_ link: URL) throws -> Document {
+        do {
+            let realmDocument = try getRealmDocument(from: link)
+            var documentItems = [DocumentItem]()
+            for realmItem in realmDocument.items {
+                if let documentItem = realmItem.toDocumentItem() {
+                    documentItems.append(documentItem)
+                }
+            }
+            
+            let document = Document(title: realmDocument.title, link: link, items: documentItems)
+            return document
+        } catch let error {
+            throw error
+        }
+    }
+    
+    internal func update(_ document: Document) throws {
         do {
             let realm = try Realm()
             if let realmDocument = try? getRealmDocument(from: document.link) {
-                let realmItems = document.items.map{ $0.toRealmObject() }
+                let newItems = document.realmItems.filter{
+                    !realmDocument.itemIds.contains($0.id)
+                }
                 try realm.write {
-                    realmDocument.items.append(objectsIn: realmItems)
+                    realmDocument.items.append(objectsIn: newItems)
                 }
             } else {
                 try realm.write {
@@ -75,7 +116,7 @@ open class DocumentRepository {
         }
     }
     
-    private func getRealmDocument(from link: URL) throws -> RealmDocument {
+    fileprivate func getRealmDocument(from link: URL) throws -> RealmDocument {
         do {
             let realm = try Realm()
             let result = realm.objects(RealmDocument.self).filter("link = '\(link.absoluteString)'")

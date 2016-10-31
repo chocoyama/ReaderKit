@@ -11,71 +11,55 @@ import RealmSwift
 
 public class RealmDocument: Object {
     
+    dynamic var id = ""
     dynamic var title = ""
     dynamic var link = ""
     let items = List<RealmDocumentItem>()
     
     override public static func primaryKey() -> String? {
-        return "link"
-    }
-}
-
-extension Document {
-    public var subscribed: Bool {
-        do {
-            let realm = try Realm()
-            let result = realm.objects(RealmDocument.self).filter("link = '\(link.absoluteString)'")
-            return result.count != 0
-        } catch let error {
-            print(error)
-            return false
-        }
+        return "id"
     }
     
-    public func subscribe() throws {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                realm.add(self.toRealmObject(), update: true)
+    override public static func indexedProperties() -> [String] {
+        return ["id"]
+    }
+    
+    func toDocument() -> Document? {
+        guard let url = URL(string: link) else {
+            return nil
+        }
+        return Document.init(title: title, link: url, items: documentItems)
+    }
+    
+    var itemIds: [String] {
+        return documentItems.map{ $0.id }
+    }
+    
+    private var documentItems: [DocumentItem] {
+        var result = [DocumentItem]()
+        items.forEach {
+            if let documentItem = $0.toDocumentItem() {
+                result.append(documentItem)
             }
-        } catch let error {
-            print(error)
-            throw error
         }
-    }
-    
-    public func unSubscribe() throws {
-        do {
-            let realm = try Realm()
-            let result = realm.objects(RealmDocument.self).filter("link = '\(link.absoluteString)'")
-            try realm.write {
-                realm.delete(result)
-            }
-        } catch let error {
-            print(error)
-            throw error
-        }
-    }
-    
-    public func toRealmObject() -> RealmDocument {
-        let realmItems = items.map{ $0.toRealmObject() }
-        let realmDoc = RealmDocument.init(value: [
-            "title": title,
-            "link": link.absoluteString,
-            "items": realmItems
-            ])
-        return realmDoc
+        return result
     }
 }
 
 public class RealmDocumentItem: Object {
+    
+    dynamic var id = ""
     dynamic var title = ""
     dynamic var link = ""
     dynamic var desc = ""
     dynamic var date = ""
     
     override public static func primaryKey() -> String? {
-        return "link"
+        return "id"
+    }
+    
+    override public static func indexedProperties() -> [String] {
+        return ["id"]
     }
     
     func toDocumentItem() -> DocumentItem? {
@@ -92,13 +76,3 @@ public class RealmDocumentItem: Object {
     }
 }
 
-extension DocumentItem {
-    func toRealmObject() -> RealmDocumentItem {
-        let realmItem = RealmDocumentItem()
-        realmItem.title = title
-        realmItem.link = link.absoluteString
-        realmItem.desc = desc
-        realmItem.date = date
-        return realmItem
-    }
-}

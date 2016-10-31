@@ -15,11 +15,20 @@ class ReaderKitRealmTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        deleteAll()
     }
     
     override func tearDown() {
-        try! DocumentRepository.shared.deleteAll()
+        deleteAll()
         super.tearDown()
+    }
+    
+    private func deleteAll() {
+        do {
+            try DocumentRepository.shared.deleteAll()
+        } catch let error {
+            XCTFail(error.localizedDescription)
+        }
     }
     
     func testDeleteAll() {
@@ -34,9 +43,7 @@ class ReaderKitRealmTests: XCTestCase {
         let expectation: XCTestExpectation? = self.expectation(description: "fetch")
         let url = ReaderKitTestsResources.atomSiteUrl
         reader.read(url) { (document, error) in
-            defer {
-                expectation?.fulfill()
-            }
+            defer { expectation?.fulfill() }
             guard let document = document else {
                 XCTFail()
                 return
@@ -55,9 +62,7 @@ class ReaderKitRealmTests: XCTestCase {
         let expectation: XCTestExpectation? = self.expectation(description: "fetch")
         let url = ReaderKitTestsResources.atomSiteUrl
         reader.read(url) { (document, error) in
-            defer {
-                expectation?.fulfill()
-            }
+            defer { expectation?.fulfill() }
             guard let document = document else {
                 XCTFail()
                 return
@@ -91,9 +96,7 @@ class ReaderKitRealmTests: XCTestCase {
         let expectation: XCTestExpectation? = self.expectation(description: "fetch")
         let url = ReaderKitTestsResources.atomSiteUrl
         reader.read(url) { (document, error) in
-            defer {
-                expectation?.fulfill()
-            }
+            defer { expectation?.fulfill() }
             guard let document = document else {
                 XCTFail()
                 return
@@ -119,6 +122,91 @@ class ReaderKitRealmTests: XCTestCase {
             XCTAssertFalse(document.subscribed)
         }
         waitForExpectations(timeout: 2.0, handler: nil)
+    }
+    
+    func testAccessAllSubscribedDocument() {
+        let itemCount = 100
+        let documentsCount = 100
+        let urls = (0..<itemCount).map { URL(string: "http://www.yahoo.co.jp/\($0)")! }
+        let items = (0..<itemCount).map { DocumentItem.init(title: "test", link: urls[$0], desc: "test", date: "test") }
+        let documents = (0..<documentsCount).map { Document.init(title: "", link: urls[$0], items: items) }
+        
+        documents.forEach {
+            do {
+                try $0.subscribe()
+            } catch let error {
+                XCTFail(error.localizedDescription)
+            }
+        }
+        
+        self.measure {
+            do {
+                let documents = try DocumentRepository.shared.subscribedDocuments()
+                XCTAssertTrue(documents.count == documentsCount)
+            } catch let error {
+                XCTFail(error.localizedDescription)
+            }
+        }
+    }
+
+    func testUpdate() {
+        let itemCount = 100
+        let itemUrls = (0..<itemCount).map { URL(string: "http://www.yahoo.co.jp/\($0)")! }
+        let items = (0..<itemCount).map { DocumentItem.init(title: "test", link: itemUrls[$0], desc: "test", date: "test") }
+        
+        let documentLink = URL(string: "http://www.yahoo.co.jp/")!
+        let newDocument = Document.init(title: "test", link: documentLink, items: items)
+
+        do {
+            try DocumentRepository.shared.update(newDocument)
+            let gotDocument = try DocumentRepository.shared.get(documentLink)
+            XCTAssertTrue(gotDocument.items.count == itemCount)
+            
+            var newItems = items.enumerated().filter{ $0.offset < 10 }.map{ $0.element }
+            let newlink = URL(string: "http://www.yahoo.co.jp/new")!
+            newItems.append(DocumentItem.init(title: "test", link: newlink, desc: "test", date: "test"))
+            let newDocument = Document.init(title: "test", link: documentLink, items: newItems)
+            try DocumentRepository.shared.update(newDocument)
+            let newGotDocument = try DocumentRepository.shared.get(documentLink)
+            XCTAssertTrue(newGotDocument.items.count == itemCount + 1)
+        } catch let error {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func testFetch() {
+        let link = ReaderKitTestsResources.rss1_0url
+        let expectation: XCTestExpectation? = self.expectation(description: "fetch")
+        DocumentRepository.shared.fetch(link)
+        { (error) in
+            defer { expectation?.fulfill() }
+            if let _ = error {
+                XCTFail()
+            }
+            
+            do {
+                let document  = try DocumentRepository.shared.get(link)
+                XCTAssertTrue(document.link == link)
+            } catch let error {
+                XCTFail(error.localizedDescription)
+            }
+        }
+        waitForExpectations(timeout: 2.0, handler: nil)
+    }
+    
+    func testRecent() {
+        let link = ReaderKitTestsResources.rss1_0url
+        let expectation: XCTestExpectation? = self.expectation(description: "fetch")
+        DocumentRepository.shared.recent(link) { (document) in
+            defer { expectation?.fulfill() }
+            
+            if let document = document {
+                XCTAssertTrue(document.link == link)
+            } else {
+                XCTFail()
+            }
+        }
+        waitForExpectations(timeout: 3.0, handler: nil)
     }
     
 }
