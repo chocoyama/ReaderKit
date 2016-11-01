@@ -125,11 +125,35 @@ class ReaderKitRealmTests: XCTestCase {
     }
     
     func testAccessAllSubscribedDocument() {
+        let documentsCount = 20
+        let documentTitles = (0..<documentsCount).map{ "test\($0)" }
+        let documentUrls = (0..<documentsCount).map{ URL(string: "http://google.com/\($0)")! }
+        
         let itemCount = 100
-        let documentsCount = 100
         let urls = (0..<itemCount).map { URL(string: "http://www.yahoo.co.jp/\($0)")! }
-        let items = (0..<itemCount).map { DocumentItem.init(title: "test", link: urls[$0], desc: "test", date: "test") }
-        let documents = (0..<documentsCount).map { Document.init(title: "", link: urls[$0], items: items) }
+        
+        var documents = [Document]()
+        for offset in (0..<documentsCount) {
+            let documentTitle = documentTitles[offset]
+            let documentUrl = documentUrls[offset]
+            let items = (0..<itemCount).map {
+                Document.Item.init(
+                    documentTitle: documentTitle,
+                    documentLink: documentUrl,
+                    title: "test",
+                    link: urls[$0],
+                    desc: "test",
+                    date: Date.init(),
+                    read: false
+                )
+            }
+            let document = Document.init(
+                title: documentTitle,
+                link: documentUrl,
+                items: items
+            )
+            documents.append(document)
+        }
         
         documents.forEach {
             do {
@@ -140,17 +164,29 @@ class ReaderKitRealmTests: XCTestCase {
         }
         
         self.measure {
-            let documents = DocumentRepository.shared.subscribedDocuments
-            XCTAssertTrue(documents.count == documentsCount)
+            let subscribedCount = DocumentRepository.shared.subscribedDocuments.count
+            XCTAssertTrue(subscribedCount == documentsCount)
         }
     }
 
     func testUpdate() {
+        let documentTitle = "test"
+        let documentLink = URL(string: "http://www.yahoo.co.jp/")!
+        
         let itemCount = 100
         let itemUrls = (0..<itemCount).map { URL(string: "http://www.yahoo.co.jp/\($0)")! }
-        let items = (0..<itemCount).map { DocumentItem.init(title: "test", link: itemUrls[$0], desc: "test", date: "test") }
+        let items = (0..<itemCount).map {
+            Document.Item.init(
+                documentTitle: documentTitle,
+                documentLink: documentLink,
+                title: "test",
+                link: itemUrls[$0],
+                desc: "test",
+                date: Date.init(),
+                read: false
+            )
+        }
         
-        let documentLink = URL(string: "http://www.yahoo.co.jp/")!
         let newDocument = Document.init(title: "test", link: documentLink, items: items)
 
         do {
@@ -160,7 +196,17 @@ class ReaderKitRealmTests: XCTestCase {
             
             var newItems = items.enumerated().filter{ $0.offset < 10 }.map{ $0.element }
             let newlink = URL(string: "http://www.yahoo.co.jp/new")!
-            newItems.append(DocumentItem.init(title: "test", link: newlink, desc: "test", date: "test"))
+            newItems.append(
+                Document.Item.init(
+                    documentTitle: gotDocument!.title,
+                    documentLink: gotDocument!.link,
+                    title: "test",
+                    link: newlink,
+                    desc: "test",
+                    date: Date.init(),
+                    read: false
+                )
+            )
             let newDocument = Document.init(title: "test", link: documentLink, items: newItems)
             try DocumentRepository.shared.update(newDocument)
             let newGotDocument = DocumentRepository.shared.get(documentLink)

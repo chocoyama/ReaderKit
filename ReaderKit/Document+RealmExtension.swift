@@ -13,7 +13,7 @@ extension Document {
     public var subscribed: Bool {
         do {
             let realm = try Realm()
-            let result = realm.objects(RealmDocument.self).filter("link = '\(link.absoluteString)'")
+            let result = realm.objects(RealmDocument.self).filter("id = '\(id)'")
             return result.count != 0
         } catch let error {
             print(error)
@@ -36,7 +36,7 @@ extension Document {
     public func unSubscribe() throws {
         do {
             let realm = try Realm()
-            let result = realm.objects(RealmDocument.self).filter("link = '\(link.absoluteString)'")
+            let result = realm.objects(RealmDocument.self).filter("id = '\(id)'")
             try realm.write {
                 realm.delete(result)
             }
@@ -62,14 +62,42 @@ extension Document {
     }
 }
 
-extension DocumentItem {
+extension Document.Item {
     func toRealmObject() -> RealmDocumentItem {
         let realmItem = RealmDocumentItem()
         realmItem.id = id
+        realmItem.documentTitle = documentTitle
+        realmItem.documentLink = documentLink.absoluteString
         realmItem.title = title
         realmItem.link = link.absoluteString
         realmItem.desc = desc
         realmItem.date = date
+        realmItem.read = read
         return realmItem
+    }
+    
+    func getReadFlag() throws -> Bool {
+        do {
+            let realm = try Realm()
+            let savedItem = realm.objects(RealmDocumentItem.self).filter("id = '\(id)'").first
+            guard let item = savedItem else {
+                throw NSError.init(domain: "", code: 0, userInfo: nil)
+            }
+            return item.read
+        } catch let error {
+            throw error
+        }
+    }
+    
+    func setReadFlag(_ read: Bool) throws {
+        let realmDocumentItem = self.toRealmObject()
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realmDocumentItem.read = read
+            }
+        } catch let error {
+            throw error
+        }
     }
 }

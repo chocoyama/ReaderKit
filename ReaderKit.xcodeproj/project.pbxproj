@@ -49,6 +49,7 @@
 		807607111DC1AEB80019A7D6 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807607101DC1AEB80019A7D6 /* Reader.swift */; };
 		808DAD191DC769F200926105 /* SearchChoiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808DAD181DC769F200926105 /* SearchChoiceTableViewCell.swift */; };
 		808DAD1B1DC76D5C00926105 /* DocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808DAD1A1DC76D5C00926105 /* DocumentViewController.swift */; };
+		808DAD201DC8417400926105 /* String+CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808DAD1F1DC8417400926105 /* String+CustomExtension.swift */; };
 		809D647D1DC58FFE0070FD0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D647C1DC58FFE0070FD0C /* AppDelegate.swift */; };
 		809D647F1DC58FFE0070FD0C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809D647E1DC58FFE0070FD0C /* SearchViewController.swift */; };
 		809D64841DC58FFE0070FD0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 809D64831DC58FFE0070FD0C /* Assets.xcassets */; };
@@ -142,6 +143,7 @@
 		807607101DC1AEB80019A7D6 /* Reader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
 		808DAD181DC769F200926105 /* SearchChoiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchChoiceTableViewCell.swift; sourceTree = "<group>"; };
 		808DAD1A1DC76D5C00926105 /* DocumentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentViewController.swift; sourceTree = "<group>"; };
+		808DAD1F1DC8417400926105 /* String+CustomExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+CustomExtension.swift"; sourceTree = "<group>"; };
 		809D647A1DC58FFE0070FD0C /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		809D647C1DC58FFE0070FD0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		809D647E1DC58FFE0070FD0C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 				807606F91DC1AE6B0019A7D6 /* ReaderKit.h */,
 				807606FA1DC1AE6B0019A7D6 /* Info.plist */,
 				807607101DC1AEB80019A7D6 /* Reader.swift */,
+				808DAD1E1DC8415C00926105 /* Extentions */,
 				805FA3151DC4FA4E0056698D /* Repository */,
 				805FA30E1DC4AD430056698D /* Provider */,
 				80202E021DC395360023D33D /* Service */,
@@ -316,6 +319,14 @@
 				807607061DC1AE6B0019A7D6 /* Info.plist */,
 			);
 			path = ReaderKitTests;
+			sourceTree = "<group>";
+		};
+		808DAD1E1DC8415C00926105 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				808DAD1F1DC8417400926105 /* String+CustomExtension.swift */,
+			);
+			name = Extentions;
 			sourceTree = "<group>";
 		};
 		809D647B1DC58FFE0070FD0C /* Sample */ = {
@@ -629,6 +640,7 @@
 				805FA3141DC4E0D80056698D /* RealmDocument.swift in Sources */,
 				807607111DC1AEB80019A7D6 /* Reader.swift in Sources */,
 				80A0F04F1DC2219E00BFB11D /* RSS1_0.swift in Sources */,
+				808DAD201DC8417400926105 /* String+CustomExtension.swift in Sources */,
 				80A0F0531DC221CE00BFB11D /* ATOM.swift in Sources */,
 				80A0F0511DC221B900BFB11D /* RSS2_0.swift in Sources */,
 				805FA30B1DC44DE80056698D /* ScrapingService.swift in Sources */,

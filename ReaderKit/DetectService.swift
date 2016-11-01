@@ -14,6 +14,20 @@ public struct Choice {
     public let title: String
 }
 
+public enum DocumentType {
+    case rss1_0
+    case rss2_0
+    case atom
+    
+    func parse(data: Data, url: URL) -> Documentable {
+        switch self {
+        case .rss1_0: return RSS1_0.create(from: data, url: url)
+        case .rss2_0: return RSS2_0.create(from: data, url: url)
+        case .atom: return ATOM.create(from: data, url: url)
+        }
+    }
+}
+
 open class DetectService {
     
     func determineXmlType(from response: URLResponse) -> Bool {

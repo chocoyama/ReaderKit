@@ -15,7 +15,7 @@ public struct RSS2_0: Documentable {
             let title: String
             let link: URL
             let desc: String
-            let pubDate: String
+            let pubDate: Date
         }
         
         let title: String
@@ -27,6 +27,7 @@ public struct RSS2_0: Documentable {
     let channel: Channel
     
     // MARK:- Document Protocol
+    
     public var documentTitle: String {
         return channel.title
     }
@@ -35,15 +36,22 @@ public struct RSS2_0: Documentable {
         return channel.link
     }
     
-    public var documentItems: [DocumentItem] {
+    public var documentItems: [Document.Item] {
         return channel.items.map {
-            DocumentItem(
+            Document.Item(
+                documentTitle: documentTitle,
+                documentLink: documentLink,
                 title: $0.title,
                 link: $0.link,
                 desc: $0.desc,
-                date: $0.pubDate
+                date: $0.pubDate,
+                read: false
             )
         }
+    }
+    
+    public static var dateFormat: String {
+        return "EEE, dd MMM yyyy HH:mm:ss ZZZZ"
     }
     
     public static func create(from data: Data, url: URL) -> RSS2_0 {
@@ -58,7 +66,7 @@ public struct RSS2_0: Documentable {
                     title: $0["title"].text ?? "",
                     link: link,
                     desc: $0["description"].text ?? "",
-                    pubDate: $0["pubDate"].text ?? ""
+                    pubDate: $0["pubDate"].text?.toDate(format: self.dateFormat) ?? Date.init()
                 )
                 items.append(item)
             }

@@ -14,6 +14,7 @@ open class DocumentRepository {
     open static let shared = DocumentRepository()
     fileprivate let documentProvider = DocumentProvider.init()
     
+    // TODO: 件数によってめっちゃ重くなる
     open var subscribedDocuments: [Document] {
         do {
             let realm = try Realm()
@@ -47,7 +48,7 @@ open class DocumentRepository {
     open func get(_ link: URL) -> Document? {
         do {
             let realmDocument = try getRealmDocument(from: link)
-            var documentItems = [DocumentItem]()
+            var documentItems: [Document.Item] = []
             for realmItem in realmDocument.items {
                 if let documentItem = realmItem.toDocumentItem() {
                     documentItems.append(documentItem)
@@ -64,6 +65,7 @@ open class DocumentRepository {
     
     open func unsubscriveAll() throws {
         do {
+            Realm.Configuration.defaultConfiguration.deleteRealmIfMigrationNeeded = true
             let realm = try Realm()
             try realm.write {
                 realm.deleteAll()
@@ -116,7 +118,7 @@ extension DocumentRepository {
     fileprivate func getRealmDocument(from link: URL) throws -> RealmDocument {
         do {
             let realm = try Realm()
-            let result = realm.objects(RealmDocument.self).filter("link = '\(link.absoluteString)'")
+            let result = realm.objects(RealmDocument.self).filter("link = '\(link)'")
             if let document = result.first {
                 return document
             } else {

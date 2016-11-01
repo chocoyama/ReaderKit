@@ -31,7 +31,7 @@ open class Reader {
         return choices
     }
     
-    open func next(handler: (_ document: Documentable?, _ items: [DocumentItem], _ error: Error?) -> Void) {
+    open func next(handler: (_ document: Documentable?, _ items: [Document.Item], _ error: Error?) -> Void) {
         
     }
     

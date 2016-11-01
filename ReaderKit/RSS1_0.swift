@@ -14,7 +14,7 @@ public struct RSS1_0: Documentable {
         let title: String
         let link: URL
         let desc: String
-        let date: String
+        let date: Date
         let language: String
     }
     
@@ -23,7 +23,7 @@ public struct RSS1_0: Documentable {
         let link: URL
         let desc: String
         let creator: String
-        let date: String
+        let date: Date
     }
     
     let channel: Channel
@@ -38,15 +38,22 @@ public struct RSS1_0: Documentable {
         return channel.link
     }
     
-    public var documentItems: [DocumentItem] {
+    public var documentItems: [Document.Item] {
         return items.map {
-            DocumentItem(
+            Document.Item(
+                documentTitle: documentTitle,
+                documentLink: documentLink,
                 title: $0.title,
                 link: $0.link,
                 desc: $0.desc,
-                date: $0.date
+                date: $0.date,
+                read: false
             )
         }
+    }
+    
+    public static var dateFormat: String {
+        return "yyyy-MM-dd'T'HH:mm:ssZ"
     }
     
     public static func create(from data: Data, url: URL) -> RSS1_0 {
@@ -56,7 +63,7 @@ public struct RSS1_0: Documentable {
             title: channelXml["title"].text ?? "",
             link: url,
             desc: channelXml["description"].text ?? "",
-            date: channelXml["dc:date"].text ?? "",
+            date: channelXml["dc:date"].text?.toDate(format: self.dateFormat) ?? Date.init(),
             language: channelXml["dc:language"].text ?? ""
         )
         
@@ -69,7 +76,7 @@ public struct RSS1_0: Documentable {
                     link: link,
                     desc: $0["description"].text ?? "",
                     creator: $0["dc:creator"].text ?? "",
-                    date: $0["dc:date"].text ?? ""
+                    date: $0["dc:date"].text?.toDate(format: self.dateFormat) ?? Date.init()
                 )
                 items.append(item)
             }

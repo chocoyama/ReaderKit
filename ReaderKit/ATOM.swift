@@ -15,13 +15,13 @@ public struct ATOM: Documentable {
             let id: String
             let title: String
             let link: URL
-            let updated: String
+            let updated: Date
             let summary: String
         }
         
         let id: String
         let title: String
-        let updated: String
+        let updated: Date
         let siteLink: URL?
         let feedLink: URL
         let entries: [Entry]
@@ -39,15 +39,22 @@ public struct ATOM: Documentable {
         return feed.feedLink
     }
     
-    public var documentItems: [DocumentItem] {
+    public var documentItems: [Document.Item] {
         return feed.entries.map {
-            DocumentItem(
+            Document.Item(
+                documentTitle: documentTitle,
+                documentLink: documentLink,
                 title: $0.title,
                 link: $0.link,
                 desc: $0.summary,
-                date: $0.updated
+                date: $0.updated,
+                read: false
             )
         }
+    }
+    
+    public static var dateFormat: String {
+        return "yyyy-MM-dd'T'HH:mm:ssZ"
     }
     
     public static func create(from data: Data, url: URL) -> ATOM {
@@ -66,7 +73,7 @@ public struct ATOM: Documentable {
                     id: $0["id"].text ?? "",
                     title: $0["title"].text ?? "",
                     link: link,
-                    updated: $0["updated"].text ?? "",
+                    updated: $0["updated"].text?.toDate(format: self.dateFormat) ?? Date.init(),
                     summary: $0["summary"].text ?? ""
                 )
                 entries.append(entry)
@@ -76,7 +83,7 @@ public struct ATOM: Documentable {
         let feed = ATOM.Feed(
             id: feedXml["id"].text ?? "",
             title: feedXml["title"].text ?? "",
-            updated: feedXml["updated"].text ?? "",
+            updated: feedXml["updated"].text?.toDate(format: self.dateFormat) ?? Date.init(),
             siteLink: siteLink,
             feedLink: url,
             entries: entries

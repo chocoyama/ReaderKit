@@ -35,8 +35,8 @@ public class RealmDocument: Object {
         return documentItems.map{ $0.id }
     }
     
-    private var documentItems: [DocumentItem] {
-        var result = [DocumentItem]()
+    private var documentItems: [Document.Item] {
+        var result: [Document.Item] = []
         items.forEach {
             if let documentItem = $0.toDocumentItem() {
                 result.append(documentItem)
@@ -49,10 +49,13 @@ public class RealmDocument: Object {
 public class RealmDocumentItem: Object {
     
     dynamic var id = ""
+    dynamic var documentTitle = ""
+    dynamic var documentLink = ""
     dynamic var title = ""
     dynamic var link = ""
     dynamic var desc = ""
-    dynamic var date = ""
+    dynamic var date = Date.init()
+    dynamic var read = false
     
     override public static func primaryKey() -> String? {
         return "id"
@@ -62,16 +65,20 @@ public class RealmDocumentItem: Object {
         return ["id"]
     }
     
-    func toDocumentItem() -> DocumentItem? {
-        guard let link = URL(string: link) else {
+    func toDocumentItem() -> Document.Item? {
+        guard let link = URL(string: link),
+            let documentLink = URL(string: documentLink) else {
             return nil
         }
         
-        return DocumentItem(
+        return Document.Item(
+            documentTitle: documentTitle,
+            documentLink: documentLink,
             title: title,
             link: link,
             desc: desc,
-            date: date
+            date: date,
+            read: read
         )
     }
 }
