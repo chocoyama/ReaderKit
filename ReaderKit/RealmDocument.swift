@@ -24,6 +24,8 @@ public class RealmDocument: Object {
         return ["id"]
     }
     
+    
+    // WARNING:- 重たい処理
     func toDocument() -> Document? {
         guard let url = URL(string: link) else { return nil }
         return Document.init(title: title, link: url, items: documentItems)
@@ -53,7 +55,7 @@ public class RealmDocument: Object {
     }
     
     var itemIds: [String] {
-        return documentItems.map{ $0.id }
+        return items.map{ $0.id }
     }
     
     private var documentItems: [Document.Item] {
@@ -85,7 +87,7 @@ public class RealmDocumentItem: Object {
     override public static func indexedProperties() -> [String] {
         return ["id"]
     }
-    
+
     func toDocumentItem() -> Document.Item? {
         guard let link = URL(string: link),
             let documentLink = URL(string: documentLink) else {

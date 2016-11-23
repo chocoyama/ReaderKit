@@ -45,8 +45,11 @@ class FetchTests: XCTestCase {
     }
     
     func testFetchAll() {
-        try! ReaderKitTestsResources.thinkBigActLocal.subscribe()
-        try! ReaderKitTestsResources.vipSister.subscribe()
+        let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
+        let vipSister = ReaderKitTestsResources.vipSister
+        
+        try! thinkBigActLocal.subscribe()
+        try! vipSister.subscribe()
         
         let expectation = self.expectation(description: "fetch")
         
@@ -55,12 +58,12 @@ class FetchTests: XCTestCase {
                 expectation.fulfill()
             }
             
-            let updatedThinkBigActLocal = DocumentRepository.shared.get(ReaderKitTestsResources.thinkBigActLocal.link)
-            let updatedVipSister = DocumentRepository.shared.get(ReaderKitTestsResources.vipSister.link)
-            XCTAssertTrue(updatedThinkBigActLocal?.items.count ?? 0 > ReaderKitTestsResources.thinkBigActLocal.items.count)
-            XCTAssertTrue(updatedVipSister?.items.count ?? 0 > ReaderKitTestsResources.vipSister.items.count)
+            let updatedThinkBigActLocal = DocumentRepository.shared.get(thinkBigActLocal.link)
+            let updatedVipSister = DocumentRepository.shared.get(vipSister.link)
+            XCTAssertTrue(updatedThinkBigActLocal?.items.count ?? 0 > thinkBigActLocal.items.count)
+            XCTAssertTrue(updatedVipSister?.items.count ?? 0 > vipSister.items.count)
         }
-        waitForExpectations(timeout: 5.0, handler: nil)
+        waitForExpectations(timeout: 2.0, handler: nil)
     }
     
     func testUpdate() {

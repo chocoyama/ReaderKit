@@ -43,7 +43,7 @@ class ReaderKitRealmTests: XCTestCase {
                 XCTFail()
             }
         }
-        waitForExpectations(timeout: 3.0, handler: nil)
+        waitForExpectations(timeout: 2.0, handler: nil)
     }
     
 }

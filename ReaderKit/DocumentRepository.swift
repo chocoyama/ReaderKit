@@ -133,9 +133,8 @@ extension DocumentRepository {
         do {
             let realm = try Realm()
             if let realmDocument = try? getRealmDocument(from: document.link) {
-                let newItems = document.realmItems.filter{
-                    !realmDocument.itemIds.contains($0.id)
-                }
+                let realmItems = document.realmItems
+                let newItems = realmItems.filter { !realmDocument.itemIds.contains($0.id) }
                 try realm.write {
                     realmDocument.items.append(objectsIn: newItems)
                 }
