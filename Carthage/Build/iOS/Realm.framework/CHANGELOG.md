@@ -1,13 +1,83 @@
 x.x.x Release notes (yyyy-MM-dd)
 =============================================================
 
-### API breaking changes
+### Sync Breaking Changes (In Beta)
+
+* None.
+
+### API Breaking Changes
 
 * None.
 
 ### Enhancements
 
 * None.
+
+### Bugfixes
+
+* Reset sync metadata Realm in case of decryption error.
+
+2.1.0 Release notes (2016-11-18)
+=============================================================
+
+### Sync Breaking Changes (In Beta)
+
+* None.
+
+### API breaking changes
+
+* None.
+
+### Enhancements
+
+* Add the ability to skip calling specific notification blocks when committing
+  a write transaction.
+
+### Bugfixes
+
+* Deliver collection notifications when beginning a write transaction which
+  advances the read version of a Realm (previously only Realm-level
+  notifications were sent).
+* Fix some scenarios which would lead to inconsistent states when using
+  collection notifications.
+* Fix several race conditions in the notification functionality.
+* Don't send Realm change notifications when canceling a write transaction.
+
+2.0.4 Release notes (2016-11-14)
+=============================================================
+
+### Sync Breaking Changes (In Beta)
+
+* Remove `RLMAuthenticationActions` and replace
+  `+[RLMSyncCredential credentialWithUsername:password:actions:]` with
+  `+[RLMSyncCredential credentialsWithUsername:password:register:]`.
+* Rename `+[RLMSyncUser authenticateWithCredential:]` to
+  `+[RLMSyncUser logInWithCredentials:]`.
+* Rename "credential"-related types and methods to
+  `RLMSyncCredentials`/`SyncCredentials` and consistently refer to credentials
+  in the plural form.
+* Change `+[RLMSyncUser all]` to return a dictionary of identifiers to users and
+  rename to:
+  * `+[RLMSyncUser allUsers]` in Objective-C.
+  * `SyncUser.allUsers()` in Swift 2.
+  * `SyncUser.all` in Swift 3.
+* Rename `SyncManager.sharedManager()` to `SyncManager.shared` in Swift 3.
+* Change `Realm.Configuration.syncConfiguration` to take a `SyncConfiguration`
+  struct rather than a named tuple.
+* `+[RLMSyncUser logInWithCredentials:]` now invokes its callback block on a
+  background queue.
+
+### API breaking changes
+
+* None.
+
+### Enhancements
+
+* Add `+[RLMSyncUser currentUser]`.
+* Add the ability to change read, write and management permissions for
+  synchronized Realms using the management Realm obtained via the
+  `-[RLMSyncUser managementRealmWithError:]` API and the
+  `RLMSyncPermissionChange` class.
 
 ### Bugfixes
 

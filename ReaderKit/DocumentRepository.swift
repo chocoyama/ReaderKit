@@ -95,6 +95,22 @@ extension DocumentRepository {
         })
     }
     
+    internal func fetchAll(completion: @escaping () -> Void) {
+        let documents = subscribedDocuments
+        
+        let group = DispatchGroup()
+        documents.forEach {
+            group.enter()
+            fetch($0.link, completion: {_ in
+                group.leave()
+            })
+        }
+        
+        group.notify(queue: DispatchQueue.main) { 
+            completion()
+        }
+    }
+    
     internal func update(_ document: Document) throws {
         do {
             let realm = try Realm()

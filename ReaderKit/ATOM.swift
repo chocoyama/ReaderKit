@@ -68,22 +68,24 @@ public struct ATOM: Documentable {
         feedXml["entry"].forEach {
             let linkText = $0["link"].flatMap{ $0.attributes["href"] }.first
             let link = linkText.flatMap{ URL(string: $0) }
+            let updatedText = $0["updated"].text ?? $0["modified"].text
             if let link = link {
                 let entry = ATOM.Feed.Entry(
                     id: $0["id"].text ?? "",
                     title: $0["title"].text ?? "",
                     link: link,
-                    updated: $0["updated"].text?.toDate(format: self.dateFormat) ?? Date.init(),
+                    updated: updatedText?.toDate(format: self.dateFormat) ?? Date.init(),
                     summary: $0["summary"].text ?? ""
                 )
                 entries.append(entry)
             }
         }
         
+        let updatedText = feedXml["updated"].text ?? feedXml["modified"].text
         let feed = ATOM.Feed(
             id: feedXml["id"].text ?? "",
             title: feedXml["title"].text ?? "",
-            updated: feedXml["updated"].text?.toDate(format: self.dateFormat) ?? Date.init(),
+            updated: updatedText?.toDate(format: self.dateFormat) ?? Date.init(),
             siteLink: siteLink,
             feedLink: url,
             entries: entries

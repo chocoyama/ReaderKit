@@ -7,6 +7,7 @@
 //
 
 import Foundation
+@testable import ReaderKit
 
 struct ReaderKitTestsResources {
     static let atomSiteUrl = URL(string: "http://himaratsu.hatenablog.com/")!
@@ -22,4 +23,3 @@ struct ReaderKitTestsResources {
     
     static var contentsPage = URL(string: "http://vipsister23.com/archives/8629268.html")!
 }
-
