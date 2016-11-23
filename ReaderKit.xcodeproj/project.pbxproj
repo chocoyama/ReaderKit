@@ -27,6 +27,7 @@
 		80202E091DC3B3650023D33D /* DocumentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80202E081DC3B3650023D33D /* DocumentRepository.swift */; };
 		802754971DC2451000A26468 /* Ji.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802754961DC2451000A26468 /* Ji.framework */; };
 		8027549A1DC2463D00A26468 /* SwiftyXMLParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802754991DC2463D00A26468 /* SwiftyXMLParser.framework */; };
+		8048D3681DE56FE50057A2CF /* DocumentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8048D3671DE56FE50057A2CF /* DocumentTests.swift */; };
 		804B51641DC5F7D9004E4614 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 804B51631DC5F7D9004E4614 /* Main.storyboard */; };
 		804B51661DC5FEAA004E4614 /* ReaderKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 807606F61DC1AE6B0019A7D6 /* ReaderKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		804B51691DC5FED2004E4614 /* SwiftyXMLParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802754991DC2463D00A26468 /* SwiftyXMLParser.framework */; };
@@ -127,6 +128,7 @@
 		80202E081DC3B3650023D33D /* DocumentRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentRepository.swift; sourceTree = "<group>"; };
 		802754961DC2451000A26468 /* Ji.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Ji.framework; path = Carthage/Build/iOS/Ji.framework; sourceTree = "<group>"; };
 		802754991DC2463D00A26468 /* SwiftyXMLParser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyXMLParser.framework; path = Carthage/Build/iOS/SwiftyXMLParser.framework; sourceTree = "<group>"; };
+		8048D3671DE56FE50057A2CF /* DocumentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentTests.swift; sourceTree = "<group>"; };
 		804B51631DC5F7D9004E4614 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		804B516D1DC606E7004E4614 /* ReaderKitRealmTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReaderKitRealmTests.swift; sourceTree = "<group>"; };
 		804B516F1DC60745004E4614 /* ReaderKitTestsResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReaderKitTestsResources.swift; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 				808DAD631DC8AE6E00926105 /* Resource */,
 				807607041DC1AE6B0019A7D6 /* ReaderKitTests.swift */,
 				804B516D1DC606E7004E4614 /* ReaderKitRealmTests.swift */,
+				8048D3671DE56FE50057A2CF /* DocumentTests.swift */,
 				808DAD661DC8B23F00926105 /* FetchTests.swift */,
 				808DAD5F1DC8AD1C00926105 /* SubscribeTests.swift */,
 				807607061DC1AE6B0019A7D6 /* Info.plist */,
@@ -675,6 +678,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8048D3681DE56FE50057A2CF /* DocumentTests.swift in Sources */,
 				808DAD671DC8B23F00926105 /* FetchTests.swift in Sources */,
 				808DAD601DC8AD1C00926105 /* SubscribeTests.swift in Sources */,
 				804B51701DC60745004E4614 /* ReaderKitTestsResources.swift in Sources */,
