@@ -25,10 +25,31 @@ public class RealmDocument: Object {
     }
     
     func toDocument() -> Document? {
-        guard let url = URL(string: link) else {
-            return nil
-        }
+        guard let url = URL(string: link) else { return nil }
         return Document.init(title: title, link: url, items: documentItems)
+    }
+    
+    func toDocumentSummary() -> DocumentSummary? {
+        guard let link = URL.init(string: link) else { return nil }
+        
+        var unreadCount = 0
+        items.forEach { if $0.read == false { unreadCount += 1 } }
+        
+        var lastUpdated = items.first?.date
+        items.forEach{
+            if let unwrappedlastUpdated = lastUpdated, $0.date > unwrappedlastUpdated {
+                lastUpdated = $0.date
+            }
+        }
+        
+        return DocumentSummary.init(
+            id: id,
+            title: title,
+            link: link,
+            itemCount: items.count,
+            unreadCount: unreadCount,
+            lastUpdated: lastUpdated
+        )
     }
     
     var itemIds: [String] {

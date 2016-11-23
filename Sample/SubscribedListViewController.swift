@@ -13,7 +13,7 @@ import SafariServices
 class SubscribedListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
-    private var documents = [Document]() {
+    private var summaries = [DocumentSummary]() {
         didSet {
             tableView.reloadData()
         }
@@ -25,23 +25,23 @@ class SubscribedListViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        documents = DocumentRepository.shared.subscribedDocuments
+        summaries = DocumentRepository.shared.subscribedDocumentSummaries
     }
     
     // MARK:- TableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SubscribedListTableViewCell") as! SubscribedListTableViewCell
-        cell.configure(with: documents[indexPath.row])
+        cell.configure(with: summaries[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return documents.count
+        return summaries.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let safariVC = SFSafariViewController.init(url: documents[indexPath.row].link)
+        let safariVC = SFSafariViewController.init(url: summaries[indexPath.row].link)
         present(safariVC, animated: true, completion: nil)
     }
 

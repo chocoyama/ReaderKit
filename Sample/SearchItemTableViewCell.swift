@@ -23,7 +23,7 @@ class SearchItemTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configure(item: DocumentItem) {
+    func configure(item: Document.Item) {
         titleLabel.text = item.title
         descLabel.text = item.desc
         

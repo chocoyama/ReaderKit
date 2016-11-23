@@ -90,11 +90,14 @@ extension Document.Item {
     }
     
     func setReadFlag(_ read: Bool) throws {
-        let realmDocumentItem = self.toRealmObject()
         do {
             let realm = try Realm()
+            let savedItem = realm.objects(RealmDocumentItem.self).filter("id = '\(id)'").first
+            guard let item = savedItem else {
+                throw NSError.init(domain: "", code: 0, userInfo: nil)
+            }
             try realm.write {
-                realmDocumentItem.read = read
+                item.read = read
             }
         } catch let error {
             throw error

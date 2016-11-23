@@ -37,7 +37,7 @@ public struct Document {
         public let date: Date
         public var read: Bool {
             get { return (try? getReadFlag()) ?? false }
-            set { try? setReadFlag(read) }
+            set { try? setReadFlag(newValue) }
         }
         
         init(documentTitle: String, documentLink: URL, title: String, link: URL, desc: String, date: Date, read: Bool) {
@@ -71,4 +71,24 @@ public struct Document {
         self.link = link
         self.items = items
     }
+    
+    var summary: DocumentSummary {
+        return DocumentSummary.init(
+            id: id,
+            title: title,
+            link: link,
+            itemCount: items.count,
+            unreadCount: items.filter{ $0.read == false }.count,
+            lastUpdated: items.sorted{ $0.0.date > $0.1.date }.first?.date
+        )
+    }
+}
+
+public struct DocumentSummary {
+    public let id: String
+    public let title: String
+    public let link: URL
+    public let itemCount: Int
+    public let unreadCount: Int
+    public let lastUpdated: Date?
 }

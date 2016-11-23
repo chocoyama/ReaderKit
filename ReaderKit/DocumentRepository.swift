@@ -14,24 +14,42 @@ open class DocumentRepository {
     open static let shared = DocumentRepository()
     fileprivate let documentProvider = DocumentProvider.init()
     
-    // TODO: 件数によってめっちゃ重くなる
-    open var subscribedDocuments: [Document] {
+    open var subscribedDocumentSummaries: [DocumentSummary] {
         do {
             let realm = try Realm()
             let result = realm.objects(RealmDocument.self)
             
-            var documents = [Document]()
+            var summaries = [DocumentSummary]()
             result.forEach {
-                if let document = $0.toDocument() {
-                    documents.append(document)
+                if let summary = $0.toDocumentSummary() {
+                    summaries.append(summary)
                 }
             }
-            return documents
-        } catch let error {
+            return summaries
+        } catch {
             print(error.localizedDescription)
             return []
         }
     }
+    
+    // WARNING: 件数によってめっちゃ重くなる
+//    open var subscribedDocuments: [Document] {
+//        do {
+//            let realm = try Realm()
+//            let result = realm.objects(RealmDocument.self)
+//            
+//            var documents = [Document]()
+//            result.forEach {
+//                if let document = $0.toDocument() {
+//                    documents.append(document)
+//                }
+//            }
+//            return documents
+//        } catch let error {
+//            print(error.localizedDescription)
+//            return []
+//        }
+//    }
     
     open func recent(_ link: URL, completion: @escaping (Document?) -> Void) {
         fetch(link) { [ weak self] (error) in
@@ -96,17 +114,17 @@ extension DocumentRepository {
     }
     
     internal func fetchAll(completion: @escaping () -> Void) {
-        let documents = subscribedDocuments
+        let summaries = subscribedDocumentSummaries
         
         let group = DispatchGroup()
-        documents.forEach {
+        summaries.forEach {
             group.enter()
-            fetch($0.link, completion: {_ in
+            fetch($0.link, completion: { _ in
                 group.leave()
             })
         }
         
-        group.notify(queue: DispatchQueue.main) { 
+        group.notify(queue: .main) {
             completion()
         }
     }

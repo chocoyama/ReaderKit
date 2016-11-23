@@ -49,18 +49,18 @@ class FetchTests: XCTestCase {
         try! ReaderKitTestsResources.vipSister.subscribe()
         
         let expectation = self.expectation(description: "fetch")
+        
         DocumentRepository.shared.fetchAll {
             defer {
                 expectation.fulfill()
             }
             
-            let documents = DocumentRepository.shared.subscribedDocuments
-            let updatedThinkBigActLocal = documents.filter{ $0.id == ReaderKitTestsResources.thinkBigActLocal.id }.first
-            let updatedVipSister = documents.filter{ $0.id == ReaderKitTestsResources.vipSister.id }.first
+            let updatedThinkBigActLocal = DocumentRepository.shared.get(ReaderKitTestsResources.thinkBigActLocal.link)
+            let updatedVipSister = DocumentRepository.shared.get(ReaderKitTestsResources.vipSister.link)
             XCTAssertTrue(updatedThinkBigActLocal?.items.count ?? 0 > ReaderKitTestsResources.thinkBigActLocal.items.count)
             XCTAssertTrue(updatedVipSister?.items.count ?? 0 > ReaderKitTestsResources.vipSister.items.count)
         }
-        waitForExpectations(timeout: 2.0, handler: nil)
+        waitForExpectations(timeout: 5.0, handler: nil)
     }
     
     func testUpdate() {

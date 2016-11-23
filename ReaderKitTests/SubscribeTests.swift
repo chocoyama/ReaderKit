@@ -128,7 +128,7 @@ class SubscribeTests: XCTestCase {
         let documentsCount = 20
         let documentTitles = (0..<documentsCount).map{ "test\($0)" }
         let documentUrls = (0..<documentsCount).map{ URL(string: "http://google.com/\($0)")! }
-        
+
         let itemCount = 100
         let urls = (0..<itemCount).map { URL(string: "http://www.yahoo.co.jp/\($0)")! }
         
@@ -164,7 +164,7 @@ class SubscribeTests: XCTestCase {
         }
         
         self.measure {
-            let subscribedCount = DocumentRepository.shared.subscribedDocuments.count
+            let subscribedCount = DocumentRepository.shared.subscribedDocumentSummaries.count
             XCTAssertTrue(subscribedCount == documentsCount)
         }
     }

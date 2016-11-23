@@ -22,9 +22,9 @@ class SubscribedListTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configure(with document: Document) {
-        titleLabel.text = document.title
-        linkLabel.text = document.link.absoluteString
+    func configure(with documentSummary: DocumentSummary) {
+        titleLabel.text = documentSummary.title
+        linkLabel.text = documentSummary.link.absoluteString
     }
 
 }

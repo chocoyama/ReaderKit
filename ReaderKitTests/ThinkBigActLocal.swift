@@ -14,24 +14,24 @@ extension ReaderKitTestsResources {
         let documentTitle = "Think Big Act Local"
         let documentLink = URL(string: "http://himaratsu.hatenablog.com/feed")!
         let items: [Document.Item] = [
-//            .init(
-//                documentTitle: documentTitle,
-//                documentLink: documentLink,
-//                title: "iOSDC 2016に参加してきたよ #iosdc",
-//                link: URL(string: "http://himaratsu.hatenablog.com/entry/iosdc2016")!,
-//                desc: "iOSDC 2016という、日本最大級のiOSのカンファレンスに参加してきました。 iosdc.jp iOSDCはiOS・その周辺技術に関するカンファレンスで、公式サイトには「iOSエンジニアが聞いて面白ければ何でもOK」と説明されています。 トークは数多くの応募の中から運営スタッフにより採択されます。当日は技術的なテーマはもちろん、「海外のカンファレンスで登壇する」や「ハッピーな開発チームを築く」など、幅広い内容のトークが行われました。 以下、参加した記録として気になったセッションや会場の様子などを振り返ってみたいと思います。 振り返り 会場 会場は練馬のCoconeriホールという場所でし…",
-//                date: "2016-08-23T02:16:21+09:00".toDate(format: "yyyy-MM-dd'T'HH:mm:ssZ")!,
-//                read: false
-//            ),
-//            .init(
-//                documentTitle: documentTitle,
-//                documentLink: documentLink,
-//                title: "potatotipsでUICollectionViewの並び替えのAPIについて発表してきたよ",
-//                link: URL(string: "http://himaratsu.hatenablog.com/entry/collectionviewreorder")!,
-//                desc: "FiNCさんで開催された、potatotips #31 で発表してきました。 potatotips.connpass.com 発表した内容 タイトルの通り、UICollectionViewのCellをインタラクティブに並び替えるAPIの紹介です。 デモ こんな感じで、 CollectionViewの（インタラクティブな）並び替え サイズの異なるCell間の並び替え pagingEnabled=trueの場合の並び替え などができます。iPhoneのホーム画面のような挙動ですね。 経緯 WWDC2016で参加したセッションの1つに「What&#39;s New in UICollectionView i…",
-//                date: "2016-08-17T23:38:40+09:00".toDate(format: "yyyy-MM-dd'T'HH:mm:ssZ")!,
-//                read: false
-//            ),
+            .init(
+                documentTitle: documentTitle,
+                documentLink: documentLink,
+                title: "iOSDC 2016に参加してきたよ #iosdc",
+                link: URL(string: "http://himaratsu.hatenablog.com/entry/iosdc2016")!,
+                desc: "iOSDC 2016という、日本最大級のiOSのカンファレンスに参加してきました。 iosdc.jp iOSDCはiOS・その周辺技術に関するカンファレンスで、公式サイトには「iOSエンジニアが聞いて面白ければ何でもOK」と説明されています。 トークは数多くの応募の中から運営スタッフにより採択されます。当日は技術的なテーマはもちろん、「海外のカンファレンスで登壇する」や「ハッピーな開発チームを築く」など、幅広い内容のトークが行われました。 以下、参加した記録として気になったセッションや会場の様子などを振り返ってみたいと思います。 振り返り 会場 会場は練馬のCoconeriホールという場所でし…",
+                date: "2016-08-23T02:16:21+09:00".toDate(format: "yyyy-MM-dd'T'HH:mm:ssZ")!,
+                read: false
+            ),
+            .init(
+                documentTitle: documentTitle,
+                documentLink: documentLink,
+                title: "potatotipsでUICollectionViewの並び替えのAPIについて発表してきたよ",
+                link: URL(string: "http://himaratsu.hatenablog.com/entry/collectionviewreorder")!,
+                desc: "FiNCさんで開催された、potatotips #31 で発表してきました。 potatotips.connpass.com 発表した内容 タイトルの通り、UICollectionViewのCellをインタラクティブに並び替えるAPIの紹介です。 デモ こんな感じで、 CollectionViewの（インタラクティブな）並び替え サイズの異なるCell間の並び替え pagingEnabled=trueの場合の並び替え などができます。iPhoneのホーム画面のような挙動ですね。 経緯 WWDC2016で参加したセッションの1つに「What&#39;s New in UICollectionView i…",
+                date: "2016-08-17T23:38:40+09:00".toDate(format: "yyyy-MM-dd'T'HH:mm:ssZ")!,
+                read: false
+            ),
             .init(
                 documentTitle: documentTitle,
                 documentLink: documentLink,
