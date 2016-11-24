@@ -37,6 +37,13 @@ extension Document {
         do {
             let realm = try Realm()
             let result = realm.objects(RealmDocument.self).filter("id = '\(id)'")
+            
+            for doc in result {
+                try realm.write {
+                    realm.delete(doc.items)
+                }
+            }
+            
             try realm.write {
                 realm.delete(result)
             }

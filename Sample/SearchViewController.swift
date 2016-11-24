@@ -8,7 +8,6 @@
 
 import UIKit
 import ReaderKit
-import SafariServices
 
 class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     

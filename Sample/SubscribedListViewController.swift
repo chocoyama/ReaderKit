@@ -10,13 +10,11 @@ import UIKit
 import ReaderKit
 import SafariServices
 
-class SubscribedListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SubscribedListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    private var summaries = [DocumentSummary]() {
-        didSet {
-            tableView.reloadData()
-        }
+    fileprivate var summaries = [DocumentSummary]() {
+        didSet { reloadTable() }
     }
     
     override func viewDidLoad() {
@@ -28,10 +26,22 @@ class SubscribedListViewController: UIViewController, UITableViewDelegate, UITab
         summaries = DocumentRepository.shared.subscribedDocumentSummaries
     }
     
-    // MARK:- TableView
+    fileprivate func refresh() {
+        summaries = DocumentRepository.shared.subscribedDocumentSummaries
+    }
     
+    private func reloadTable() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
+    }
+
+}
+
+extension SubscribedListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SubscribedListTableViewCell") as! SubscribedListTableViewCell
+        cell.delegate = self
         cell.configure(with: summaries[indexPath.row])
         return cell
     }
@@ -39,10 +49,17 @@ class SubscribedListViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return summaries.count
     }
-    
+}
+
+extension SubscribedListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let safariVC = SFSafariViewController.init(url: summaries[indexPath.row].link)
         present(safariVC, animated: true, completion: nil)
     }
+}
 
+extension SubscribedListViewController: SubscribedListTableViewCellDelegate {
+    func didUnsubscribed(document: Document) {
+        refresh()
+    }
 }
