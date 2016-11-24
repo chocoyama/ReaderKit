@@ -14,24 +14,6 @@ open class DocumentRepository {
     open static let shared = DocumentRepository()
     fileprivate let documentProvider = DocumentProvider.init()
     
-    open var subscribedDocumentSummaries: [DocumentSummary] {
-        do {
-            let realm = try Realm()
-            let result = realm.objects(RealmDocument.self)
-            
-            var summaries = [DocumentSummary]()
-            result.forEach {
-                if let summary = $0.toDocumentSummary() {
-                    summaries.append(summary)
-                }
-            }
-            return summaries
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
-    }
-    
     // WARNING: 件数によってめっちゃ重くなる
 //    open var subscribedDocuments: [Document] {
 //        do {
@@ -67,17 +49,54 @@ open class DocumentRepository {
         do {
             let realmDocument = try getRealmDocument(from: link)
             var documentItems: [Document.Item] = []
-            for realmItem in realmDocument.items {
-                if let documentItem = realmItem.toDocumentItem() {
-                    documentItems.append(documentItem)
-                }
-            }
+            realmDocument.items
+                .flatMap{ $0.toDocumentItem() }
+                .forEach{ documentItems.append($0) }
             
             let document = Document(title: realmDocument.title, link: link, items: documentItems)
             return document
         } catch let error {
             print(error.localizedDescription)
             return nil
+        }
+    }
+    
+    open func recent(to: Int, completion: @escaping (_ items: [Document.Item]) -> Void) {
+        fetchAll { [weak self] in
+            let items = self?.get(from: 0, to: to) ?? []
+            completion(items)
+        }
+    }
+    
+    open func get(from: Int, to: Int) -> [Document.Item] {
+        do {
+            let realmDocumentItems = try getRealmDocumentItems(from: from, to: to)
+            var documentItems: [Document.Item] = []
+            realmDocumentItems
+                .flatMap{ $0.toDocumentItem() }
+                .forEach{ documentItems.append($0) }
+            return documentItems
+        } catch let error {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+    
+    open var subscribedDocumentSummaries: [DocumentSummary] {
+        do {
+            let realm = try Realm()
+            let result = realm.objects(RealmDocument.self)
+            
+            var summaries = [DocumentSummary]()
+            result.forEach {
+                if let summary = $0.toDocumentSummary() {
+                    summaries.append(summary)
+                }
+            }
+            return summaries
+        } catch {
+            print(error.localizedDescription)
+            return []
         }
     }
     
@@ -92,6 +111,7 @@ open class DocumentRepository {
             throw error
         }
     }
+    
 }
 
 extension DocumentRepository {
@@ -157,6 +177,18 @@ extension DocumentRepository {
             } else {
                 throw NSError.init(domain: "", code: 0, userInfo: nil)
             }
+        } catch let error {
+            throw error
+        }
+    }
+    
+    fileprivate func getRealmDocumentItems(from: Int, to: Int) throws -> [RealmDocumentItem] {
+        do {
+            let realm = try Realm()
+            let result = realm.objects(RealmDocumentItem.self).sorted(byProperty: "date", ascending: false)
+            return result.enumerated().filter({ (offset, element) -> Bool in
+                return from <= offset && offset < to
+            }).map{ $0.element }
         } catch let error {
             throw error
         }

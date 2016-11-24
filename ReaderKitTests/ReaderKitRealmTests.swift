@@ -46,4 +46,39 @@ class ReaderKitRealmTests: XCTestCase {
         waitForExpectations(timeout: 2.0, handler: nil)
     }
     
+    func testGetItems() {
+        let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
+        let vipSister = ReaderKitTestsResources.vipSister
+        
+        try! thinkBigActLocal.subscribe()
+        try! vipSister.subscribe()
+        
+        let items = DocumentRepository.shared.get(from: 0, to: 1)
+        XCTAssertTrue(items.count == 1)
+        XCTAssertTrue(items[0].date == vipSister.items.first?.date)
+        
+        let totalItemCount = thinkBigActLocal.items.count + vipSister.items.count
+        let maxItems = DocumentRepository.shared.get(from: 0, to: totalItemCount)
+        XCTAssertTrue(maxItems.count == totalItemCount)
+        
+        let overMaxItems = DocumentRepository.shared.get(from: 0, to: totalItemCount * 2)
+        XCTAssertTrue(overMaxItems.count == totalItemCount)
+    }
+    
+    func testRecentItems() {
+        let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
+        let vipSister = ReaderKitTestsResources.vipSister
+        
+        try! thinkBigActLocal.subscribe()
+        try! vipSister.subscribe()
+        
+        let expectation = self.expectation(description: "fetch")
+        DocumentRepository.shared.recent(to: 20) { (items) in
+            defer { expectation.fulfill() }
+            
+            XCTAssertTrue(items.count == 20)
+        }
+        waitForExpectations(timeout: 2.0, handler: nil)
+    }
+    
 }
