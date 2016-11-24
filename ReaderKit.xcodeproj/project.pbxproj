@@ -43,6 +43,7 @@
 		805FA3141DC4E0D80056698D /* RealmDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FA3131DC4E0D80056698D /* RealmDocument.swift */; };
 		806118081DE71F18007211CB /* StreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806118071DE71F18007211CB /* StreamViewController.swift */; };
 		8061180A1DE7215A007211CB /* StreamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806118091DE7215A007211CB /* StreamTableViewCell.swift */; };
+		8061180C1DE74B78007211CB /* StreamLoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8061180B1DE74B78007211CB /* StreamLoadingTableViewCell.swift */; };
 		806174F01DC6CEFF004446CB /* Document+RealmExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806174EF1DC6CEFF004446CB /* Document+RealmExtension.swift */; };
 		806174FA1DC6F25A004446CB /* SubscribedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806174F91DC6F25A004446CB /* SubscribedListViewController.swift */; };
 		806174FC1DC6F4FF004446CB /* SubscribedListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806174FB1DC6F4FF004446CB /* SubscribedListTableViewCell.swift */; };
@@ -141,6 +142,7 @@
 		805FA3131DC4E0D80056698D /* RealmDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmDocument.swift; sourceTree = "<group>"; };
 		806118071DE71F18007211CB /* StreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamViewController.swift; sourceTree = "<group>"; };
 		806118091DE7215A007211CB /* StreamTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTableViewCell.swift; sourceTree = "<group>"; };
+		8061180B1DE74B78007211CB /* StreamLoadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLoadingTableViewCell.swift; sourceTree = "<group>"; };
 		806174EF1DC6CEFF004446CB /* Document+RealmExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Document+RealmExtension.swift"; sourceTree = "<group>"; };
 		806174F91DC6F25A004446CB /* SubscribedListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribedListViewController.swift; sourceTree = "<group>"; };
 		806174FB1DC6F4FF004446CB /* SubscribedListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribedListTableViewCell.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				806174FB1DC6F4FF004446CB /* SubscribedListTableViewCell.swift */,
 				808DAD181DC769F200926105 /* SearchChoiceTableViewCell.swift */,
 				806118091DE7215A007211CB /* StreamTableViewCell.swift */,
+				8061180B1DE74B78007211CB /* StreamLoadingTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 				808DAD191DC769F200926105 /* SearchChoiceTableViewCell.swift in Sources */,
 				809D647F1DC58FFE0070FD0C /* SearchViewController.swift in Sources */,
 				809D64B01DC5973B0070FD0C /* SearchItemTableViewCell.swift in Sources */,
+				8061180C1DE74B78007211CB /* StreamLoadingTableViewCell.swift in Sources */,
 				806174FA1DC6F25A004446CB /* SubscribedListViewController.swift in Sources */,
 				808DAD1B1DC76D5C00926105 /* DocumentViewController.swift in Sources */,
 				8061180A1DE7215A007211CB /* StreamTableViewCell.swift in Sources */,
