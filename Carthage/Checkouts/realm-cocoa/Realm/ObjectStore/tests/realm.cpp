@@ -55,6 +55,30 @@ TEST_CASE("SharedRealm: get_shared_realm()") {
         REQUIRE(realm1.get() != realm2.get());
     }
 
+    SECTION("should validate that the config is sensible") {
+        SECTION("bad encryption key") {
+            config.encryption_key = std::vector<char>(2, 0);
+            REQUIRE_THROWS(Realm::get_shared_realm(config));
+        }
+
+        SECTION("schema without schema version") {
+            config.schema_version = ObjectStore::NotVersioned;
+            REQUIRE_THROWS(Realm::get_shared_realm(config));
+        }
+
+        SECTION("migration function for read-only") {
+            config.schema_mode = SchemaMode::ReadOnly;
+            config.migration_function = [](auto, auto, auto) { };
+            REQUIRE_THROWS(Realm::get_shared_realm(config));
+        }
+
+        SECTION("migration function for additive-only") {
+            config.schema_mode = SchemaMode::Additive;
+            config.migration_function = [](auto, auto, auto) { };
+            REQUIRE_THROWS(Realm::get_shared_realm(config));
+        }
+    }
+
     SECTION("should reject mismatched config") {
         config.cache = false;
 
@@ -62,6 +86,8 @@ TEST_CASE("SharedRealm: get_shared_realm()") {
             auto realm = Realm::get_shared_realm(config);
             config.schema_version = 2;
             REQUIRE_THROWS(Realm::get_shared_realm(config));
+
+            config.schema = util::none;
             config.schema_version = ObjectStore::NotVersioned;
             REQUIRE_NOTHROW(Realm::get_shared_realm(config));
         }
@@ -172,6 +198,51 @@ TEST_CASE("SharedRealm: get_shared_realm()") {
         REQUIRE_THROWS(Realm::get_shared_realm(config));
         util::remove_dir(config.path + ".note");
     }
+
+    SECTION("should get different instances on different threads") {
+        auto realm1 = Realm::get_shared_realm(config);
+        std::thread([&]{
+            auto realm2 = Realm::get_shared_realm(config);
+            REQUIRE(realm1 != realm2);
+        }).join();
+    }
+
+    SECTION("should detect use of Realm on incorrect thread") {
+        auto realm = Realm::get_shared_realm(config);
+        std::thread([&]{
+            REQUIRE_THROWS_AS(realm->verify_thread(), IncorrectThreadException);
+        }).join();
+    }
+
+    SECTION("should get different instances for different explicit execuction contexts") {
+        config.execution_context = 0;
+        auto realm1 = Realm::get_shared_realm(config);
+        config.execution_context = 1;
+        auto realm2 = Realm::get_shared_realm(config);
+        REQUIRE(realm1 != realm2);
+
+        config.execution_context = util::none;
+        auto realm3 = Realm::get_shared_realm(config);
+        REQUIRE(realm1 != realm3);
+        REQUIRE(realm2 != realm3);
+    }
+
+    SECTION("can use Realm with explicit execution context on different thread") {
+        config.execution_context = 1;
+        auto realm = Realm::get_shared_realm(config);
+        std::thread([&]{
+            REQUIRE_NOTHROW(realm->verify_thread());
+        }).join();
+    }
+
+    SECTION("should get same instance for same explicit execution context on different thread") {
+        config.execution_context = 1;
+        auto realm1 = Realm::get_shared_realm(config);
+        std::thread([&]{
+            auto realm2 = Realm::get_shared_realm(config);
+            REQUIRE(realm1 == realm2);
+        }).join();
+    }
 }
 
 TEST_CASE("SharedRealm: notifications") {
@@ -216,4 +287,29 @@ TEST_CASE("SharedRealm: notifications") {
         util::EventLoop::main().run_until([&]{ return change_count > 0; });
         REQUIRE(change_count == 1);
     }
+}
+
+TEST_CASE("SharedRealm: closed realm") {
+    TestFile config;
+    config.schema_version = 1;
+    config.schema = Schema{
+        {"object", {
+            {"value", PropertyType::Int, "", "", false, false, false}
+        }},
+    };
+
+    auto realm = Realm::get_shared_realm(config);
+    realm->close();
+
+    REQUIRE(realm->is_closed());
+
+    REQUIRE_THROWS_AS(realm->read_group(), ClosedRealmException);
+    REQUIRE_THROWS_AS(realm->begin_transaction(), ClosedRealmException);
+    REQUIRE(!realm->is_in_transaction());
+    REQUIRE_THROWS_AS(realm->commit_transaction(), InvalidTransactionException);
+    REQUIRE_THROWS_AS(realm->cancel_transaction(), InvalidTransactionException);
+
+    REQUIRE_THROWS_AS(realm->refresh(), ClosedRealmException);
+    REQUIRE_THROWS_AS(realm->invalidate(), ClosedRealmException);
+    REQUIRE_THROWS_AS(realm->compact(), ClosedRealmException);
 }

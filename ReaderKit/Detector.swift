@@ -1,15 +1,15 @@
 //
-//  DetectService.swift
+//  DoctypeDetector.swift
 //  ReaderKit
 //
-//  Created by chocoyama on 2016/10/28.
-//  Copyright © 2016年 chocoyama. All rights reserved.
+//  Created by takyokoy on 2017/01/06.
+//  Copyright © 2017年 chocoyama. All rights reserved.
 //
 
 import Foundation
 import Ji
 
-open class DetectService {
+open class Detector {
     
     // MARK:- open
     
@@ -21,7 +21,7 @@ open class DetectService {
             "application/rss+xml",
             "application/rdf+xml",
             "application/xml"
-        ].filter{ $0 == mimeType }.count > 0
+            ].filter{ $0 == mimeType }.count > 0
     }
     
     open func determineDocumentType(from feedUrl: URL) -> DocumentType? {

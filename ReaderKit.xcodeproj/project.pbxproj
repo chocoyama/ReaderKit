@@ -23,7 +23,6 @@
 
 /* Begin PBXBuildFile section */
 		80202E041DC3956C0023D33D /* DocumentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80202E031DC3956C0023D33D /* DocumentProvider.swift */; };
-		80202E061DC395820023D33D /* DetectService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80202E051DC395820023D33D /* DetectService.swift */; };
 		80202E091DC3B3650023D33D /* DocumentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80202E081DC3B3650023D33D /* DocumentRepository.swift */; };
 		802754971DC2451000A26468 /* Ji.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802754961DC2451000A26468 /* Ji.framework */; };
 		8027549A1DC2463D00A26468 /* SwiftyXMLParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802754991DC2463D00A26468 /* SwiftyXMLParser.framework */; };
@@ -36,7 +35,6 @@
 		804B516C1DC5FED2004E4614 /* Ji.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 802754961DC2451000A26468 /* Ji.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		804B516E1DC606E7004E4614 /* ReaderKitRealmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804B516D1DC606E7004E4614 /* ReaderKitRealmTests.swift */; };
 		804B51701DC60745004E4614 /* ReaderKitTestsResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804B516F1DC60745004E4614 /* ReaderKitTestsResources.swift */; };
-		805FA30B1DC44DE80056698D /* ScrapingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FA30A1DC44DE80056698D /* ScrapingService.swift */; };
 		805FA30D1DC488F00056698D /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805FA30C1DC488F00056698D /* Image.swift */; };
 		805FA3111DC4DCE80056698D /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 805FA30F1DC4DCE80056698D /* Realm.framework */; };
 		805FA3121DC4DCE80056698D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 805FA3101DC4DCE80056698D /* RealmSwift.framework */; };
@@ -78,13 +76,19 @@
 		80A5E70A1E1E10220087AC3B /* DocumentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5E7091E1E10220087AC3B /* DocumentFactory.swift */; };
 		80A5E70C1E1E121E0087AC3B /* Choice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5E70B1E1E121E0087AC3B /* Choice.swift */; };
 		80A5E70F1E1E12610087AC3B /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5E70E1E1E12610087AC3B /* DocumentType.swift */; };
-		80A5E7111E1E134F0087AC3B /* ExtractService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5E7101E1E134F0087AC3B /* ExtractService.swift */; };
 		80A5E7151E1E22240087AC3B /* Documentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5E7141E1E22240087AC3B /* Documentable.swift */; };
 		80A5E7191E1E225D0087AC3B /* RealmDocumentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5E7181E1E225D0087AC3B /* RealmDocumentItem.swift */; };
 		80A5E71B1E1E22890087AC3B /* UIImageView+CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5E71A1E1E22890087AC3B /* UIImageView+CustomExtension.swift */; };
 		80A5E71D1E1E23B20087AC3B /* DocumentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5E71C1E1E23B20087AC3B /* DocumentItem.swift */; };
 		80A5E71F1E1E25050087AC3B /* DocumentItem+RealmExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5E71E1E1E25050087AC3B /* DocumentItem+RealmExtension.swift */; };
 		80A5E7231E1E85A40087AC3B /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5E7221E1E85A40087AC3B /* RealmManager.swift */; };
+		80A5E76D1E1F82A40087AC3B /* Detector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5E76C1E1F82A40087AC3B /* Detector.swift */; };
+		80A5E76F1E1F83750087AC3B /* Extractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5E76E1E1F83750087AC3B /* Extractor.swift */; };
+		80A5E7711E1F83FF0087AC3B /* Scraper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5E7701E1F83FF0087AC3B /* Scraper.swift */; };
+		80A5E7731E1F84CE0087AC3B /* ImageDissector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A5E7721E1F84CE0087AC3B /* ImageDissector.framework */; };
+		80A5E7781E1F99B10087AC3B /* ImageDissector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A5E7721E1F84CE0087AC3B /* ImageDissector.framework */; };
+		80A5E7791E1F99B10087AC3B /* ImageDissector.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80A5E7721E1F84CE0087AC3B /* ImageDissector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		80A5E77C1E1F9FA90087AC3B /* ScrapingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A5E77B1E1F9FA90087AC3B /* ScrapingTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +134,7 @@
 				804B516A1DC5FED2004E4614 /* SwiftyXMLParser.framework in Embed Frameworks */,
 				809D64AD1DC5958F0070FD0C /* RealmSwift.framework in Embed Frameworks */,
 				809D64AB1DC5958F0070FD0C /* Realm.framework in Embed Frameworks */,
+				80A5E7791E1F99B10087AC3B /* ImageDissector.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,7 +143,6 @@
 
 /* Begin PBXFileReference section */
 		80202E031DC3956C0023D33D /* DocumentProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentProvider.swift; sourceTree = "<group>"; };
-		80202E051DC395820023D33D /* DetectService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectService.swift; sourceTree = "<group>"; };
 		80202E081DC3B3650023D33D /* DocumentRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentRepository.swift; sourceTree = "<group>"; };
 		802754961DC2451000A26468 /* Ji.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Ji.framework; path = Carthage/Build/iOS/Ji.framework; sourceTree = "<group>"; };
 		802754991DC2463D00A26468 /* SwiftyXMLParser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyXMLParser.framework; path = Carthage/Build/iOS/SwiftyXMLParser.framework; sourceTree = "<group>"; };
@@ -146,7 +150,6 @@
 		804B51631DC5F7D9004E4614 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		804B516D1DC606E7004E4614 /* ReaderKitRealmTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReaderKitRealmTests.swift; sourceTree = "<group>"; };
 		804B516F1DC60745004E4614 /* ReaderKitTestsResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReaderKitTestsResources.swift; sourceTree = "<group>"; };
-		805FA30A1DC44DE80056698D /* ScrapingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrapingService.swift; sourceTree = "<group>"; };
 		805FA30C1DC488F00056698D /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		805FA30F1DC4DCE80056698D /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		805FA3101DC4DCE80056698D /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
@@ -192,13 +195,17 @@
 		80A5E7091E1E10220087AC3B /* DocumentFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentFactory.swift; sourceTree = "<group>"; };
 		80A5E70B1E1E121E0087AC3B /* Choice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Choice.swift; sourceTree = "<group>"; };
 		80A5E70E1E1E12610087AC3B /* DocumentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentType.swift; sourceTree = "<group>"; };
-		80A5E7101E1E134F0087AC3B /* ExtractService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractService.swift; sourceTree = "<group>"; };
 		80A5E7141E1E22240087AC3B /* Documentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Documentable.swift; sourceTree = "<group>"; };
 		80A5E7181E1E225D0087AC3B /* RealmDocumentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmDocumentItem.swift; sourceTree = "<group>"; };
 		80A5E71A1E1E22890087AC3B /* UIImageView+CustomExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+CustomExtension.swift"; sourceTree = "<group>"; };
 		80A5E71C1E1E23B20087AC3B /* DocumentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentItem.swift; sourceTree = "<group>"; };
 		80A5E71E1E1E25050087AC3B /* DocumentItem+RealmExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentItem+RealmExtension.swift"; sourceTree = "<group>"; };
 		80A5E7221E1E85A40087AC3B /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		80A5E76C1E1F82A40087AC3B /* Detector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Detector.swift; sourceTree = "<group>"; };
+		80A5E76E1E1F83750087AC3B /* Extractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extractor.swift; sourceTree = "<group>"; };
+		80A5E7701E1F83FF0087AC3B /* Scraper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scraper.swift; sourceTree = "<group>"; };
+		80A5E7721E1F84CE0087AC3B /* ImageDissector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageDissector.framework; path = Carthage/Build/iOS/ImageDissector.framework; sourceTree = "<group>"; };
+		80A5E77B1E1F9FA90087AC3B /* ScrapingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrapingTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +213,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80A5E7731E1F84CE0087AC3B /* ImageDissector.framework in Frameworks */,
 				805FA3111DC4DCE80056698D /* Realm.framework in Frameworks */,
 				805FA3121DC4DCE80056698D /* RealmSwift.framework in Frameworks */,
 				8027549A1DC2463D00A26468 /* SwiftyXMLParser.framework in Frameworks */,
@@ -230,6 +238,7 @@
 				804B51691DC5FED2004E4614 /* SwiftyXMLParser.framework in Frameworks */,
 				809D64A91DC5953B0070FD0C /* ReaderKit.framework in Frameworks */,
 				809D64AC1DC5958F0070FD0C /* RealmSwift.framework in Frameworks */,
+				80A5E7781E1F99B10087AC3B /* ImageDissector.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,19 +259,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		80202E021DC395360023D33D /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				80202E051DC395820023D33D /* DetectService.swift */,
-				80A5E7101E1E134F0087AC3B /* ExtractService.swift */,
-				805FA30A1DC44DE80056698D /* ScrapingService.swift */,
-			);
-			name = Service;
-			sourceTree = "<group>";
-		};
 		802754951DC2450F00A26468 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				80A5E7721E1F84CE0087AC3B /* ImageDissector.framework */,
 				805FA30F1DC4DCE80056698D /* Realm.framework */,
 				805FA3101DC4DCE80056698D /* RealmSwift.framework */,
 				802754991DC2463D00A26468 /* SwiftyXMLParser.framework */,
@@ -345,8 +345,8 @@
 				808DAD1E1DC8415C00926105 /* Extentions */,
 				805FA3151DC4FA4E0056698D /* Repository */,
 				805FA30E1DC4AD430056698D /* Provider */,
+				80A5E76B1E1F82880087AC3B /* Helper */,
 				80A5E7081E1E100C0087AC3B /* Factory */,
-				80202E021DC395360023D33D /* Service */,
 				80A0F0541DC221F100BFB11D /* Entity */,
 				80A5E70D1E1E12480087AC3B /* Value */,
 				80A5E7211E1E85870087AC3B /* Manager */,
@@ -363,6 +363,7 @@
 				8048D3671DE56FE50057A2CF /* DocumentTests.swift */,
 				808DAD661DC8B23F00926105 /* FetchTests.swift */,
 				808DAD5F1DC8AD1C00926105 /* SubscribeTests.swift */,
+				80A5E77B1E1F9FA90087AC3B /* ScrapingTest.swift */,
 				807607061DC1AE6B0019A7D6 /* Info.plist */,
 			);
 			path = ReaderKitTests;
@@ -476,6 +477,16 @@
 				80A5E7221E1E85A40087AC3B /* RealmManager.swift */,
 			);
 			name = Manager;
+			sourceTree = "<group>";
+		};
+		80A5E76B1E1F82880087AC3B /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				80A5E76C1E1F82A40087AC3B /* Detector.swift */,
+				80A5E76E1E1F83750087AC3B /* Extractor.swift */,
+				80A5E7701E1F83FF0087AC3B /* Scraper.swift */,
+			);
+			name = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -700,6 +711,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyXMLParser.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ImageDissector.framework",
 			);
 			outputPaths = (
 			);
@@ -742,26 +754,26 @@
 			files = (
 				80A5E70F1E1E12610087AC3B /* DocumentType.swift in Sources */,
 				80A5E71F1E1E25050087AC3B /* DocumentItem+RealmExtension.swift in Sources */,
-				80A5E7111E1E134F0087AC3B /* ExtractService.swift in Sources */,
 				80A5E7191E1E225D0087AC3B /* RealmDocumentItem.swift in Sources */,
 				806174F01DC6CEFF004446CB /* Document+RealmExtension.swift in Sources */,
-				80202E061DC395820023D33D /* DetectService.swift in Sources */,
 				80A5E70C1E1E121E0087AC3B /* Choice.swift in Sources */,
 				80A5E71D1E1E23B20087AC3B /* DocumentItem.swift in Sources */,
 				80A5E7071E1E0D750087AC3B /* Configuration.swift in Sources */,
 				805FA3141DC4E0D80056698D /* RealmDocument.swift in Sources */,
+				80A5E7711E1F83FF0087AC3B /* Scraper.swift in Sources */,
 				807607111DC1AEB80019A7D6 /* Reader.swift in Sources */,
 				80A0F04F1DC2219E00BFB11D /* RSS1_0.swift in Sources */,
 				808DAD201DC8417400926105 /* String+CustomExtension.swift in Sources */,
 				80A0F0531DC221CE00BFB11D /* ATOM.swift in Sources */,
 				80A0F0511DC221B900BFB11D /* RSS2_0.swift in Sources */,
 				80A5E70A1E1E10220087AC3B /* DocumentFactory.swift in Sources */,
-				805FA30B1DC44DE80056698D /* ScrapingService.swift in Sources */,
+				80A5E76D1E1F82A40087AC3B /* Detector.swift in Sources */,
 				80A5E7231E1E85A40087AC3B /* RealmManager.swift in Sources */,
 				80202E091DC3B3650023D33D /* DocumentRepository.swift in Sources */,
 				80A0F0561DC2320100BFB11D /* Document.swift in Sources */,
 				805FA30D1DC488F00056698D /* Image.swift in Sources */,
 				80A5E71B1E1E22890087AC3B /* UIImageView+CustomExtension.swift in Sources */,
+				80A5E76F1E1F83750087AC3B /* Extractor.swift in Sources */,
 				80A5E7151E1E22240087AC3B /* Documentable.swift in Sources */,
 				80202E041DC3956C0023D33D /* DocumentProvider.swift in Sources */,
 			);
@@ -776,6 +788,7 @@
 				808DAD601DC8AD1C00926105 /* SubscribeTests.swift in Sources */,
 				804B51701DC60745004E4614 /* ReaderKitTestsResources.swift in Sources */,
 				808DAD621DC8AE6800926105 /* ThinkBigActLocal.swift in Sources */,
+				80A5E77C1E1F9FA90087AC3B /* ScrapingTest.swift in Sources */,
 				807607051DC1AE6B0019A7D6 /* ReaderKitTests.swift in Sources */,
 				804B516E1DC606E7004E4614 /* ReaderKitRealmTests.swift in Sources */,
 				808DAD651DC8AFA600926105 /* VipSister.swift in Sources */,
@@ -967,6 +980,7 @@
 				);
 				INFOPLIST_FILE = ReaderKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.co.chocoyama.ReaderKit;
@@ -994,6 +1008,7 @@
 				);
 				INFOPLIST_FILE = ReaderKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = jp.co.chocoyama.ReaderKit;

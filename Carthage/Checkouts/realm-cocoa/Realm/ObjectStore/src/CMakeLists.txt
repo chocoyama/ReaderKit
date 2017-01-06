@@ -22,6 +22,7 @@ set(SOURCES
 
 set(HEADERS
     collection_notifications.hpp
+    execution_context_id.hpp
     index_set.hpp
     list.hpp
     object_schema.hpp
@@ -55,6 +56,7 @@ set(HEADERS
     util/generic/event_loop_signal.hpp
     util/uv/event_loop_signal.hpp
 
+    util/aligned_union.hpp
     util/atomic_shared_ptr.hpp
     util/compiler.hpp
     util/event_loop_signal.hpp
@@ -66,6 +68,10 @@ elseif(REALM_HAVE_EPOLL)
     list(APPEND SOURCES impl/epoll/external_commit_helper.cpp)
 else()
     list(APPEND SOURCES impl/generic/external_commit_helper.cpp)
+endif()
+
+if(NOT APPLE AND NOT REALM_PLATFORM STREQUAL "Android")
+    list(APPEND SOURCES util/generic/event_loop_signal.cpp)
 endif()
 
 set(INCLUDE_DIRS

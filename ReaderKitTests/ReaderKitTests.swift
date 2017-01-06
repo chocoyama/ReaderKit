@@ -45,21 +45,21 @@ class ReaderKitTests: XCTestCase {
     }
     
     func testExtractFeedUrl() {
-        let extractService = ExtractService()
-        let extractedUrl = extractService.extractFeedUrl(from: ReaderKitTestsResources.rss1_0SiteData)!.absoluteString
+        let extractor = Extractor()
+        let extractedUrl = extractor.extractFeedUrl(from: ReaderKitTestsResources.rss1_0SiteData)!.absoluteString
         XCTAssertEqual(extractedUrl, "http://blog.illusion.jp/feed")
     }
     
     func testDetectService() {
-        let detectService = DetectService.init()
+        let detector = Detector()
         
-        XCTAssertEqual(detectService.determineDocumentType(from: ReaderKitTestsResources.atomurl), DocumentType.atom)
-        XCTAssertEqual(detectService.determineDocumentType(from: ReaderKitTestsResources.rss2_0url), DocumentType.rss2_0)
-        XCTAssertEqual(detectService.determineDocumentType(from: ReaderKitTestsResources.rss1_0url), DocumentType.rss1_0)
+        XCTAssertEqual(detector.determineDocumentType(from: ReaderKitTestsResources.atomurl), DocumentType.atom)
+        XCTAssertEqual(detector.determineDocumentType(from: ReaderKitTestsResources.rss2_0url), DocumentType.rss2_0)
+        XCTAssertEqual(detector.determineDocumentType(from: ReaderKitTestsResources.rss1_0url), DocumentType.rss1_0)
         
-        XCTAssertEqual(detectService.determineDocumentType(from: ReaderKitTestsResources.atomdata), DocumentType.atom)
-        XCTAssertEqual(detectService.determineDocumentType(from: ReaderKitTestsResources.rss2_0data), DocumentType.rss2_0)
-        XCTAssertEqual(detectService.determineDocumentType(from: ReaderKitTestsResources.rss1_0data), DocumentType.rss1_0)
+        XCTAssertEqual(detector.determineDocumentType(from: ReaderKitTestsResources.atomdata), DocumentType.atom)
+        XCTAssertEqual(detector.determineDocumentType(from: ReaderKitTestsResources.rss2_0data), DocumentType.rss2_0)
+        XCTAssertEqual(detector.determineDocumentType(from: ReaderKitTestsResources.rss1_0data), DocumentType.rss1_0)
     }
     
     func testParse() {
@@ -74,13 +74,6 @@ class ReaderKitTests: XCTestCase {
         XCTAssertTrue(rss1_0Entity.documentItems.count > 0)
         XCTAssertTrue(rss2_0Entity.documentItems.count > 0)
         XCTAssertTrue(atomEntity.documentItems.count > 0)
-    }
-    
-    func testScrapingPerformance() {
-        self.measure {
-            let scrapingService = ScrapingService.init(with: ReaderKitTestsResources.contentsPage)
-            let _ = scrapingService.getImages()
-        }
     }
     
 }

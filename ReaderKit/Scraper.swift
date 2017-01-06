@@ -1,35 +1,45 @@
 //
-//  ScrapingService.swift
+//  Scraper.swift
 //  ReaderKit
 //
-//  Created by chocoyama on 2016/10/29.
-//  Copyright © 2016年 chocoyama. All rights reserved.
+//  Created by takyokoy on 2017/01/06.
+//  Copyright © 2017年 chocoyama. All rights reserved.
 //
 
 import Foundation
 import Ji
+import ImageDissector
 
-open class ScrapingService {
+open class Scraper {
     
     fileprivate let url: URL
     fileprivate var images = [Image]()
     private let jiDoc: Ji?
+    private let dissector = ImageDissector()
     
     init(with url: URL) {
         self.url = url
         self.jiDoc = Ji(htmlURL: url)
     }
     
-    func getImages() -> [Image] {
+    func getImages(fetchSize: Bool, completion: @escaping ([Image]) -> Void) {
         images = []
         let bodyNodes = jiDoc?.xPath("//body")?.first
         parse(bodyNodes)
-        return images
+        
+        if fetchSize == false {
+            completion(images)
+            return
+        }
+        
+        dissector.dissectImage(with: images) { (resultImages) in
+            completion(resultImages)
+        }
     }
 }
 
 // MARK:- helper
-extension ScrapingService {
+extension Scraper {
     fileprivate func parse(_ jiNode: JiNode?) {
         if jiNode?.hasChildren == true {
             jiNode?.children.forEach{ parse($0) }
@@ -63,17 +73,17 @@ extension ScrapingService {
         // http://ord.yahoo.co.jp/o/image/_ylt=A2RivclnwRpXNW4AFE.U3uV7/SIG=11ufrp1k9/EXP=1461457639/**https%3a//t.pimg.jp/000/877/514/1/877514.jpg
         // http://bijodai.grfft.jp/uploads/model/profile/杉山さん21_s.jpg
         let imageUrl = imageUrlString.encodeIfOnlySingleByteCharacter()
-        let isExistsUrl = images.contains{ $0.imageUrl == imageUrl }
+        let isExistsUrl = images.contains{ $0.imageUrlString == imageUrl }
         if !isExistsUrl {
             images.append(.init(
-                imageUrl: imageUrl,
-                destinationUrl: destinationUrlString?.encodeIfOnlySingleByteCharacter())
+                imageUrlString: imageUrl,
+                destinationUrlString: destinationUrlString?.encodeIfOnlySingleByteCharacter())
             )
         }
     }
 }
 
-extension ScrapingService {
+extension Scraper {
     private var homeUrl: String? {
         return url.host.flatMap{ "\(url.scheme)://\($0)" } ?? nil
     }

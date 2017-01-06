@@ -29,15 +29,17 @@ class StreamTableViewCell: UITableViewCell {
         titleLabel.text = item.title
         descLabel.text = item.desc
         
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        DispatchQueue.global(qos: .default).async { [weak self] in
             self?.thumbnailView.image = nil
-            if let image = item.nonFetchedImages.first {
-                image.fetch({ [weak self] (image) in
+            item.getImages(fetchSize: false, completion: { (images) in
+                if let imageUrl = images.first?.imageUrl,
+                    let imageData = try? Data.init(contentsOf: imageUrl) {
+                    let image = UIImage(data: imageData)
                     DispatchQueue.main.async {
-                        self?.thumbnailView.image = image.fetchResult?.image
+                        self?.thumbnailView.image = image
                     }
-                })
-            }
+                }
+            })
         }
     }
 }

@@ -1,17 +1,17 @@
 //
-//  ExtractService.swift
+//  Extractor.swift
 //  ReaderKit
 //
-//  Created by takyokoy on 2017/01/05.
+//  Created by takyokoy on 2017/01/06.
 //  Copyright © 2017年 chocoyama. All rights reserved.
 //
 
 import Foundation
 import Ji
 
-open class ExtractService {
+class Extractor {
     
-    private let detectService = DetectService()
+    private let detector = Detector()
     
     // MARK:- open
     
@@ -20,7 +20,7 @@ open class ExtractService {
             return []
         }
         let jiDoc = Ji(data: data, encoding: .utf8, isXML: false)
-        if let _ = detectService.determineDocumentType(from: jiDoc) {
+        if let _ = detector.determineDocumentType(from: jiDoc) {
             let title = jiDoc?.xPath("//title")?.first?.content ?? ""
             return [Choice.init(url: url, title: title)]
         }
@@ -58,5 +58,4 @@ open class ExtractService {
         
         return choices
     }
-    
 }

@@ -1,3 +1,4 @@
 github "honghaoz/Ji" ~> 2.0.0
 github "https://github.com/yahoojapan/SwiftyXMLParser"
 github "realm/realm-cocoa.git" "master"
+github "https://github.com/chocoyama/ImageDissector"

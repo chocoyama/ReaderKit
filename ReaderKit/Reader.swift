@@ -26,8 +26,8 @@ open class Reader {
     }
     
     open func choices(from url: URL) -> [Choice] {
-        let extractService = ExtractService()
-        let choices = extractService.extractChoices(from: url)
+        let extractor = Extractor()
+        let choices = extractor.extractChoices(from: url)
         return choices
     }
     

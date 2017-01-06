@@ -33,10 +33,11 @@ public struct DocumentItem {
     }
     
     // Urlのみ
-    public var nonFetchedImages: [Image] {
-        let scrapingService = ScrapingService.init(with: link)
-        let images = scrapingService.getImages()
-        return images
+    public func getImages(fetchSize: Bool, completion: @escaping ([Image]) -> Void) {
+        let scraper = Scraper.init(with: link)
+        scraper.getImages(fetchSize: fetchSize) { (images) in
+            completion(images)
+        }
     }
     
 }
