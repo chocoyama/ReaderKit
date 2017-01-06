@@ -18,7 +18,7 @@ open class DocumentProvider {
     }
     
     func get(from url: URL, handler: @escaping (_ document: Document?, _ error: Error?) -> Void) {
-        task = session.dataTask(with: URLRequest(url: url)) { [weak self] (data, response, error) in
+        task = session.dataTask(with: URLRequest(url: url)) { (data, response, error) in
             if let error = error {
                 handler(nil, error)
                 return
@@ -29,39 +29,12 @@ open class DocumentProvider {
                 return
             }
             
-            
-            if let documentable = self?.createDocumentable(from: data, response: response) {
-                handler(documentable.toDocument(), nil)
-            } else {
-                handler(nil, NSError.init(domain: "", code: 0, userInfo: nil))
-            }
+            let document = DocumentFactory().createDocument(from: data, response: response)
+            let error = (document == nil) ? NSError.init(domain: "", code: 0, userInfo: nil) : nil
+            handler(document, error)
         }
         task?.resume()
     }
-    
-    private func createDocumentable(from data: Data, response: URLResponse) -> Documentable? {
-        let detectService = DetectService.init()
-        let isXml = detectService.determineXmlType(from: response)
-        
-        if isXml {
-            let feedData = data
-            let documentType = detectService.determineDocumentType(from: feedData)
-            if let url = response.url {
-                return documentType?.parse(data: feedData, url: url)
-            } else {
-                return nil
-            }
-        } else {
-            let htmlData = data
-            // TODO: Dataの初期化でパフォーマンス落ちる
-            if let url = detectService.extractFeedUrl(from: htmlData),
-                let data = try? Data.init(contentsOf: url) {
-                let documentType = detectService.determineDocumentType(from: data)
-                let document = documentType?.parse(data: data, url: url)
-                return document
-            } else {
-                return nil
-            }
-        }
-    }
 }
+
+

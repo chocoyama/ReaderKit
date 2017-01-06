@@ -39,9 +39,9 @@ public struct ATOM: Documentable {
         return feed.feedLink
     }
     
-    public var documentItems: [Document.Item] {
+    public var documentItems: [DocumentItem] {
         return feed.entries.map {
-            Document.Item(
+            DocumentItem(
                 documentTitle: documentTitle,
                 documentLink: documentLink,
                 title: $0.title,

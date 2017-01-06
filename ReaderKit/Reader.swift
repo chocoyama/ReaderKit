@@ -26,23 +26,13 @@ open class Reader {
     }
     
     open func choices(from url: URL) -> [Choice] {
-        let detectService = DetectService.init()
-        let choices = detectService.extractChoices(from: url)
+        let extractService = ExtractService()
+        let choices = extractService.extractChoices(from: url)
         return choices
     }
     
-    open func next(handler: (_ document: Documentable?, _ items: [Document.Item], _ error: Error?) -> Void) {
+    open func next(handler: (_ document: Documentable?, _ items: [DocumentItem], _ error: Error?) -> Void) {
         
     }
     
-}
-
-public struct Configuration {
-    var saveDocument: Bool
-}
-
-extension Configuration {
-    static let `default` = Configuration.init(
-        saveDocument: true
-    )
 }

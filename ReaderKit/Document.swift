@@ -8,72 +8,31 @@
 
 import Foundation
 
-public protocol Documentable {
-    var documentTitle: String { get }
-    var documentLink: URL { get }
-    var documentItems: [Document.Item] { get }
-    static var dateFormat: String { get }
-    static func create(from data: Data, url: URL) -> Self
-}
-
-extension Documentable {
-    func toDocument() -> Document {
-        return Document(
-            title: documentTitle,
-            link: documentLink,
-            items: documentItems
-        )
-    }
-}
-
 public struct Document {
-    public struct Item {
-        public let id: String
-        public let documentTitle: String
-        public let documentLink: URL
-        public let title: String
-        public let link: URL
-        public let desc: String
-        public let date: Date
-        public var read: Bool {
-            get { return (try? getReadFlag()) ?? false }
-            set { try? setReadFlag(newValue) }
-        }
-        
-        init(documentTitle: String, documentLink: URL, title: String, link: URL, desc: String, date: Date, read: Bool) {
-            self.id = link.absoluteString + documentLink.absoluteString
-            self.documentTitle = documentTitle
-            self.documentLink = documentLink
-            self.title = title
-            self.link = link
-            self.desc = desc
-            self.date = date
-            self.read = read
-        }
-        
-        // Urlのみ
-        public var nonFetchedImages: [Image] {
-            let scrapingService = ScrapingService.init(with: link)
-            let images = scrapingService.getImages()
-            return images
-        }
-        
-    }
     
     public let id: String
     public let title: String
     public let link: URL
-    public let items: [Document.Item]
+    public let items: [DocumentItem]
     
-    init(title: String, link: URL, items: [Document.Item]) {
+    init(title: String, link: URL, items: [DocumentItem]) {
         self.id = link.absoluteString
         self.title = title
         self.link = link
         self.items = items
     }
     
-    var summary: DocumentSummary {
-        return DocumentSummary.init(
+    public struct Summary {
+        public let id: String
+        public let title: String
+        public let link: URL
+        public let itemCount: Int
+        public let unreadCount: Int
+        public let lastUpdated: Date?
+    }
+    
+    var summary: Summary {
+        return Summary.init(
             id: id,
             title: title,
             link: link,
@@ -82,13 +41,4 @@ public struct Document {
             lastUpdated: items.sorted{ $0.0.date > $0.1.date }.first?.date
         )
     }
-}
-
-public struct DocumentSummary {
-    public let id: String
-    public let title: String
-    public let link: URL
-    public let itemCount: Int
-    public let unreadCount: Int
-    public let lastUpdated: Date?
 }

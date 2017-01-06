@@ -24,18 +24,16 @@ class SubscribeTests: XCTestCase {
     }
     
     private func deleteAll() {
-        do {
-            try DocumentRepository.shared.unsubscriveAll()
-        } catch let error {
-            XCTFail(error.localizedDescription)
+        let result = DocumentRepository.shared.unsubscriveAll()
+        if result == false {
+            XCTFail()
         }
     }
     
     func testDeleteAll() {
-        do {
-            try DocumentRepository.shared.unsubscriveAll()
-        } catch let error {
-            XCTFail(error.localizedDescription)
+        let result = DocumentRepository.shared.unsubscriveAll()
+        if result == false {
+            XCTFail()
         }
     }
     
@@ -49,10 +47,9 @@ class SubscribeTests: XCTestCase {
                 return
             }
             
-            do {
-                try document.subscribe()
-            } catch let error {
-                XCTFail(error.localizedDescription)
+            let result = document.subscribe()
+            if result == false {
+                XCTFail()
             }
         }
         waitForExpectations(timeout: 2.0, handler: nil)
@@ -69,24 +66,21 @@ class SubscribeTests: XCTestCase {
             }
             
             // 購読してないものを削除
-            do {
-                try document.unSubscribe()
-            } catch let error {
-                XCTFail(error.localizedDescription)
+            let result = document.unSubscribe()
+            if result == false {
+                XCTFail()
             }
             
             // 購読
-            do {
-                try document.subscribe()
-            } catch let error {
-                XCTFail(error.localizedDescription)
+            let result2 = document.subscribe()
+            if result2 == false {
+                XCTFail()
             }
             
             // 購読済みのものを削除
-            do {
-                try document.unSubscribe()
-            } catch let error {
-                XCTFail(error.localizedDescription)
+            let result3 = document.unSubscribe()
+            if result3 == false {
+                XCTFail()
             }
         }
         waitForExpectations(timeout: 2.0, handler: nil)
@@ -106,18 +100,16 @@ class SubscribeTests: XCTestCase {
             XCTAssertFalse(document.subscribed)
             
             // 購読
-            do {
-                try document.subscribe()
-            } catch let error {
-                XCTFail(error.localizedDescription)
+            let result = document.subscribe()
+            if result == false {
+                XCTFail()
             }
             XCTAssertTrue(document.subscribed)
             
             // 購読済みのものを削除
-            do {
-                try document.unSubscribe()
-            } catch let error {
-                XCTFail(error.localizedDescription)
+            let result2 = document.unSubscribe()
+            if result2 == false {
+                XCTFail()
             }
             XCTAssertFalse(document.subscribed)
         }
@@ -137,7 +129,7 @@ class SubscribeTests: XCTestCase {
             let documentTitle = documentTitles[offset]
             let documentUrl = documentUrls[offset]
             let items = (0..<itemCount).map {
-                Document.Item.init(
+                DocumentItem.init(
                     documentTitle: documentTitle,
                     documentLink: documentUrl,
                     title: "test",
@@ -156,10 +148,9 @@ class SubscribeTests: XCTestCase {
         }
         
         documents.forEach {
-            do {
-                try $0.subscribe()
-            } catch let error {
-                XCTFail(error.localizedDescription)
+            let result = $0.subscribe()
+            if result == false {
+                XCTFail()
             }
         }
         

@@ -13,7 +13,7 @@ extension ReaderKitTestsResources {
     static var thinkBigActLocal: Document {
         let documentTitle = "Think Big Act Local"
         let documentLink = URL(string: "http://himaratsu.hatenablog.com/feed")!
-        let items: [Document.Item] = [
+        let items: [DocumentItem] = [
             .init(
                 documentTitle: documentTitle,
                 documentLink: documentLink,

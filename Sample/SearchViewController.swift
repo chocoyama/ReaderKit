@@ -9,13 +9,13 @@
 import UIKit
 import ReaderKit
 
-class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class SearchViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
 
-    private let reader = Reader.init()
-    private var choices = [Choice]() {
+    fileprivate let reader = Reader.init()
+    fileprivate var choices = [Choice]() {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 self?.tableView.reloadData()
@@ -32,8 +32,16 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.reloadData()
     }
     
-    // MARK:- TableView
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let documentVC = segue.destination as? DocumentViewController,
+            let indexPath = tableView.indexPathForSelectedRow {
+            let choice = choices[indexPath.row]
+            documentVC.choice = choice
+        }
+    }
+}
+
+extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchChoiceTableViewCell", for: indexPath) as! SearchChoiceTableViewCell
         cell.configure(with: choices[indexPath.row])
@@ -43,13 +51,15 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return choices.count
     }
-    
+}
+
+extension SearchViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         searchBar.resignFirstResponder()
     }
-    
-    // MARK:- SearchBar
-    
+}
+
+extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         guard let inputText = searchBar.text, let url = URL(string: inputText) else {
@@ -64,14 +74,4 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             choices = []
         }
     }
-    
-    // Segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let documentVC = segue.destination as? DocumentViewController,
-            let indexPath = tableView.indexPathForSelectedRow {
-            let choice = choices[indexPath.row]
-            documentVC.choice = choice
-        }
-    }
 }
-

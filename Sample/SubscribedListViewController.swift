@@ -13,7 +13,7 @@ import SafariServices
 class SubscribedListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    fileprivate var summaries = [DocumentSummary]() {
+    fileprivate var summaries = Array<Document.Summary>() {
         didSet { reloadTable() }
     }
     

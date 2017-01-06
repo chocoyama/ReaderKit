@@ -22,7 +22,7 @@ class StreamViewController: UIViewController {
     }
     
     @IBOutlet weak var tableView: UITableView!
-    fileprivate var items: [Document.Item] = [] {
+    fileprivate var items: [DocumentItem] = [] {
         didSet {
             reloadTable()
         }
@@ -76,7 +76,7 @@ extension StreamViewController: UITableViewDataSource {
         switch indexPath.section {
         case Section.item.hashValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: "StreamTableViewCell") as! StreamTableViewCell
-            cell.configure(item: items[indexPath.row])
+            cell.configure(for: items[indexPath.row])
             return cell
         case Section.loading.hashValue:
             let cell = tableView.dequeueReusableCell(withIdentifier: "StreamLoadingTableViewCell") as! StreamLoadingTableViewCell

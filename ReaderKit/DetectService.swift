@@ -9,31 +9,12 @@
 import Foundation
 import Ji
 
-public struct Choice {
-    public let url: URL
-    public let title: String
-}
-
-public enum DocumentType {
-    case rss1_0
-    case rss2_0
-    case atom
-    
-    func parse(data: Data, url: URL) -> Documentable {
-        switch self {
-        case .rss1_0: return RSS1_0.create(from: data, url: url)
-        case .rss2_0: return RSS2_0.create(from: data, url: url)
-        case .atom: return ATOM.create(from: data, url: url)
-        }
-    }
-}
-
 open class DetectService {
     
-    func determineXmlType(from response: URLResponse) -> Bool {
-        guard let mimeType = response.mimeType else {
-            return false
-        }
+    // MARK:- open
+    
+    open func determineXmlType(from response: URLResponse) -> Bool {
+        guard let mimeType = response.mimeType else { return false }
         
         return [
             "application/atom+xml",
@@ -43,17 +24,19 @@ open class DetectService {
         ].filter{ $0 == mimeType }.count > 0
     }
     
-    func determineDocumentType(from feedUrl: URL) -> DocumentType? {
+    open func determineDocumentType(from feedUrl: URL) -> DocumentType? {
         let jiDoc = Ji(contentsOfURL: feedUrl, isXML: false)
         return determineDocumentType(from: jiDoc)
     }
     
-    func determineDocumentType(from feedData: Data) -> DocumentType? {
+    open func determineDocumentType(from feedData: Data) -> DocumentType? {
         let jiDoc = Ji(data: feedData, isXML: false)
         return determineDocumentType(from: jiDoc)
     }
     
-    private func determineDocumentType(from jiDoc: Ji?) -> DocumentType? {
+    // MARK:- internal
+    
+    internal func determineDocumentType(from jiDoc: Ji?) -> DocumentType? {
         if let entryCount = jiDoc?.xPath("//entry")?.count, entryCount > 0 {
             return .atom
         } else if let channelItemCount = jiDoc?.xPath("//channel/item")?.count, channelItemCount > 0 {
@@ -63,47 +46,5 @@ open class DetectService {
         } else {
             return nil
         }
-    }
-    
-    func extractChoices(from url: URL) -> [Choice] {
-        guard let data = try? Data(contentsOf: url) else {
-            return []
-        }
-        let jiDoc = Ji(data: data, encoding: .utf8, isXML: false)
-        if let _ = determineDocumentType(from: jiDoc) {
-            let title = jiDoc?.xPath("//title")?.first?.content ?? ""
-            return [Choice.init(url: url, title: title)]
-        }
-        return extractChoices(from: data)
-    }
-    
-    private func extractChoices(from htmlData: Data) -> [Choice] {
-        let jiDoc = Ji(htmlData: htmlData)
-        
-        var choices = [Choice]()
-        jiDoc?.xPath("//link")?.forEach {
-            switch $0.attributes["type"] {
-            case .some("application/atom+xml"), .some("application/rss+xml"):
-                if let href = $0.attributes["href"], let url = URL(string: href) {
-                    choices.append(.init(url: url, title: $0.attributes["title"] ?? ""))
-                }
-            default: break
-            }
-        }
-        
-        jiDoc?.xPath("//a")?.forEach {
-            if let href = $0.attributes["href"],
-                href.hasSuffix("rss.xml"),
-                let url = URL(string: href) {
-                choices.append(.init(url: url, title: ""))
-            }
-        }
-        
-        return choices
-    }
-    
-    func extractFeedUrl(from htmlData: Data) -> URL? {
-        let choice = extractChoices(from: htmlData)
-        return choice.first?.url
     }
 }

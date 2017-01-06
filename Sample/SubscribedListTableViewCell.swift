@@ -20,7 +20,7 @@ class SubscribedListTableViewCell: UITableViewCell {
     
     weak var delegate: SubscribedListTableViewCellDelegate?
     
-    private var documentSummary: DocumentSummary? {
+    private var documentSummary: Document.Summary? {
         didSet { update() }
     }
     
@@ -32,7 +32,7 @@ class SubscribedListTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configure(with documentSummary: DocumentSummary) {
+    func configure(with documentSummary: Document.Summary) {
         self.documentSummary = documentSummary
     }
     
@@ -48,9 +48,9 @@ class SubscribedListTableViewCell: UITableViewCell {
     @IBAction func didTappedUnsubscribeButton(_ sender: UIButton) {
         guard let documentLink = documentSummary?.link,
             let document = DocumentRepository.shared.get(documentLink) else { return }
-        do {
-            try document.unSubscribe()
+        let result = document.unSubscribe()
+        if result == true {
             delegate?.didUnsubscribed(document: document)
-        } catch {}
+        }
     }
 }

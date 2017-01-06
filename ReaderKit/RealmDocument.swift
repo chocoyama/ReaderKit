@@ -31,7 +31,7 @@ public class RealmDocument: Object {
         return Document.init(title: title, link: url, items: documentItems)
     }
     
-    func toDocumentSummary() -> DocumentSummary? {
+    func toDocumentSummary() -> Document.Summary? {
         guard let link = URL.init(string: link) else { return nil }
         
         var unreadCount = 0
@@ -44,7 +44,7 @@ public class RealmDocument: Object {
             }
         }
         
-        return DocumentSummary.init(
+        return Document.Summary.init(
             id: id,
             title: title,
             link: link,
@@ -58,51 +58,14 @@ public class RealmDocument: Object {
         return items.map{ $0.id }
     }
     
-    private var documentItems: [Document.Item] {
-        var result: [Document.Item] = []
+    private var documentItems: [DocumentItem] {
+        var result: [DocumentItem] = []
         items.forEach {
             if let documentItem = $0.toDocumentItem() {
                 result.append(documentItem)
             }
         }
         return result
-    }
-}
-
-public class RealmDocumentItem: Object {
-    
-    dynamic var id = ""
-    dynamic var documentTitle = ""
-    dynamic var documentLink = ""
-    dynamic var title = ""
-    dynamic var link = ""
-    dynamic var desc = ""
-    dynamic var date = Date.init()
-    dynamic var read = false
-    
-    override public static func primaryKey() -> String? {
-        return "id"
-    }
-    
-    override public static func indexedProperties() -> [String] {
-        return ["id"]
-    }
-
-    func toDocumentItem() -> Document.Item? {
-        guard let link = URL(string: link),
-            let documentLink = URL(string: documentLink) else {
-            return nil
-        }
-        
-        return Document.Item(
-            documentTitle: documentTitle,
-            documentLink: documentLink,
-            title: title,
-            link: link,
-            desc: desc,
-            date: date,
-            read: read
-        )
     }
 }
 

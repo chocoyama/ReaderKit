@@ -7,35 +7,15 @@
 //
 
 import Foundation
-import RealmSwift
 
 open class DocumentRepository {
     private init() {}
     open static let shared = DocumentRepository()
     fileprivate let documentProvider = DocumentProvider.init()
     
-    // WARNING: 件数によってめっちゃ重くなる
-//    open var subscribedDocuments: [Document] {
-//        do {
-//            let realm = try Realm()
-//            let result = realm.objects(RealmDocument.self)
-//            
-//            var documents = [Document]()
-//            result.forEach {
-//                if let document = $0.toDocument() {
-//                    documents.append(document)
-//                }
-//            }
-//            return documents
-//        } catch let error {
-//            print(error.localizedDescription)
-//            return []
-//        }
-//    }
-    
     open func recent(_ link: URL, completion: @escaping (Document?) -> Void) {
-        fetch(link) { [ weak self] (error) in
-            guard error == nil else {
+        fetch(link) { [weak self] (result) in
+            guard result == true else {
                 completion(nil)
                 return
             }
@@ -45,90 +25,60 @@ open class DocumentRepository {
         }
     }
     
-    open func get(_ link: URL) -> Document? {
-        do {
-            let realmDocument = try getRealmDocument(from: link)
-            var documentItems: [Document.Item] = []
-            realmDocument.items
-                .flatMap{ $0.toDocumentItem() }
-                .forEach{ documentItems.append($0) }
-            
-            let document = Document(title: realmDocument.title, link: link, items: documentItems)
-            return document
-        } catch let error {
-            print(error.localizedDescription)
-            return nil
-        }
-    }
-    
-    open func recent(to: Int, completion: @escaping (_ items: [Document.Item]) -> Void) {
+    open func recent(to: Int, completion: @escaping (_ items: [DocumentItem]) -> Void) {
         fetchAll { [weak self] in
             let items = self?.get(from: 0, to: to) ?? []
             completion(items)
         }
     }
     
-    open func get(from: Int, to: Int) -> [Document.Item] {
-        do {
-            let realmDocumentItems = try getRealmDocumentItems(from: from, to: to)
-            var documentItems: [Document.Item] = []
-            realmDocumentItems
-                .flatMap{ $0.toDocumentItem() }
-                .forEach{ documentItems.append($0) }
-            return documentItems
-        } catch let error {
-            print(error.localizedDescription)
-            return []
-        }
+    open func get(_ link: URL) -> Document? {
+        guard let realmDocument = RealmManager.getRealmDocument(from: link) else { return nil }
+        var documentItems: [DocumentItem] = []
+        realmDocument.items
+            .flatMap{ $0.toDocumentItem() }
+            .forEach{ documentItems.append($0) }
+        return Document(title: realmDocument.title, link: link, items: documentItems)
     }
     
-    open var subscribedDocumentSummaries: [DocumentSummary] {
-        do {
-            let realm = try Realm()
-            let result = realm.objects(RealmDocument.self)
-            
-            var summaries = [DocumentSummary]()
-            result.forEach {
-                if let summary = $0.toDocumentSummary() {
-                    summaries.append(summary)
-                }
-            }
-            return summaries
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
+    open func get(from: Int, to: Int) -> [DocumentItem] {
+        let realmDocumentItems = RealmManager.getRealmDocumentItems(from: from, to: to)
+        var documentItems: [DocumentItem] = []
+        realmDocumentItems
+            .flatMap{ $0.toDocumentItem() }
+            .forEach{ documentItems.append($0) }
+        return documentItems
     }
     
-    open func unsubscriveAll() throws {
-        do {
-            Realm.Configuration.defaultConfiguration.deleteRealmIfMigrationNeeded = true
-            let realm = try Realm()
-            try realm.write {
-                realm.deleteAll()
+    open var subscribedDocumentSummaries: [Document.Summary] {
+        guard let result = RealmManager.getRealmDocumentResult() else { return [] }
+        
+        var summaries = Array<Document.Summary>()
+        result.forEach {
+            if let summary = $0.toDocumentSummary() {
+                summaries.append(summary)
             }
-        } catch let error {
-            throw error
         }
+        return summaries
+    }
+    
+    open func unsubscriveAll() -> Bool {
+        return RealmManager.deleteAll()
     }
     
 }
 
 extension DocumentRepository {
-    
-    internal func fetch(_ link: URL, completion: @escaping (_ error: Error?) -> Void) {
+    internal func fetch(_ link: URL, completion: @escaping (_ result: Bool) -> Void) {
         documentProvider.get(from: link, handler: { [weak self] (document, error) in
             guard let document = document else {
-                completion(NSError.init(domain: "", code: 0, userInfo: nil))
+                completion(false)
                 return
             }
+            
             DispatchQueue.main.async {
-                do {
-                    try self?.update(document)
-                    completion(nil)
-                } catch let error {
-                    completion(error)
-                }
+                let result = self?.update(document) ?? false
+                completion(result)
             }
         })
     }
@@ -139,9 +89,7 @@ extension DocumentRepository {
         let group = DispatchGroup()
         summaries.forEach {
             group.enter()
-            fetch($0.link, completion: { _ in
-                group.leave()
-            })
+            fetch($0.link) { _ in group.leave() }
         }
         
         group.notify(queue: .main) {
@@ -149,48 +97,15 @@ extension DocumentRepository {
         }
     }
     
-    internal func update(_ document: Document) throws {
-        do {
-            let realm = try Realm()
-            if let realmDocument = try? getRealmDocument(from: document.link) {
-                let realmItems = document.realmItems
-                let newItems = realmItems.filter { !realmDocument.itemIds.contains($0.id) }
-                try realm.write {
-                    realmDocument.items.append(objectsIn: newItems)
-                }
-            } else {
-                try realm.write {
-                    realm.add(document.toRealmObject(), update: true)
-                }
-            }
-        } catch let error {
-            throw error
+    internal func update(_ document: Document) -> Bool {
+        guard let realmDocument = RealmManager.getRealmDocument(from: document.link),
+            let realm = RealmManager.makeRealm() else {
+                return RealmManager.subscribe(document: document)
         }
-    }
-    
-    fileprivate func getRealmDocument(from link: URL) throws -> RealmDocument {
-        do {
-            let realm = try Realm()
-            let result = realm.objects(RealmDocument.self).filter("link = '\(link)'")
-            if let document = result.first {
-                return document
-            } else {
-                throw NSError.init(domain: "", code: 0, userInfo: nil)
-            }
-        } catch let error {
-            throw error
-        }
-    }
-    
-    fileprivate func getRealmDocumentItems(from: Int, to: Int) throws -> [RealmDocumentItem] {
-        do {
-            let realm = try Realm()
-            let result = realm.objects(RealmDocumentItem.self).sorted(byProperty: "date", ascending: false)
-            return result.enumerated().filter({ (offset, element) -> Bool in
-                return from <= offset && offset < to
-            }).map{ $0.element }
-        } catch let error {
-            throw error
+        
+        let newItems = document.realmItems.filter { !realmDocument.itemIds.contains($0.id) }
+        return RealmManager.write(realm: realm) {
+            realmDocument.items.append(objectsIn: newItems)
         }
     }
     

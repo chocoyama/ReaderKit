@@ -23,20 +23,18 @@ class SearchItemTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configure(item: Document.Item) {
+    func configure(item: DocumentItem) {
         titleLabel.text = item.title
         descLabel.text = item.desc
         
-        thumbnailView.image = nil
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.thumbnailView.image = nil
             if let image = item.nonFetchedImages.first {
                 image.fetch({ [weak self] (image) in
                     DispatchQueue.main.async {
                         self?.thumbnailView.image = image.fetchResult?.image
                     }
                 })
-            } else {
-                self?.thumbnailView.image = nil
             }
         }
     }

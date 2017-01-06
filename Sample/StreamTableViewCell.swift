@@ -11,6 +11,7 @@ import ReaderKit
 
 class StreamTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var feedTitleLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var thumbnailView: UIImageView!
@@ -23,20 +24,19 @@ class StreamTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func configure(item: Document.Item) {
+    func configure(for item: DocumentItem) {
+        feedTitleLabel.text = item.documentTitle
         titleLabel.text = item.title
         descLabel.text = item.desc
         
-        thumbnailView.image = nil
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.thumbnailView.image = nil
             if let image = item.nonFetchedImages.first {
                 image.fetch({ [weak self] (image) in
                     DispatchQueue.main.async {
                         self?.thumbnailView.image = image.fetchResult?.image
                     }
                 })
-            } else {
-                self?.thumbnailView.image = nil
             }
         }
     }

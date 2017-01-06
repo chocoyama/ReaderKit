@@ -22,19 +22,18 @@ class FetchTests: XCTestCase {
     }
     
     private func deleteAll() {
-        do {
-            try DocumentRepository.shared.unsubscriveAll()
-        } catch let error {
-            XCTFail(error.localizedDescription)
+        let result = RealmManager.deleteAll()
+        if result == false {
+            XCTFail()
         }
     }
     
     func testFetch() {
         let link = ReaderKitTestsResources.rss1_0url
         let expectation: XCTestExpectation? = self.expectation(description: "fetch")
-        DocumentRepository.shared.fetch(link) { (error) in
+        DocumentRepository.shared.fetch(link) { (result) in
             defer { expectation?.fulfill() }
-            if let _ = error {
+            if result == false {
                 XCTFail()
             }
             
@@ -48,8 +47,11 @@ class FetchTests: XCTestCase {
         let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
         let vipSister = ReaderKitTestsResources.vipSister
         
-        try! thinkBigActLocal.subscribe()
-        try! vipSister.subscribe()
+        let result1 = thinkBigActLocal.subscribe()
+        let result2 = vipSister.subscribe()
+        if result1 == false || result2 == false {
+            XCTFail()
+        }
         
         let expectation = self.expectation(description: "fetch")
         
@@ -73,7 +75,7 @@ class FetchTests: XCTestCase {
         let itemCount = 100
         let itemUrls = (0..<itemCount).map { URL(string: "http://www.yahoo.co.jp/\($0)")! }
         let items = (0..<itemCount).map {
-            Document.Item.init(
+            DocumentItem.init(
                 documentTitle: documentTitle,
                 documentLink: documentLink,
                 title: "test",
@@ -84,33 +86,33 @@ class FetchTests: XCTestCase {
             )
         }
         
-        let newDocument = Document.init(title: "test", link: documentLink, items: items)
-        
-        do {
-            try DocumentRepository.shared.update(newDocument)
-            let gotDocument = DocumentRepository.shared.get(documentLink)
-            XCTAssertTrue(gotDocument?.items.count == itemCount)
-            
-            var newItems = items.enumerated().filter{ $0.offset < 10 }.map{ $0.element }
-            let newlink = URL(string: "http://www.yahoo.co.jp/new")!
-            newItems.append(
-                Document.Item.init(
-                    documentTitle: gotDocument!.title,
-                    documentLink: gotDocument!.link,
-                    title: "test",
-                    link: newlink,
-                    desc: "test",
-                    date: Date.init(),
-                    read: false
-                )
-            )
-            let newDocument = Document.init(title: "test", link: documentLink, items: newItems)
-            try DocumentRepository.shared.update(newDocument)
-            let newGotDocument = DocumentRepository.shared.get(documentLink)
-            XCTAssertTrue(newGotDocument?.items.count == itemCount + 1)
-        } catch let error {
-            XCTFail(error.localizedDescription)
+        let result1 = DocumentRepository.shared.update(.init(title: "test", link: documentLink, items: items))
+        if result1 == false {
+            XCTFail()
         }
+        let gotDocument = DocumentRepository.shared.get(documentLink)
+        XCTAssertTrue(gotDocument?.items.count == itemCount)
+        
+        var newItems = items.enumerated().filter{ $0.offset < 10 }.map{ $0.element }
+        let newlink = URL(string: "http://www.yahoo.co.jp/new")!
+        newItems.append(
+            DocumentItem.init(
+                documentTitle: gotDocument!.title,
+                documentLink: gotDocument!.link,
+                title: "test",
+                link: newlink,
+                desc: "test",
+                date: Date.init(),
+                read: false
+            )
+        )
+        
+        let result2 = DocumentRepository.shared.update(.init(title: "test", link: documentLink, items: newItems))
+        if result2 == false {
+            XCTFail()
+        }
+        let newGotDocument = DocumentRepository.shared.get(documentLink)
+        XCTAssertTrue(newGotDocument?.items.count == itemCount + 1)
     }
     
 }

@@ -14,7 +14,7 @@ extension ReaderKitTestsResources {
     static var vipSister: Document {
         let documentTitle = "妹はVipper"
         let documentLink = URL(string: "http://vipsister23.com/index.rdf")!
-        let items: [Document.Item] = [
+        let items: [DocumentItem] = [
             .init(
                 documentTitle: documentTitle,
                 documentLink: documentLink,

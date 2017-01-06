@@ -36,9 +36,9 @@ public struct RSS2_0: Documentable {
         return channel.link
     }
     
-    public var documentItems: [Document.Item] {
+    public var documentItems: [DocumentItem] {
         return channel.items.map {
-            Document.Item(
+            DocumentItem(
                 documentTitle: documentTitle,
                 documentLink: documentLink,
                 title: $0.title,

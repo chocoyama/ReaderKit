@@ -86,9 +86,9 @@ class DocumentViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         if document.subscribed {
-            try? document.unSubscribe()
+            let _ = document.unSubscribe()
         } else {
-            try? document.subscribe()
+            let _ = document.subscribe()
         }
         
         self.document = document

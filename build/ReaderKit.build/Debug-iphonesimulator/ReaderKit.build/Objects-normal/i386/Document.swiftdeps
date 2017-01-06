@@ -1,0 +1,294 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "Documentable"
+- "DocumentType"
+- "Document"
+- "DocumentItem"
+- "=="
+provides-nominal:
+- "P9ReaderKit12Documentable"
+- "O9ReaderKit12DocumentType"
+- "V9ReaderKit8Document"
+- "V9ReaderKit12DocumentItem"
+provides-member:
+- ["P9ReaderKit12Documentable", ""]
+- ["O9ReaderKit12DocumentType", ""]
+- ["V9ReaderKit8Document", ""]
+- ["V9ReaderKit12DocumentItem", ""]
+- ["P9ReaderKit12Documentable", "toDocument"]
+provides-dynamic-lookup:
+depends-top-level:
+- "Data"
+- "Document"
+- "String"
+- !private "ATOM"
+- "Documentable"
+- "DocumentItem"
+- !private "RSS2_0"
+- !private "RSS1_0"
+- "Image"
+- "=="
+- "DocumentType"
+- !private "ScrapingService"
+- "URL"
+depends-member:
+- !private ["V9ReaderKit4ATOM", "create"]
+- ["V9ReaderKit4ATOM", "deinit"]
+- !private ["P10RealmSwift11AddableType", "hashValue"]
+- !private ["Ps9AnyObject", "getImages"]
+- !private ["Ps9AnyObject", "init"]
+- ["Sa", "deinit"]
+- !private ["Ps17BitwiseOperations", "hashValue"]
+- !private ["Ps7CVarArg", "hashValue"]
+- !private ["Ps10Comparable", "hashValue"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "hashValue"]
+- !private ["Ps17CustomReflectable", "hashValue"]
+- !private ["Ps23CustomStringConvertible", "hashValue"]
+- ["V10Foundation4Data", "deinit"]
+- ["V9ReaderKit8Document", "DocumentItem"]
+- ["V9ReaderKit8Document", "String"]
+- ["V9ReaderKit8Document", "URL"]
+- ["V9ReaderKit8Document", "deinit"]
+- ["V9ReaderKit8Document", "init"]
+- ["V9ReaderKit8Document", "items"]
+- ["V9ReaderKit8Document", "link"]
+- ["V9ReaderKit8Document", "title"]
+- ["V9ReaderKit12DocumentItem", "Image"]
+- !private ["V9ReaderKit12DocumentItem", "ScrapingService"]
+- ["V9ReaderKit12DocumentItem", "String"]
+- ["V9ReaderKit12DocumentItem", "URL"]
+- ["V9ReaderKit12DocumentItem", "date"]
+- ["V9ReaderKit12DocumentItem", "deinit"]
+- ["V9ReaderKit12DocumentItem", "desc"]
+- ["V9ReaderKit12DocumentItem", "init"]
+- ["V9ReaderKit12DocumentItem", "link"]
+- ["V9ReaderKit12DocumentItem", "nonFetchedImages"]
+- ["V9ReaderKit12DocumentItem", "title"]
+- ["O9ReaderKit12DocumentType", "=="]
+- !private ["O9ReaderKit12DocumentType", "ATOM"]
+- ["O9ReaderKit12DocumentType", "Data"]
+- ["O9ReaderKit12DocumentType", "Documentable"]
+- !private ["O9ReaderKit12DocumentType", "RSS1_0"]
+- !private ["O9ReaderKit12DocumentType", "RSS2_0"]
+- ["O9ReaderKit12DocumentType", "URL"]
+- ["O9ReaderKit12DocumentType", "_toAnyHashable"]
+- ["O9ReaderKit12DocumentType", "atom"]
+- ["O9ReaderKit12DocumentType", "deinit"]
+- ["O9ReaderKit12DocumentType", "hashValue"]
+- ["O9ReaderKit12DocumentType", "parse"]
+- ["O9ReaderKit12DocumentType", "rss1_0"]
+- ["O9ReaderKit12DocumentType", "rss2_0"]
+- ["P9ReaderKit12Documentable", "Data"]
+- ["P9ReaderKit12Documentable", "Document"]
+- ["P9ReaderKit12Documentable", "DocumentItem"]
+- ["P9ReaderKit12Documentable", "String"]
+- ["P9ReaderKit12Documentable", "URL"]
+- ["P9ReaderKit12Documentable", "create"]
+- ["P9ReaderKit12Documentable", "documentItems"]
+- ["P9ReaderKit12Documentable", "documentLink"]
+- ["P9ReaderKit12Documentable", "documentTitle"]
+- ["P9ReaderKit12Documentable", "toDocument"]
+- ["P9ReaderKit12Documentable", ""]
+- !private ["Ps9Equatable", "ATOM"]
+- !private ["Ps9Equatable", "RSS1_0"]
+- !private ["Ps9Equatable", "RSS2_0"]
+- ["Ps9Equatable", "_toAnyHashable"]
+- ["Ps9Equatable", "atom"]
+- ["Ps9Equatable", "hashValue"]
+- ["Ps9Equatable", "rss1_0"]
+- ["Ps9Equatable", "rss2_0"]
+- ["Ps9Equatable", ""]
+- !private ["Ps27ExpressibleByIntegerLiteral", "hashValue"]
+- !private ["Ps8Hashable", "ATOM"]
+- !private ["Ps8Hashable", "RSS1_0"]
+- !private ["Ps8Hashable", "RSS2_0"]
+- ["Ps8Hashable", "_toAnyHashable"]
+- ["Ps8Hashable", "atom"]
+- ["Ps8Hashable", "hashValue"]
+- ["Ps8Hashable", "rss1_0"]
+- ["Ps8Hashable", "rss2_0"]
+- ["Ps8Hashable", ""]
+- ["Si", "deinit"]
+- !private ["Si", "hashValue"]
+- !private ["Ps7Integer", "hashValue"]
+- !private ["Ps17IntegerArithmetic", "hashValue"]
+- !private ["P10RealmSwift10MinMaxType", "hashValue"]
+- !private ["Ps10MirrorPath", "hashValue"]
+- !private ["V9ReaderKit6RSS1_0", "create"]
+- ["V9ReaderKit6RSS1_0", "deinit"]
+- !private ["V9ReaderKit6RSS2_0", "create"]
+- ["V9ReaderKit6RSS2_0", "deinit"]
+- !private ["P10RealmSwift17RealmOptionalType", "hashValue"]
+- ["C9ReaderKit15ScrapingService", "deinit"]
+- !private ["C9ReaderKit15ScrapingService", "getImages"]
+- !private ["C9ReaderKit15ScrapingService", "init"]
+- !private ["Ps13SignedInteger", "hashValue"]
+- !private ["Ps12SignedNumber", "hashValue"]
+- !private ["Ps10Strideable", "hashValue"]
+- ["SS", "deinit"]
+- ["V10Foundation3URL", "deinit"]
+- !private ["P15SwiftyXMLParser16XMLSubscriptType", "hashValue"]
+- !private ["Ps35_ExpressibleByBuiltinIntegerLiteral", "hashValue"]
+- !private ["Ps9_Hashable", "ATOM"]
+- !private ["Ps9_Hashable", "RSS1_0"]
+- !private ["Ps9_Hashable", "RSS2_0"]
+- ["Ps9_Hashable", "_toAnyHashable"]
+- ["Ps9_Hashable", "atom"]
+- ["Ps9_Hashable", "hashValue"]
+- ["Ps9_Hashable", "rss1_0"]
+- ["Ps9_Hashable", "rss2_0"]
+- ["Ps9_Hashable", ""]
+- !private ["Ps14_Incrementable", "hashValue"]
+- !private ["Ps8_Integer", "hashValue"]
+- !private ["Ps18_IntegerArithmetic", "hashValue"]
+- !private ["Ps21_ObjectiveCBridgeable", "hashValue"]
+- !private ["Ps14_SignedInteger", "hashValue"]
+- !private ["Ps11_Strideable", "hashValue"]
+depends-nominal:
+- "V9ReaderKit4ATOM"
+- !private "P10RealmSwift11AddableType"
+- !private "Ps9AnyObject"
+- "Sa"
+- !private "Ps17BitwiseOperations"
+- !private "Ps7CVarArg"
+- !private "Ps10Comparable"
+- !private "Ps29CustomPlaygroundQuickLookable"
+- !private "Ps17CustomReflectable"
+- !private "Ps23CustomStringConvertible"
+- "V10Foundation4Data"
+- "V9ReaderKit8Document"
+- "V9ReaderKit12DocumentItem"
+- "O9ReaderKit12DocumentType"
+- "P9ReaderKit12Documentable"
+- "Ps9Equatable"
+- !private "Ps27ExpressibleByIntegerLiteral"
+- "Ps8Hashable"
+- "Si"
+- !private "Ps7Integer"
+- !private "Ps17IntegerArithmetic"
+- !private "P10RealmSwift10MinMaxType"
+- !private "Ps10MirrorPath"
+- "V9ReaderKit6RSS1_0"
+- "V9ReaderKit6RSS2_0"
+- !private "P10RealmSwift17RealmOptionalType"
+- "C9ReaderKit15ScrapingService"
+- !private "Ps13SignedInteger"
+- !private "Ps12SignedNumber"
+- !private "Ps10Strideable"
+- "SS"
+- "V10Foundation3URL"
+- !private "P15SwiftyXMLParser16XMLSubscriptType"
+- !private "Ps35_ExpressibleByBuiltinIntegerLiteral"
+- "Ps9_Hashable"
+- !private "Ps14_Incrementable"
+- !private "Ps8_Integer"
+- !private "Ps18_IntegerArithmetic"
+- !private "Ps21_ObjectiveCBridgeable"
+- !private "Ps14_SignedInteger"
+- !private "Ps11_Strideable"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Users/takyokoy/Documents/public/ReaderKit/ReaderKit/ReaderKit.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/build/ReaderKit.build/Debug-iphonesimulator/ReaderKit.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Modules/Ji.swiftmodule/i386.swiftmodule"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/Ji-Swift.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlversion.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xpointer.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlstring.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/list.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlIO.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlwriter.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlunicode.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlschemastypes.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/encoding.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlsave.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlschemas.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlreader.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlmodule.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xinclude.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/uri.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/schematron.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/dict.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/hash.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlregexp.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/schemasInternals.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/relaxng.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/pattern.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/parserInternals.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/nanohttp.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/nanoftp.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/debugXML.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/chvalid.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/catalog.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/c14n.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xpathInternals.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlerror.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xpath.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/HTMLparser.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/HTMLtree.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/globals.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/threads.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlmemory.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xlink.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/parser.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/SAX2.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/SAX.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/entities.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlautomata.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/valid.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlexports.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/tree.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/Ji.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Modules/module.modulemap"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/RealmSwift.framework/Modules/RealmSwift.swiftmodule/i386.swiftmodule"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMRealm_Dynamic.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMSyncConfiguration_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMSchema_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMResults_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMRealm_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMRealmConfiguration_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMProperty_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMOptionalBase.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMObject_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMObjectStore.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMObjectSchema_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMObjectBase_Dynamic.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMListBase.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMArray_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMAccessor.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMSyncUser.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMSyncSession.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMSyncManager.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMSyncCredential.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMSyncConfiguration.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMSchema.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMResults.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMSyncUtil.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMRealmConfiguration+Sync.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMRealmConfiguration.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMRealm.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMConstants.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMProperty.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMPlatform.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMObjectSchema.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMObjectBase.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMObject.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMMigration.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMCollection.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMArray.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/Realm.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Modules/module.modulemap"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/SwiftyXMLParser.framework/Modules/SwiftyXMLParser.swiftmodule/i386.swiftmodule"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/SwiftyXMLParser.framework/Headers/SwiftyXMLParser-Swift.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/SwiftyXMLParser.framework/Headers/SwiftyXMLParser.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/SwiftyXMLParser.framework/Modules/module.modulemap"
+interface-hash: "8543722824e82de33d4e53456f02fc0e"

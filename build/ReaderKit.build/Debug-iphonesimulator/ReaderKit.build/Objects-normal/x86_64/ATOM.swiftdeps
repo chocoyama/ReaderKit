@@ -1,0 +1,630 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "ATOM"
+provides-nominal:
+- "V9ReaderKit4ATOM"
+- "VV9ReaderKit4ATOM4Feed"
+- "VVV9ReaderKit4ATOM4Feed5Entry"
+provides-member:
+- ["V9ReaderKit4ATOM", ""]
+- ["VV9ReaderKit4ATOM4Feed", ""]
+- ["VVV9ReaderKit4ATOM4Feed5Entry", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "??"
+- "String"
+- !private "=="
+- "URL"
+- "Documentable"
+- !private "XML"
+- "DocumentItem"
+- !private "Array"
+- "Data"
+- "ATOM"
+- !private "StringLiteralType"
+depends-member:
+- ["V9ReaderKit4ATOM", "ATOM"]
+- ["V9ReaderKit4ATOM", "Data"]
+- ["V9ReaderKit4ATOM", "DocumentItem"]
+- ["V9ReaderKit4ATOM", "Feed"]
+- ["V9ReaderKit4ATOM", "String"]
+- ["V9ReaderKit4ATOM", "URL"]
+- !private ["V9ReaderKit4ATOM", "XML"]
+- ["V9ReaderKit4ATOM", "create"]
+- ["V9ReaderKit4ATOM", "deinit"]
+- ["V9ReaderKit4ATOM", "documentItems"]
+- ["V9ReaderKit4ATOM", "documentLink"]
+- ["V9ReaderKit4ATOM", "documentTitle"]
+- ["V9ReaderKit4ATOM", "feed"]
+- ["V9ReaderKit4ATOM", "init"]
+- !private ["OC15SwiftyXMLParser3XML8Accessor", "Iterator"]
+- !private ["OC15SwiftyXMLParser3XML8Accessor", "attributes"]
+- ["OC15SwiftyXMLParser3XML8Accessor", "deinit"]
+- !private ["OC15SwiftyXMLParser3XML8Accessor", "filter"]
+- !private ["OC15SwiftyXMLParser3XML8Accessor", "flatMap"]
+- !private ["OC15SwiftyXMLParser3XML8Accessor", "forEach"]
+- !private ["OC15SwiftyXMLParser3XML8Accessor", "subscript"]
+- !private ["OC15SwiftyXMLParser3XML8Accessor", "text"]
+- !private ["P10RealmSwift11AddableType", "IntegerLiteralType"]
+- !private ["P10RealmSwift11AddableType", "Stride"]
+- !private ["P10RealmSwift11AddableType", "_DisabledRangeIndex"]
+- !private ["Vs11AnyIterator", "Element"]
+- !private ["Ps9AnyObject", "init"]
+- !private ["Ps9AnyObject", "parse"]
+- !private ["Sa", "Element"]
+- !private ["Sa", "Iterator"]
+- !private ["Sa", "_Element"]
+- !private ["Sa", "append"]
+- ["Sa", "deinit"]
+- !private ["Sa", "first"]
+- !private ["Sa", "flatMap"]
+- !private ["Sa", "map"]
+- !private ["Ps23BidirectionalCollection", "Element"]
+- !private ["Ps23BidirectionalCollection", "Iterator"]
+- !private ["Ps23BidirectionalCollection", "_Element"]
+- !private ["Ps23BidirectionalCollection", "append"]
+- !private ["Ps23BidirectionalCollection", "first"]
+- !private ["Ps23BidirectionalCollection", "flatMap"]
+- !private ["Ps23BidirectionalCollection", "map"]
+- !private ["Ps22BidirectionalIndexable", "Element"]
+- !private ["Ps22BidirectionalIndexable", "Iterator"]
+- !private ["Ps22BidirectionalIndexable", "_Element"]
+- !private ["Ps22BidirectionalIndexable", "append"]
+- !private ["Ps22BidirectionalIndexable", "first"]
+- !private ["Ps22BidirectionalIndexable", "flatMap"]
+- !private ["Ps22BidirectionalIndexable", "map"]
+- !private ["Ps17BitwiseOperations", "IntegerLiteralType"]
+- !private ["Ps17BitwiseOperations", "Stride"]
+- !private ["Ps17BitwiseOperations", "_DisabledRangeIndex"]
+- !private ["Sb", "deinit"]
+- !private ["Ps7CVarArg", "Element"]
+- !private ["Ps7CVarArg", "Index"]
+- !private ["Ps7CVarArg", "IndexDistance"]
+- !private ["Ps7CVarArg", "IntegerLiteralType"]
+- !private ["Ps7CVarArg", "Iterator"]
+- !private ["Ps7CVarArg", "Stride"]
+- !private ["Ps7CVarArg", "SubSequence"]
+- !private ["Ps7CVarArg", "_DisabledRangeIndex"]
+- !private ["Ps7CVarArg", "_Element"]
+- !private ["Ps7CVarArg", "append"]
+- !private ["Ps7CVarArg", "first"]
+- !private ["Ps7CVarArg", "flatMap"]
+- !private ["Ps7CVarArg", "init"]
+- !private ["Ps7CVarArg", "map"]
+- !private ["Ps7CVarArg", "subscript"]
+- !private ["Vs11ClosedRange", "deinit"]
+- !private ["Ps10Collection", "Element"]
+- !private ["Ps10Collection", "Index"]
+- !private ["Ps10Collection", "IndexDistance"]
+- !private ["Ps10Collection", "Iterator"]
+- !private ["Ps10Collection", "SubSequence"]
+- !private ["Ps10Collection", "_Element"]
+- !private ["Ps10Collection", "append"]
+- !private ["Ps10Collection", "first"]
+- !private ["Ps10Collection", "flatMap"]
+- !private ["Ps10Collection", "map"]
+- !private ["Ps10Collection", "subscript"]
+- !private ["Ps10Comparable", "IntegerLiteralType"]
+- !private ["Ps10Comparable", "Stride"]
+- !private ["Ps10Comparable", "_DisabledRangeIndex"]
+- !private ["Ps10Comparable", "init"]
+- !private ["Ps28CustomDebugStringConvertible", "Element"]
+- !private ["Ps28CustomDebugStringConvertible", "Index"]
+- !private ["Ps28CustomDebugStringConvertible", "IndexDistance"]
+- !private ["Ps28CustomDebugStringConvertible", "Iterator"]
+- !private ["Ps28CustomDebugStringConvertible", "SubSequence"]
+- !private ["Ps28CustomDebugStringConvertible", "_Element"]
+- !private ["Ps28CustomDebugStringConvertible", "append"]
+- !private ["Ps28CustomDebugStringConvertible", "first"]
+- !private ["Ps28CustomDebugStringConvertible", "flatMap"]
+- !private ["Ps28CustomDebugStringConvertible", "init"]
+- !private ["Ps28CustomDebugStringConvertible", "map"]
+- !private ["Ps28CustomDebugStringConvertible", "some"]
+- !private ["Ps28CustomDebugStringConvertible", "subscript"]
+- !private ["P10RealmSwift26CustomObjectiveCBridgeable", "flatMap"]
+- !private ["P10RealmSwift26CustomObjectiveCBridgeable", "some"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "IntegerLiteralType"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "Stride"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "_DisabledRangeIndex"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "init"]
+- !private ["Ps17CustomReflectable", "Element"]
+- !private ["Ps17CustomReflectable", "Index"]
+- !private ["Ps17CustomReflectable", "IndexDistance"]
+- !private ["Ps17CustomReflectable", "IntegerLiteralType"]
+- !private ["Ps17CustomReflectable", "Iterator"]
+- !private ["Ps17CustomReflectable", "Stride"]
+- !private ["Ps17CustomReflectable", "SubSequence"]
+- !private ["Ps17CustomReflectable", "_DisabledRangeIndex"]
+- !private ["Ps17CustomReflectable", "_Element"]
+- !private ["Ps17CustomReflectable", "append"]
+- !private ["Ps17CustomReflectable", "first"]
+- !private ["Ps17CustomReflectable", "flatMap"]
+- !private ["Ps17CustomReflectable", "init"]
+- !private ["Ps17CustomReflectable", "map"]
+- !private ["Ps17CustomReflectable", "some"]
+- !private ["Ps17CustomReflectable", "subscript"]
+- !private ["Ps23CustomStringConvertible", "Element"]
+- !private ["Ps23CustomStringConvertible", "Index"]
+- !private ["Ps23CustomStringConvertible", "IndexDistance"]
+- !private ["Ps23CustomStringConvertible", "IntegerLiteralType"]
+- !private ["Ps23CustomStringConvertible", "Iterator"]
+- !private ["Ps23CustomStringConvertible", "Stride"]
+- !private ["Ps23CustomStringConvertible", "SubSequence"]
+- !private ["Ps23CustomStringConvertible", "_DisabledRangeIndex"]
+- !private ["Ps23CustomStringConvertible", "_Element"]
+- !private ["Ps23CustomStringConvertible", "append"]
+- !private ["Ps23CustomStringConvertible", "attributes"]
+- !private ["Ps23CustomStringConvertible", "filter"]
+- !private ["Ps23CustomStringConvertible", "first"]
+- !private ["Ps23CustomStringConvertible", "flatMap"]
+- !private ["Ps23CustomStringConvertible", "forEach"]
+- !private ["Ps23CustomStringConvertible", "init"]
+- !private ["Ps23CustomStringConvertible", "map"]
+- !private ["Ps23CustomStringConvertible", "subscript"]
+- !private ["Ps23CustomStringConvertible", "text"]
+- ["V10Foundation4Data", "deinit"]
+- !private ["Vs10Dictionary", "Index"]
+- !private ["Vs10Dictionary", "IndexDistance"]
+- !private ["Vs10Dictionary", "SubSequence"]
+- !private ["Vs10Dictionary", "_Element"]
+- ["Vs10Dictionary", "deinit"]
+- !private ["Vs10Dictionary", "subscript"]
+- !private ["Vs15DictionaryIndex", "deinit"]
+- !private ["V9ReaderKit12DocumentItem", "deinit"]
+- !private ["V9ReaderKit12DocumentItem", "init"]
+- !private ["P9ReaderKit12Documentable", "ATOM"]
+- !private ["P9ReaderKit12Documentable", "DocumentItem"]
+- !private ["P9ReaderKit12Documentable", "Feed"]
+- !private ["P9ReaderKit12Documentable", "URL"]
+- !private ["P9ReaderKit12Documentable", "XML"]
+- ["P9ReaderKit12Documentable", "create"]
+- ["P9ReaderKit12Documentable", "documentItems"]
+- ["P9ReaderKit12Documentable", "documentLink"]
+- ["P9ReaderKit12Documentable", "documentTitle"]
+- !private ["P9ReaderKit12Documentable", "feed"]
+- !private ["P9ReaderKit12Documentable", "init"]
+- ["P9ReaderKit12Documentable", ""]
+- ["VVV9ReaderKit4ATOM4Feed5Entry", "String"]
+- ["VVV9ReaderKit4ATOM4Feed5Entry", "URL"]
+- ["VVV9ReaderKit4ATOM4Feed5Entry", "deinit"]
+- ["VVV9ReaderKit4ATOM4Feed5Entry", "id"]
+- ["VVV9ReaderKit4ATOM4Feed5Entry", "init"]
+- ["VVV9ReaderKit4ATOM4Feed5Entry", "link"]
+- ["VVV9ReaderKit4ATOM4Feed5Entry", "summary"]
+- ["VVV9ReaderKit4ATOM4Feed5Entry", "title"]
+- ["VVV9ReaderKit4ATOM4Feed5Entry", "updated"]
+- !private ["Ps9Equatable", "IntegerLiteralType"]
+- !private ["Ps9Equatable", "Stride"]
+- !private ["Ps9Equatable", "_DisabledRangeIndex"]
+- !private ["Ps9Equatable", "init"]
+- !private ["Ps25ExpressibleByArrayLiteral", "Element"]
+- !private ["Ps25ExpressibleByArrayLiteral", "Iterator"]
+- !private ["Ps25ExpressibleByArrayLiteral", "_Element"]
+- !private ["Ps25ExpressibleByArrayLiteral", "append"]
+- !private ["Ps25ExpressibleByArrayLiteral", "first"]
+- !private ["Ps25ExpressibleByArrayLiteral", "flatMap"]
+- !private ["Ps25ExpressibleByArrayLiteral", "map"]
+- !private ["Ps30ExpressibleByDictionaryLiteral", "Index"]
+- !private ["Ps30ExpressibleByDictionaryLiteral", "IndexDistance"]
+- !private ["Ps30ExpressibleByDictionaryLiteral", "SubSequence"]
+- !private ["Ps30ExpressibleByDictionaryLiteral", "_Element"]
+- !private ["Ps30ExpressibleByDictionaryLiteral", "subscript"]
+- !private ["Ps43ExpressibleByExtendedGraphemeClusterLiteral", "init"]
+- !private ["Ps27ExpressibleByIntegerLiteral", "IntegerLiteralType"]
+- !private ["Ps27ExpressibleByIntegerLiteral", "Stride"]
+- !private ["Ps27ExpressibleByIntegerLiteral", "_DisabledRangeIndex"]
+- !private ["Ps23ExpressibleByNilLiteral", "flatMap"]
+- !private ["Ps23ExpressibleByNilLiteral", "some"]
+- !private ["Ps32ExpressibleByStringInterpolation", "init"]
+- !private ["Ps26ExpressibleByStringLiteral", "init"]
+- !private ["Ps33ExpressibleByUnicodeScalarLiteral", "init"]
+- ["VV9ReaderKit4ATOM4Feed", "Entry"]
+- ["VV9ReaderKit4ATOM4Feed", "String"]
+- ["VV9ReaderKit4ATOM4Feed", "URL"]
+- ["VV9ReaderKit4ATOM4Feed", "deinit"]
+- ["VV9ReaderKit4ATOM4Feed", "entries"]
+- ["VV9ReaderKit4ATOM4Feed", "feedLink"]
+- ["VV9ReaderKit4ATOM4Feed", "id"]
+- ["VV9ReaderKit4ATOM4Feed", "init"]
+- ["VV9ReaderKit4ATOM4Feed", "siteLink"]
+- ["VV9ReaderKit4ATOM4Feed", "title"]
+- ["VV9ReaderKit4ATOM4Feed", "updated"]
+- !private ["Ps8Hashable", "IntegerLiteralType"]
+- !private ["Ps8Hashable", "Stride"]
+- !private ["Ps8Hashable", "_DisabledRangeIndex"]
+- !private ["Ps8Hashable", "init"]
+- !private ["Ps9Indexable", "Element"]
+- !private ["Ps9Indexable", "Index"]
+- !private ["Ps9Indexable", "IndexDistance"]
+- !private ["Ps9Indexable", "Iterator"]
+- !private ["Ps9Indexable", "SubSequence"]
+- !private ["Ps9Indexable", "_Element"]
+- !private ["Ps9Indexable", "append"]
+- !private ["Ps9Indexable", "first"]
+- !private ["Ps9Indexable", "flatMap"]
+- !private ["Ps9Indexable", "map"]
+- !private ["Ps9Indexable", "subscript"]
+- !private ["Ps13IndexableBase", "Element"]
+- !private ["Ps13IndexableBase", "Index"]
+- !private ["Ps13IndexableBase", "IndexDistance"]
+- !private ["Ps13IndexableBase", "Iterator"]
+- !private ["Ps13IndexableBase", "SubSequence"]
+- !private ["Ps13IndexableBase", "_Element"]
+- !private ["Ps13IndexableBase", "append"]
+- !private ["Ps13IndexableBase", "first"]
+- !private ["Ps13IndexableBase", "flatMap"]
+- !private ["Ps13IndexableBase", "map"]
+- !private ["Ps13IndexableBase", "subscript"]
+- !private ["Vs16IndexingIterator", "Element"]
+- !private ["Si", "IntegerLiteralType"]
+- !private ["Si", "Stride"]
+- !private ["Si", "_DisabledRangeIndex"]
+- !private ["Ps7Integer", "IntegerLiteralType"]
+- !private ["Ps7Integer", "Stride"]
+- !private ["Ps7Integer", "_DisabledRangeIndex"]
+- !private ["Ps17IntegerArithmetic", "IntegerLiteralType"]
+- !private ["Ps17IntegerArithmetic", "Stride"]
+- !private ["Ps17IntegerArithmetic", "_DisabledRangeIndex"]
+- !private ["Ps16IteratorProtocol", "Element"]
+- !private ["Ps25LosslessStringConvertible", "init"]
+- !private ["P10RealmSwift10MinMaxType", "IntegerLiteralType"]
+- !private ["P10RealmSwift10MinMaxType", "Stride"]
+- !private ["P10RealmSwift10MinMaxType", "_DisabledRangeIndex"]
+- !private ["Ps10MirrorPath", "IntegerLiteralType"]
+- !private ["Ps10MirrorPath", "Stride"]
+- !private ["Ps10MirrorPath", "_DisabledRangeIndex"]
+- !private ["Ps10MirrorPath", "init"]
+- !private ["Ps17MutableCollection", "Element"]
+- !private ["Ps17MutableCollection", "Iterator"]
+- !private ["Ps17MutableCollection", "_Element"]
+- !private ["Ps17MutableCollection", "append"]
+- !private ["Ps17MutableCollection", "first"]
+- !private ["Ps17MutableCollection", "flatMap"]
+- !private ["Ps17MutableCollection", "map"]
+- !private ["Ps16MutableIndexable", "Element"]
+- !private ["Ps16MutableIndexable", "Iterator"]
+- !private ["Ps16MutableIndexable", "_Element"]
+- !private ["Ps16MutableIndexable", "append"]
+- !private ["Ps16MutableIndexable", "first"]
+- !private ["Ps16MutableIndexable", "flatMap"]
+- !private ["Ps16MutableIndexable", "map"]
+- !private ["PSo8NSCoding", "init"]
+- !private ["PSo9NSCopying", "init"]
+- !private ["PSo16NSMutableCopying", "init"]
+- !private ["CSo8NSObject", "init"]
+- !private ["PSo16NSObjectProtocol", "init"]
+- !private ["PSo14NSSecureCoding", "init"]
+- !private ["CSo8NSString", "init"]
+- ["Sq", "deinit"]
+- !private ["Sq", "flatMap"]
+- !private ["Sq", "some"]
+- !private ["Ps22RandomAccessCollection", "Element"]
+- !private ["Ps22RandomAccessCollection", "Iterator"]
+- !private ["Ps22RandomAccessCollection", "_Element"]
+- !private ["Ps22RandomAccessCollection", "append"]
+- !private ["Ps22RandomAccessCollection", "first"]
+- !private ["Ps22RandomAccessCollection", "flatMap"]
+- !private ["Ps22RandomAccessCollection", "map"]
+- !private ["Ps21RandomAccessIndexable", "Element"]
+- !private ["Ps21RandomAccessIndexable", "Iterator"]
+- !private ["Ps21RandomAccessIndexable", "_Element"]
+- !private ["Ps21RandomAccessIndexable", "append"]
+- !private ["Ps21RandomAccessIndexable", "first"]
+- !private ["Ps21RandomAccessIndexable", "flatMap"]
+- !private ["Ps21RandomAccessIndexable", "map"]
+- !private ["Vs5Range", "deinit"]
+- !private ["Ps26RangeReplaceableCollection", "Element"]
+- !private ["Ps26RangeReplaceableCollection", "Iterator"]
+- !private ["Ps26RangeReplaceableCollection", "_Element"]
+- !private ["Ps26RangeReplaceableCollection", "append"]
+- !private ["Ps26RangeReplaceableCollection", "first"]
+- !private ["Ps26RangeReplaceableCollection", "flatMap"]
+- !private ["Ps26RangeReplaceableCollection", "map"]
+- !private ["Ps25RangeReplaceableIndexable", "Element"]
+- !private ["Ps25RangeReplaceableIndexable", "Iterator"]
+- !private ["Ps25RangeReplaceableIndexable", "_Element"]
+- !private ["Ps25RangeReplaceableIndexable", "append"]
+- !private ["Ps25RangeReplaceableIndexable", "first"]
+- !private ["Ps25RangeReplaceableIndexable", "flatMap"]
+- !private ["Ps25RangeReplaceableIndexable", "map"]
+- !private ["P10RealmSwift17RealmOptionalType", "IntegerLiteralType"]
+- !private ["P10RealmSwift17RealmOptionalType", "Stride"]
+- !private ["P10RealmSwift17RealmOptionalType", "_DisabledRangeIndex"]
+- !private ["P10Foundation20ReferenceConvertible", "init"]
+- !private ["Ps8Sequence", "Element"]
+- !private ["Ps8Sequence", "Index"]
+- !private ["Ps8Sequence", "IndexDistance"]
+- !private ["Ps8Sequence", "Iterator"]
+- !private ["Ps8Sequence", "SubSequence"]
+- !private ["Ps8Sequence", "_Element"]
+- !private ["Ps8Sequence", "append"]
+- !private ["Ps8Sequence", "attributes"]
+- !private ["Ps8Sequence", "filter"]
+- !private ["Ps8Sequence", "first"]
+- !private ["Ps8Sequence", "flatMap"]
+- !private ["Ps8Sequence", "forEach"]
+- !private ["Ps8Sequence", "map"]
+- !private ["Ps8Sequence", "subscript"]
+- !private ["Ps8Sequence", "text"]
+- !private ["Ps13SignedInteger", "IntegerLiteralType"]
+- !private ["Ps13SignedInteger", "Stride"]
+- !private ["Ps13SignedInteger", "_DisabledRangeIndex"]
+- !private ["Ps12SignedNumber", "IntegerLiteralType"]
+- !private ["Ps12SignedNumber", "Stride"]
+- !private ["Ps12SignedNumber", "_DisabledRangeIndex"]
+- !private ["Vs5Slice", "Index"]
+- !private ["Vs5Slice", "Iterator"]
+- !private ["Vs5Slice", "SubSequence"]
+- !private ["Vs5Slice", "_Element"]
+- !private ["Vs5Slice", "deinit"]
+- !private ["Ps10Strideable", "IntegerLiteralType"]
+- !private ["Ps10Strideable", "Stride"]
+- !private ["Ps10Strideable", "_DisabledRangeIndex"]
+- ["SS", "deinit"]
+- !private ["SS", "init"]
+- !private ["Ps16TextOutputStream", "init"]
+- !private ["Ps20TextOutputStreamable", "init"]
+- ["V10Foundation3URL", "deinit"]
+- !private ["V10Foundation3URL", "init"]
+- !private ["C15SwiftyXMLParser3XML", "parse"]
+- !private ["P15SwiftyXMLParser16XMLSubscriptType", "IntegerLiteralType"]
+- !private ["P15SwiftyXMLParser16XMLSubscriptType", "Stride"]
+- !private ["P15SwiftyXMLParser16XMLSubscriptType", "_DisabledRangeIndex"]
+- !private ["P15SwiftyXMLParser16XMLSubscriptType", "deinit"]
+- !private ["P15SwiftyXMLParser16XMLSubscriptType", "init"]
+- !private ["Ps14_ArrayProtocol", "Element"]
+- !private ["Ps14_ArrayProtocol", "Iterator"]
+- !private ["Ps14_ArrayProtocol", "_Element"]
+- !private ["Ps14_ArrayProtocol", "append"]
+- !private ["Ps14_ArrayProtocol", "first"]
+- !private ["Ps14_ArrayProtocol", "flatMap"]
+- !private ["Ps14_ArrayProtocol", "map"]
+- !private ["Ps24_DestructorSafeContainer", "Element"]
+- !private ["Ps24_DestructorSafeContainer", "Iterator"]
+- !private ["Ps24_DestructorSafeContainer", "_Element"]
+- !private ["Ps24_DestructorSafeContainer", "append"]
+- !private ["Ps24_DestructorSafeContainer", "first"]
+- !private ["Ps24_DestructorSafeContainer", "flatMap"]
+- !private ["Ps24_DestructorSafeContainer", "map"]
+- !private ["Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral", "init"]
+- !private ["Ps35_ExpressibleByBuiltinIntegerLiteral", "IntegerLiteralType"]
+- !private ["Ps35_ExpressibleByBuiltinIntegerLiteral", "Stride"]
+- !private ["Ps35_ExpressibleByBuiltinIntegerLiteral", "_DisabledRangeIndex"]
+- !private ["Ps34_ExpressibleByBuiltinStringLiteral", "init"]
+- !private ["Ps39_ExpressibleByBuiltinUTF16StringLiteral", "init"]
+- !private ["Ps41_ExpressibleByBuiltinUnicodeScalarLiteral", "init"]
+- !private ["Ps34_ExpressibleByFileReferenceLiteral", "init"]
+- !private ["Ps35_HasCustomAnyHashableRepresentation", "init"]
+- !private ["Ps9_Hashable", "IntegerLiteralType"]
+- !private ["Ps9_Hashable", "Stride"]
+- !private ["Ps9_Hashable", "_DisabledRangeIndex"]
+- !private ["Ps9_Hashable", "init"]
+- !private ["Ps14_Incrementable", "IntegerLiteralType"]
+- !private ["Ps14_Incrementable", "Stride"]
+- !private ["Ps14_Incrementable", "_DisabledRangeIndex"]
+- !private ["Ps8_Integer", "IntegerLiteralType"]
+- !private ["Ps8_Integer", "Stride"]
+- !private ["Ps8_Integer", "_DisabledRangeIndex"]
+- !private ["Ps18_IntegerArithmetic", "IntegerLiteralType"]
+- !private ["Ps18_IntegerArithmetic", "Stride"]
+- !private ["Ps18_IntegerArithmetic", "_DisabledRangeIndex"]
+- !private ["Ps21_ObjectiveCBridgeable", "Element"]
+- !private ["Ps21_ObjectiveCBridgeable", "Index"]
+- !private ["Ps21_ObjectiveCBridgeable", "IndexDistance"]
+- !private ["Ps21_ObjectiveCBridgeable", "IntegerLiteralType"]
+- !private ["Ps21_ObjectiveCBridgeable", "Iterator"]
+- !private ["Ps21_ObjectiveCBridgeable", "Stride"]
+- !private ["Ps21_ObjectiveCBridgeable", "SubSequence"]
+- !private ["Ps21_ObjectiveCBridgeable", "_DisabledRangeIndex"]
+- !private ["Ps21_ObjectiveCBridgeable", "_Element"]
+- !private ["Ps21_ObjectiveCBridgeable", "append"]
+- !private ["Ps21_ObjectiveCBridgeable", "first"]
+- !private ["Ps21_ObjectiveCBridgeable", "flatMap"]
+- !private ["Ps21_ObjectiveCBridgeable", "init"]
+- !private ["Ps21_ObjectiveCBridgeable", "map"]
+- !private ["Ps21_ObjectiveCBridgeable", "subscript"]
+- !private ["Vs26_OptionalNilComparisonType", "deinit"]
+- !private ["Ps14_SignedInteger", "IntegerLiteralType"]
+- !private ["Ps14_SignedInteger", "Stride"]
+- !private ["Ps14_SignedInteger", "_DisabledRangeIndex"]
+- !private ["Ps11_Strideable", "IntegerLiteralType"]
+- !private ["Ps11_Strideable", "Stride"]
+- !private ["Ps11_Strideable", "_DisabledRangeIndex"]
+depends-nominal:
+- "V9ReaderKit4ATOM"
+- "OC15SwiftyXMLParser3XML8Accessor"
+- !private "P10RealmSwift11AddableType"
+- !private "Vs11AnyIterator"
+- !private "Ps9AnyObject"
+- "Sa"
+- !private "Ps23BidirectionalCollection"
+- !private "Ps22BidirectionalIndexable"
+- !private "Ps17BitwiseOperations"
+- !private "Sb"
+- !private "Ps7CVarArg"
+- !private "Vs11ClosedRange"
+- !private "Ps10Collection"
+- !private "Ps10Comparable"
+- !private "Ps28CustomDebugStringConvertible"
+- !private "P10RealmSwift26CustomObjectiveCBridgeable"
+- !private "Ps29CustomPlaygroundQuickLookable"
+- !private "Ps17CustomReflectable"
+- !private "Ps23CustomStringConvertible"
+- "V10Foundation4Data"
+- "Vs10Dictionary"
+- !private "Vs15DictionaryIndex"
+- !private "V9ReaderKit12DocumentItem"
+- "P9ReaderKit12Documentable"
+- "VVV9ReaderKit4ATOM4Feed5Entry"
+- !private "Ps9Equatable"
+- !private "Ps25ExpressibleByArrayLiteral"
+- !private "Ps30ExpressibleByDictionaryLiteral"
+- !private "Ps43ExpressibleByExtendedGraphemeClusterLiteral"
+- !private "Ps27ExpressibleByIntegerLiteral"
+- !private "Ps23ExpressibleByNilLiteral"
+- !private "Ps32ExpressibleByStringInterpolation"
+- !private "Ps26ExpressibleByStringLiteral"
+- !private "Ps33ExpressibleByUnicodeScalarLiteral"
+- "VV9ReaderKit4ATOM4Feed"
+- !private "Ps8Hashable"
+- !private "Ps9Indexable"
+- !private "Ps13IndexableBase"
+- !private "Vs16IndexingIterator"
+- !private "Si"
+- !private "Ps7Integer"
+- !private "Ps17IntegerArithmetic"
+- !private "Ps16IteratorProtocol"
+- !private "Ps25LosslessStringConvertible"
+- !private "P10RealmSwift10MinMaxType"
+- !private "Ps10MirrorPath"
+- !private "Ps17MutableCollection"
+- !private "Ps16MutableIndexable"
+- !private "PSo8NSCoding"
+- !private "PSo9NSCopying"
+- !private "PSo16NSMutableCopying"
+- !private "CSo8NSObject"
+- !private "PSo16NSObjectProtocol"
+- !private "PSo14NSSecureCoding"
+- !private "CSo8NSString"
+- "Sq"
+- !private "Ps22RandomAccessCollection"
+- !private "Ps21RandomAccessIndexable"
+- !private "Vs5Range"
+- !private "Ps26RangeReplaceableCollection"
+- !private "Ps25RangeReplaceableIndexable"
+- !private "P10RealmSwift17RealmOptionalType"
+- !private "P10Foundation20ReferenceConvertible"
+- !private "Ps8Sequence"
+- !private "Ps13SignedInteger"
+- !private "Ps12SignedNumber"
+- !private "Vs5Slice"
+- !private "Ps10Strideable"
+- "SS"
+- !private "Ps16TextOutputStream"
+- !private "Ps20TextOutputStreamable"
+- "V10Foundation3URL"
+- !private "C15SwiftyXMLParser3XML"
+- !private "P15SwiftyXMLParser16XMLSubscriptType"
+- !private "Ps14_ArrayProtocol"
+- !private "Ps24_DestructorSafeContainer"
+- !private "Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral"
+- !private "Ps35_ExpressibleByBuiltinIntegerLiteral"
+- !private "Ps34_ExpressibleByBuiltinStringLiteral"
+- !private "Ps39_ExpressibleByBuiltinUTF16StringLiteral"
+- !private "Ps41_ExpressibleByBuiltinUnicodeScalarLiteral"
+- !private "Ps34_ExpressibleByFileReferenceLiteral"
+- !private "Ps35_HasCustomAnyHashableRepresentation"
+- !private "Ps9_Hashable"
+- !private "Ps14_Incrementable"
+- !private "Ps8_Integer"
+- !private "Ps18_IntegerArithmetic"
+- !private "Ps21_ObjectiveCBridgeable"
+- !private "Vs26_OptionalNilComparisonType"
+- !private "Ps14_SignedInteger"
+- !private "Ps11_Strideable"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Users/takyokoy/Documents/public/ReaderKit/ReaderKit/ReaderKit.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/build/ReaderKit.build/Debug-iphonesimulator/ReaderKit.build/unextended-module.modulemap"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Modules/Ji.swiftmodule/x86_64.swiftmodule"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/Ji-Swift.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlversion.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xpointer.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlstring.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/list.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlIO.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlwriter.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlunicode.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlschemastypes.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/encoding.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlsave.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlschemas.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlreader.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlmodule.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xinclude.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/uri.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/schematron.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/dict.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/hash.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlregexp.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/schemasInternals.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/relaxng.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/pattern.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/parserInternals.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/nanohttp.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/nanoftp.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/debugXML.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/chvalid.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/catalog.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/c14n.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xpathInternals.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlerror.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xpath.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/HTMLparser.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/HTMLtree.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/globals.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/threads.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlmemory.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xlink.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/parser.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/SAX2.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/SAX.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/entities.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlautomata.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/valid.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/xmlexports.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/tree.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Headers/Ji.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Ji.framework/Modules/module.modulemap"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/RealmSwift.framework/Modules/RealmSwift.swiftmodule/x86_64.swiftmodule"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMRealm_Dynamic.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMSyncConfiguration_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMSchema_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMResults_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMRealm_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMRealmConfiguration_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMProperty_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMOptionalBase.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMObject_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMObjectStore.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMObjectSchema_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMObjectBase_Dynamic.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMListBase.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMArray_Private.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/PrivateHeaders/RLMAccessor.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMSyncUser.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMSyncSession.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMSyncManager.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMSyncCredential.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMSyncConfiguration.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMSchema.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMResults.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMSyncUtil.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMRealmConfiguration+Sync.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMRealmConfiguration.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMRealm.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMConstants.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMProperty.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMPlatform.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMObjectSchema.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMObjectBase.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMObject.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMMigration.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMCollection.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/RLMArray.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Headers/Realm.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/Realm.framework/Modules/module.modulemap"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/SwiftyXMLParser.framework/Modules/SwiftyXMLParser.swiftmodule/x86_64.swiftmodule"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/SwiftyXMLParser.framework/Headers/SwiftyXMLParser-Swift.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/SwiftyXMLParser.framework/Headers/SwiftyXMLParser.h"
+- "/Users/takyokoy/Documents/public/ReaderKit/Carthage/Build/iOS/SwiftyXMLParser.framework/Modules/module.modulemap"
+interface-hash: "ef61211a3e8937214cbcdd76d6b4d99e"

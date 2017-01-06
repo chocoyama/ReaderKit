@@ -45,8 +45,8 @@ class ReaderKitTests: XCTestCase {
     }
     
     func testExtractFeedUrl() {
-        let detectService = DetectService.init()
-        let extractedUrl = detectService.extractFeedUrl(from: ReaderKitTestsResources.rss1_0SiteData)!.absoluteString
+        let extractService = ExtractService()
+        let extractedUrl = extractService.extractFeedUrl(from: ReaderKitTestsResources.rss1_0SiteData)!.absoluteString
         XCTAssertEqual(extractedUrl, "http://blog.illusion.jp/feed")
     }
     

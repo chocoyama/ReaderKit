@@ -1,0 +1,10 @@
+framework module ReaderKit {
+  umbrella header "ReaderKit.h"
+
+  export *
+  module * { export * }
+}
+
+module ReaderKit.Swift {
+    header "ReaderKit-Swift.h"
+}

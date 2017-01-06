@@ -24,10 +24,9 @@ class ReaderKitRealmTests: XCTestCase {
     }
     
     private func deleteAll() {
-        do {
-            try DocumentRepository.shared.unsubscriveAll()
-        } catch let error {
-            XCTFail(error.localizedDescription)
+        let result = DocumentRepository.shared.unsubscriveAll()
+        if result == false {
+            XCTFail()
         }
     }
     
@@ -50,8 +49,11 @@ class ReaderKitRealmTests: XCTestCase {
         let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
         let vipSister = ReaderKitTestsResources.vipSister
         
-        try! thinkBigActLocal.subscribe()
-        try! vipSister.subscribe()
+        let result1 = thinkBigActLocal.subscribe()
+        let result2 = vipSister.subscribe()
+        if result1 == false || result2 == false {
+            XCTFail()
+        }
         
         let items = DocumentRepository.shared.get(from: 0, to: 1)
         XCTAssertTrue(items.count == 1)
@@ -69,8 +71,11 @@ class ReaderKitRealmTests: XCTestCase {
         let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
         let vipSister = ReaderKitTestsResources.vipSister
         
-        try! thinkBigActLocal.subscribe()
-        try! vipSister.subscribe()
+        let result1 = thinkBigActLocal.subscribe()
+        let result2 = vipSister.subscribe()
+        if result1 == false || result2 == false {
+            XCTFail()
+        }
         
         let expectation = self.expectation(description: "fetch")
         DocumentRepository.shared.recent(to: 20) { (items) in

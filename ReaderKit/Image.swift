@@ -26,7 +26,7 @@ public struct Image {
     }
     
     public func fetch(_ completion: @escaping (_ image: Image) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .default).async {
             guard let url = URL.init(string: self.imageUrl),
                 let imageData = try? Data.init(contentsOf: url),
                 let image = UIImage(data: imageData) else {
@@ -47,18 +47,3 @@ public struct Image {
     }
 }
 
-public extension UIImageView {
-    func set(image: Image) {
-        if let fetchResult = image.fetchResult {
-            DispatchQueue.main.async {
-                self.image = fetchResult.image
-            }
-        } else {
-            image.fetch({ [weak self] (image) in
-                DispatchQueue.main.async {
-                    self?.image = image.fetchResult?.image
-                }
-            })
-        }
-    }
-}

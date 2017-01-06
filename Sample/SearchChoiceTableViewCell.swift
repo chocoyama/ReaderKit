@@ -52,15 +52,15 @@ class SearchChoiceTableViewCell: UITableViewCell {
         }
         
         if document.subscribed == true {
-            do {
-                try document.unSubscribe()
+            let result = document.unSubscribe()
+            if result == true {
                 subscribeButton.setTitle("購読する", for: .normal)
-            } catch {}
+            }
         } else {
-            do {
-                try document.subscribe()
+            let result = document.subscribe()
+            if result == true {
                 subscribeButton.setTitle("購読解除", for: .normal)
-            } catch {}
+            }
         }
     }
 
