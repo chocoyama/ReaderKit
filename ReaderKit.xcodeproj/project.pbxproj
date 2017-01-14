@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		800750401E29A7BA00DF951B /* ImageDissector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A5E7721E1F84CE0087AC3B /* ImageDissector.framework */; };
 		800750411E29A7D700DF951B /* ImageDissector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A5E7721E1F84CE0087AC3B /* ImageDissector.framework */; };
 		800750421E29A7D700DF951B /* ImageDissector.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80A5E7721E1F84CE0087AC3B /* ImageDissector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		800750431E29A89700DF951B /* Ji.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802754961DC2451000A26468 /* Ji.framework */; };
+		800750441E29FB5900DF951B /* ImageDissector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A5E7721E1F84CE0087AC3B /* ImageDissector.framework */; };
 		80202E041DC3956C0023D33D /* DocumentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80202E031DC3956C0023D33D /* DocumentProvider.swift */; };
 		80202E091DC3B3650023D33D /* DocumentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80202E081DC3B3650023D33D /* DocumentRepository.swift */; };
 		8027549A1DC2463D00A26468 /* SwiftyXMLParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 802754991DC2463D00A26468 /* SwiftyXMLParser.framework */; };
@@ -173,8 +173,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				800750441E29FB5900DF951B /* ImageDissector.framework in Frameworks */,
 				800750431E29A89700DF951B /* Ji.framework in Frameworks */,
-				800750401E29A7BA00DF951B /* ImageDissector.framework in Frameworks */,
 				80640E791E29A5A200273F69 /* ScrapingKit.framework in Frameworks */,
 				805FA3111DC4DCE80056698D /* Realm.framework in Frameworks */,
 				805FA3121DC4DCE80056698D /* RealmSwift.framework in Frameworks */,
@@ -567,8 +567,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ScrapingKit.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/ImageDissector.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Ji.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ImageDissector.framework",
 			);
 			outputPaths = (
 			);
