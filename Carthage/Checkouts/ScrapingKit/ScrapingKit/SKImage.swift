@@ -12,6 +12,7 @@ import ImageDissector
 open class SKImage: SizeInjectionable {
     open var imageUrl: URL?
     open var imageSize: CGSize?
+    open var destinationUrl: URL?
     
     open var imageUrlString: String
     open var destinationUrlString: String?
@@ -20,5 +21,8 @@ open class SKImage: SizeInjectionable {
         self.imageUrlString = imageUrlString
         self.imageUrl = URL.init(string: imageUrlString)
         self.destinationUrlString = destinationUrlString
+        if let destinationUrlString = destinationUrlString {
+            self.destinationUrl = URL.init(string: destinationUrlString)
+        }
     }
 }
