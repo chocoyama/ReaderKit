@@ -15,10 +15,61 @@ x.x.x Release notes (yyyy-MM-dd)
 
 ### Bugfixes
 
+* None.
+
+2.2.0 Release notes (2017-01-12)
+=============================================================
+
+### Sync Breaking Changes (In Beta)
+
+* Underlying sync engine upgraded to version BETA-6.5.
+* Sync-related error reporting behavior has been changed. Errors not related
+  to a particular user or session are only reported if they are classed as
+  'fatal' by the underlying sync engine.
+
+### API Breaking Changes
+
+* The following Objective-C APIs have been deprecated in favor of newer or preferred versions:
+
+| Deprecated API                                              | New API                                                     |
+|:------------------------------------------------------------|:------------------------------------------------------------|
+| `-[RLMArray sortedResultsUsingProperty:]`                   | `-[RLMArray sortedResultsUsingKeyPath:]`                    |
+| `-[RLMCollection sortedResultsUsingProperty:]`              | `-[RLMCollection sortedResultsUsingKeyPath:]`               |
+| `-[RLMResults sortedResultsUsingProperty:]`                 | `-[RLMResults sortedResultsUsingKeyPath:]`                  |
+| `+[RLMSortDescriptor sortDescriptorWithProperty:ascending]` | `+[RLMSortDescriptor sortDescriptorWithKeyPath:ascending:]` |
+| `RLMSortDescriptor.property`                                | `RLMSortDescriptor.keyPath`                                 |
+
+* The following Swift APIs have been deprecated in favor of newer or preferred versions:
+
+| Deprecated API                                        | New API                                          |
+|:------------------------------------------------------|:-------------------------------------------------|
+| `LinkingObjects.sorted(byProperty:ascending:)`        | `LinkingObjects.sorted(byKeyPath:ascending:)`    |
+| `List.sorted(byProperty:ascending:)`                  | `List.sorted(byKeyPath:ascending:)`              |
+| `RealmCollection.sorted(byProperty:ascending:)`       | `RealmCollection.sorted(byKeyPath:ascending:)`   |
+| `Results.sorted(byProperty:ascending:)`               | `Results.sorted(byKeyPath:ascending:)`           |
+| `SortDescriptor(property:ascending:)`                 | `SortDescriptor(keyPath:ascending:)`             |
+| `SortDescriptor.property`                             | `SortDescriptor.keyPath`                         |
+
+### Enhancements
+
+* Introduce APIs for safely passing objects between threads. Create a
+  thread-safe reference to a thread-confined object by passing it to the
+  `+[RLMThreadSafeReference referenceWithThreadConfined:]`/`ThreadSafeReference(to:)`
+  constructor, which you can then safely pass to another thread to resolve in
+  the new Realm with `-[RLMRealm resolveThreadSafeReference:]`/`Realm.resolve(_:)`.
+* Realm collections can now be sorted by properties over to-one relationships.
+* Optimized `CONTAINS` queries to use Boyer-Moore algorithm
+  (around 10x speedup on large datasets).
+
+### Bugfixes
+
 * Setting `deleteRealmIfMigrationNeeded` now also deletes the Realm if a file
   format migration is required, such as when moving from a file last accessed
   with Realm 0.x to 1.x, or 1.x to 2.x.
 * Fix queries containing nested `SUBQUERY` expressions.
+* Fix spurious incorrect thread exceptions when a thread id happens to be
+  reused while an RLMRealm instance from the old thread still exists.
+* Fixed various bugs in aggregate methods (max, min, avg, sum).
 
 2.1.2 Release notes (2016--12-19)
 =============================================================

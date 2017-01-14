@@ -29,8 +29,6 @@
 
 #include <realm/group.hpp>
 
-#include <unistd.h>
-
 using namespace realm;
 
 TEST_CASE("SharedRealm: get_shared_realm()") {
@@ -80,7 +78,8 @@ TEST_CASE("SharedRealm: get_shared_realm()") {
     }
 
     SECTION("should reject mismatched config") {
-        config.cache = false;
+        SECTION("cached") { }
+        SECTION("uncached") { config.cache = false; }
 
         SECTION("schema version") {
             auto realm = Realm::get_shared_realm(config);
@@ -181,6 +180,29 @@ TEST_CASE("SharedRealm: get_shared_realm()") {
         REQUIRE(it->persisted_properties[0].table_column == 0);
     }
 
+    SECTION("should sensibly handle opening an uninitialized file without a schema specified") {
+        SECTION("cached") { }
+        SECTION("uncached") { config.cache = false; }
+
+        // create an empty file
+        File(config.path, File::mode_Write);
+
+        // open the empty file, but don't initialize the schema
+        Realm::Config config_without_schema = config;
+        config_without_schema.schema = util::none;
+        config_without_schema.schema_version = ObjectStore::NotVersioned;
+        auto realm = Realm::get_shared_realm(config_without_schema);
+        REQUIRE(realm->schema().empty());
+        REQUIRE(realm->schema_version() == ObjectStore::NotVersioned);
+        // verify that we can get another Realm instance
+        REQUIRE_NOTHROW(Realm::get_shared_realm(config_without_schema));
+
+        // verify that we can also still open the file with a proper schema
+        auto realm2 = Realm::get_shared_realm(config);
+        REQUIRE_FALSE(realm2->schema().empty());
+        REQUIRE(realm2->schema_version() == 1);
+    }
+
     SECTION("should populate the table columns in the schema when opening as read-only") {
         Realm::get_shared_realm(config);
 
@@ -193,11 +215,14 @@ TEST_CASE("SharedRealm: get_shared_realm()") {
         REQUIRE(it->persisted_properties[0].table_column == 0);
     }
 
+// The ExternalCommitHelper implementation on Windows doesn't rely on files
+#if !WIN32
     SECTION("should throw when creating the notification pipe fails") {
         util::try_make_dir(config.path + ".note");
         REQUIRE_THROWS(Realm::get_shared_realm(config));
         util::remove_dir(config.path + ".note");
     }
+#endif
 
     SECTION("should get different instances on different threads") {
         auto realm1 = Realm::get_shared_realm(config);
@@ -312,4 +337,50 @@ TEST_CASE("SharedRealm: closed realm") {
     REQUIRE_THROWS_AS(realm->refresh(), ClosedRealmException);
     REQUIRE_THROWS_AS(realm->invalidate(), ClosedRealmException);
     REQUIRE_THROWS_AS(realm->compact(), ClosedRealmException);
+}
+
+TEST_CASE("ShareRealm: in-memory mode from buffer") {
+    TestFile config;
+    config.schema_version = 1;
+    config.schema = Schema{
+        {"object", {
+            {"value", PropertyType::Int, "", "", false, false, false}
+        }},
+    };
+    
+    SECTION("Save and open Realm from in-memory buffer") {
+        // Write in-memory copy of Realm to a buffer
+        auto realm = Realm::get_shared_realm(config);
+        OwnedBinaryData realm_buffer = realm->write_copy();
+        
+        // Open the buffer as a new (read-only in-memory) Realm
+        realm::Realm::Config config2;
+        config2.in_memory = true;
+        config2.schema_mode = SchemaMode::ReadOnly;
+        config2.realm_data = realm_buffer.get();
+        
+        auto realm2 = Realm::get_shared_realm(config2);
+        
+        // Verify that it can read the schema and that it is the same
+        REQUIRE(realm->schema().size() == 1);
+        auto it = realm->schema().find("object");
+        REQUIRE(it != realm->schema().end());
+        REQUIRE(it->persisted_properties.size() == 1);
+        REQUIRE(it->persisted_properties[0].name == "value");
+        REQUIRE(it->persisted_properties[0].table_column == 0);
+        
+        // Test invalid configs
+        realm::Realm::Config config3;
+        config3.realm_data = realm_buffer.get();
+        REQUIRE_THROWS(Realm::get_shared_realm(config3)); // missing in_memory and read-only
+        
+        config3.in_memory = true;
+        config3.schema_mode = SchemaMode::ReadOnly;
+        config3.path = "path";
+        REQUIRE_THROWS(Realm::get_shared_realm(config3)); // both buffer and path
+        
+        config3.path = "";
+        config3.encryption_key = {'a'};
+        REQUIRE_THROWS(Realm::get_shared_realm(config3)); // both buffer and encryption
+    }
 }

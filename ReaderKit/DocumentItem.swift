@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ScrapingKit
 
 public struct DocumentItem {
     public let id: String
@@ -21,6 +22,8 @@ public struct DocumentItem {
         set { let _ = setReadFlag(newValue) }
     }
     
+    private let scraper = Scraper<ImageParser>()
+    
     init(documentTitle: String, documentLink: URL, title: String, link: URL, desc: String, date: Date, read: Bool) {
         self.id = link.absoluteString + documentLink.absoluteString
         self.documentTitle = documentTitle
@@ -33,11 +36,10 @@ public struct DocumentItem {
     }
     
     // Urlのみ
-    public func getImages(fetchSize: Bool, completion: @escaping ([Image]) -> Void) {
-        let scraper = Scraper.init(with: link)
-        scraper.getImages(fetchSize: fetchSize) { (images) in
-            completion(images)
-        }
+    public func getImages(fetchSize: Bool, completion: @escaping ([SKImage]) -> Void) {
+        let configuration = ImageParser.Configuration(fetchSize: true, exclusions: [])
+        scraper.setConfiguration(configuration)
+        scraper.scrape(link, completion: completion)
     }
     
 }

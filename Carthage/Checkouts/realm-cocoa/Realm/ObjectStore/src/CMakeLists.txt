@@ -7,10 +7,9 @@ set(SOURCES
     results.cpp
     schema.cpp
     shared_realm.cpp
-    thread_confined.cpp
+    thread_safe_reference.cpp
     impl/collection_change_builder.cpp
     impl/collection_notifier.cpp
-    impl/handover.cpp
     impl/list_notifier.cpp
     impl/realm_coordinator.cpp
     impl/results_notifier.cpp
@@ -31,7 +30,7 @@ set(HEADERS
     results.hpp
     schema.hpp
     shared_realm.hpp
-    thread_confined.hpp
+    thread_safe_reference.hpp
 
     impl/apple/external_commit_helper.hpp
     impl/apple/keychain_helper.hpp
@@ -42,7 +41,6 @@ set(HEADERS
     impl/collection_notifier.hpp
     impl/external_commit_helper.hpp
     impl/list_notifier.hpp
-    impl/handover.hpp
     impl/realm_coordinator.hpp
     impl/results_notifier.hpp
     impl/transact_log_handler.hpp
@@ -66,6 +64,8 @@ if(APPLE)
     list(APPEND SOURCES impl/apple/external_commit_helper.cpp impl/apple/keychain_helper.cpp)
 elseif(REALM_HAVE_EPOLL)
     list(APPEND SOURCES impl/epoll/external_commit_helper.cpp)
+elseif(CMAKE_SYSTEM_NAME MATCHES "^Windows")
+    list(APPEND SOURCES impl/windows/external_commit_helper.cpp)
 else()
     list(APPEND SOURCES impl/generic/external_commit_helper.cpp)
 endif()
@@ -79,6 +79,10 @@ set(INCLUDE_DIRS
     ${PEGTL_INCLUDE_DIR}
     ${UV_INCLUDE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR})
+
+if(CMAKE_SYSTEM_NAME MATCHES "^Windows")
+    list(APPEND INCLUDE_DIRS ${REALM_CORE_INCLUDE_DIR}/win32/pthread)
+endif()
 
 if(REALM_ENABLE_SYNC)
     # Add the sync files separately to reduce merge conflicts.

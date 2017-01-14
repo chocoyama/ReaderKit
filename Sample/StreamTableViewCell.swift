@@ -16,6 +16,8 @@ class StreamTableViewCell: UITableViewCell {
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var thumbnailView: UIImageView!
     
+    private var item: DocumentItem?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -25,18 +27,27 @@ class StreamTableViewCell: UITableViewCell {
     }
 
     func configure(for item: DocumentItem) {
+        self.item = item
         feedTitleLabel.text = item.documentTitle
         titleLabel.text = item.title
         descLabel.text = item.desc
+        thumbnailView.image = nil
         
-        DispatchQueue.global(qos: .default).async { [weak self] in
-            self?.thumbnailView.image = nil
-            item.getImages(fetchSize: false, completion: { (images) in
-                if let imageUrl = images.first?.imageUrl,
-                    let imageData = try? Data.init(contentsOf: imageUrl) {
-                    let image = UIImage(data: imageData)
-                    DispatchQueue.main.async {
-                        self?.thumbnailView.image = image
+        DispatchQueue.global().async { [weak self] in
+            self?.item?.getImages(fetchSize: true, completion: { (images) in
+                let imageUrl = images
+                                .filter{ $0.imageSize != nil }
+                                .filter{ $0.imageSize!.width > 500 && $0.imageSize!.height > 500 }
+                                .first?
+                                .imageUrl
+                
+                DispatchQueue.global().async {
+                    if let imageUrl = imageUrl,
+                        let imageData = try? Data.init(contentsOf: imageUrl) {
+                        let image = UIImage(data: imageData)
+                        DispatchQueue.main.async {
+                            self?.thumbnailView.image = image
+                        }
                     }
                 }
             })

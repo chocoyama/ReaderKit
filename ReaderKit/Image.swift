@@ -7,6 +7,7 @@
 //
 
 import Foundation
+/*
 import ImageDissector
 
 public class Image: SizeInjectionable {
@@ -22,3 +23,4 @@ public class Image: SizeInjectionable {
         self.destinationUrlString = destinationUrlString
     }
 }
+*/

@@ -1,0 +1,10 @@
+framework module ScrapingKit {
+  umbrella header "ScrapingKit.h"
+
+  export *
+  module * { export * }
+}
+
+module ScrapingKit.Swift {
+    header "ScrapingKit-Swift.h"
+}
