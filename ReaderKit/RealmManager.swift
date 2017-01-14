@@ -59,7 +59,7 @@ extension RealmManager {
     
     class func getRealmDocumentItems(from: Int, to: Int) -> [RealmDocumentItem] {
         return getRealmDocumentItemResult()?
-            .sorted(byProperty: "date", ascending: false)
+            .sorted(byKeyPath: "date", ascending: false)
             .enumerated()
             .filter({ (offset, element) -> Bool in
                 return from <= offset && offset < to
