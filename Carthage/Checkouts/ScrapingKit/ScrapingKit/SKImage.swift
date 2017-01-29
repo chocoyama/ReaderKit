@@ -10,12 +10,15 @@ import Foundation
 import ImageDissector
 
 open class SKImage: SizeInjectionable {
-    open var imageUrl: URL?
-    open var imageSize: CGSize?
-    open var destinationUrl: URL?
     
     open var imageUrlString: String
     open var destinationUrlString: String?
+    
+    open var imageUrl: URL?
+    open var destinationUrl: URL?
+    
+    open var imageSize: CGSize?
+    open var imageType: Type?
     
     public init(imageUrlString: String, destinationUrlString: String?) {
         self.imageUrlString = imageUrlString

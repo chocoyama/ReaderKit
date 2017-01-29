@@ -1,2 +1,0 @@
-dependencies: \
-  /Users/takyokoy/Documents/public/ReaderKit/build/ReaderKit.build/Debug-iphonesimulator/ReaderKit.build/DerivedSources/ReaderKit_vers.c

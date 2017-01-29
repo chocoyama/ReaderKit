@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import ImageDissector
 
 open class Scraper<T: Parser> {
 

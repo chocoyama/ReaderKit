@@ -1,10 +1,6 @@
 x.x.x Release notes (yyyy-MM-dd)
 =============================================================
 
-### Sync Breaking Changes (In Beta)
-
-* None.
-
 ### API Breaking Changes
 
 * None.
@@ -17,15 +13,75 @@ x.x.x Release notes (yyyy-MM-dd)
 
 * None.
 
+2.4.1 Release notes (2017-01-27)
+=============================================================
+
+### Bugfixes
+
+* Fix an issue where authentication tokens were not properly refreshed
+  automatically before expiring.
+
+2.4.0 Release notes (2017-01-26)
+=============================================================
+
+This release drops support for compiling with Swift 2.x.
+Swift 3.0.0 is now the minimum Swift version supported.
+
+### API Breaking Changes
+
+* None.
+
+### Enhancements
+
+* Add change notifications for individual objects with an API similar to that
+  of collection notifications.
+
+### Bugfixes
+
+* Fix Realm Objective-C compilation errors with Xcode 8.3 beta 1.
+* Fix several error handling issues when renewing expired authentication
+  tokens for synchronized Realms.
+* Fix a race condition leading to bad_version exceptions being thrown in
+  Realm's background worker thread.
+
+2.3.0 Release notes (2017-01-19)
+=============================================================
+
+### Sync Breaking Changes
+
+* Make `PermissionChange`'s `id` property a primary key.
+
+### API Breaking Changes
+
+* None.
+
+### Enhancements
+
+* Add `SyncPermissionOffer` and `SyncPermissionOfferResponse` classes to allow
+  creating and accepting permission change events to synchronized Realms between
+  different users.
+* Support monitoring sync transfer progress by registering notification blocks
+  on `SyncSession`. Specify the transfer direction (`.upload`/`.download`) and
+  mode (`.reportIndefinitely`/`.forCurrentlyOutstandingWork`) to monitor.
+
+### Bugfixes
+
+* Fix a call to `commitWrite(withoutNotifying:)` committing a transaction that
+  would not have triggered a notification incorrectly skipping the next
+  notification.
+* Fix incorrect results and crashes when conflicting object insertions are
+  merged by the synchronization mechanism when there is a collection
+  notification registered for that object type.
+
 2.2.0 Release notes (2017-01-12)
 =============================================================
 
 ### Sync Breaking Changes (In Beta)
 
-* Underlying sync engine upgraded to version BETA-6.5.
 * Sync-related error reporting behavior has been changed. Errors not related
   to a particular user or session are only reported if they are classed as
   'fatal' by the underlying sync engine.
+* Added `RLMSyncErrorClientResetError` to `RLMSyncError` enum.
 
 ### API Breaking Changes
 
