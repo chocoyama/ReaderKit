@@ -14,7 +14,7 @@ extension ReaderKitTestsResources {
         let documentTitle = "Think Big Act Local"
         let documentLink = URL(string: "http://himaratsu.hatenablog.com/feed")!
         let items: [DocumentItem] = [
-            .init(
+            ReaderKitTestsResources.createItem(
                 documentTitle: documentTitle,
                 documentLink: documentLink,
                 title: "iOSDC 2016に参加してきたよ #iosdc",
@@ -23,7 +23,7 @@ extension ReaderKitTestsResources {
                 date: "2016-08-23T02:16:21+09:00".toDate(format: "yyyy-MM-dd'T'HH:mm:ssZ")!,
                 read: false
             ),
-            .init(
+            ReaderKitTestsResources.createItem(
                 documentTitle: documentTitle,
                 documentLink: documentLink,
                 title: "potatotipsでUICollectionViewの並び替えのAPIについて発表してきたよ",
@@ -32,7 +32,7 @@ extension ReaderKitTestsResources {
                 date: "2016-08-17T23:38:40+09:00".toDate(format: "yyyy-MM-dd'T'HH:mm:ssZ")!,
                 read: false
             ),
-            .init(
+            ReaderKitTestsResources.createItem(
                 documentTitle: documentTitle,
                 documentLink: documentLink,
                 title: "【書評】基本が身につくAndroidアプリ開発入門書",
@@ -41,7 +41,7 @@ extension ReaderKitTestsResources {
                 date: "2016-08-09T20:22:26+09:00".toDate(format: "yyyy-MM-dd'T'HH:mm:ssZ")!,
                 read: false
             ),
-            .init(
+            ReaderKitTestsResources.createItem(
                 documentTitle: documentTitle,
                 documentLink: documentLink,
                 title: "「売れるもマーケ 当たるもマーケ マーケティング22の法則」を読んだ",
@@ -50,7 +50,7 @@ extension ReaderKitTestsResources {
                 date: "2016-06-05T20:07:27+09:00".toDate(format: "yyyy-MM-dd'T'HH:mm:ssZ")!,
                 read: false
             ),
-            .init(
+            ReaderKitTestsResources.createItem(
                 documentTitle: documentTitle,
                 documentLink: documentLink,
                 title: "ユーザーの声に耳を傾けてアプリを改善するサービス「Meyasubaco」をつくりました",
@@ -60,11 +60,10 @@ extension ReaderKitTestsResources {
                 read: false
             )
         ]
-        let thinkBigActLocal = Document.init(
-            title: documentTitle,
-            link: documentLink,
-            items: items
-        )
+        let thinkBigActLocal = Document()
+        thinkBigActLocal.title = documentTitle
+        thinkBigActLocal.link = documentLink.absoluteString
+        thinkBigActLocal.items.append(objectsIn: items)
         return thinkBigActLocal
     }
 }

@@ -23,3 +23,17 @@ struct ReaderKitTestsResources {
     
     static var contentsPage = URL(string: "http://vipsister23.com/archives/8629268.html")!
 }
+
+extension ReaderKitTestsResources {
+    static func createItem(documentTitle: String, documentLink: URL, title: String, link: URL, desc: String, date: Date, read: Bool) -> DocumentItem {
+        let item = DocumentItem()
+        item.documentTitle = documentTitle
+        item.documentLink = documentLink.absoluteString
+        item.title = title
+        item.link = link.absoluteString
+        item.desc = desc
+        item.date = date
+        item.read = read
+        return item
+    }
+}

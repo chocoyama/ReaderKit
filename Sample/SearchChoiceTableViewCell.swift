@@ -18,7 +18,9 @@ class SearchChoiceTableViewCell: UITableViewCell {
     private var reader = Reader.init()
     private var document: Document? {
         didSet {
-            if document?.subscribed == true {
+            guard let doc = document else { return }
+            let isSubscribed = DocumentRepository.shared.checkSubscribed(link: doc.link)
+            if isSubscribed {
                 subscribeButton.setTitle("購読解除", for: .normal)
             } else {
                 subscribeButton.setTitle("購読する", for: .normal)
@@ -37,7 +39,7 @@ class SearchChoiceTableViewCell: UITableViewCell {
     func configure(with choice: Choice) {
         titleLabel.text = choice.title
         linkLabel.text = choice.url.absoluteString
-        if let savedDocument = DocumentRepository.shared.get(choice.url) {
+        if let savedDocument = DocumentRepository.shared.get(choice.url.absoluteString) {
             self.document = savedDocument
         } else {
             reader.read(choice.url, handler: { [weak self] (document, error) in
@@ -51,13 +53,14 @@ class SearchChoiceTableViewCell: UITableViewCell {
             return
         }
         
-        if document.subscribed == true {
-            let result = document.unSubscribe()
+        let isSubscribed = DocumentRepository.shared.checkSubscribed(link: document.link)
+        if isSubscribed {
+            let result = DocumentRepository.shared.unsubscribe(document)
             if result == true {
                 subscribeButton.setTitle("購読する", for: .normal)
             }
         } else {
-            let result = document.subscribe()
+            let result = DocumentRepository.shared.subscribe(document)
             if result == true {
                 subscribeButton.setTitle("購読解除", for: .normal)
             }

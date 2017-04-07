@@ -40,15 +40,15 @@ public struct RSS1_0: Documentable {
     
     public var documentItems: [DocumentItem] {
         return items.map {
-            DocumentItem(
-                documentTitle: documentTitle,
-                documentLink: documentLink,
-                title: $0.title,
-                link: $0.link,
-                desc: $0.desc,
-                date: $0.date,
-                read: false
-            )
+            let item = DocumentItem()
+            item.documentTitle = documentTitle
+            item.documentLink = documentLink.absoluteString
+            item.title = $0.title
+            item.link = $0.link.absoluteString
+            item.desc = $0.desc
+            item.date = $0.date
+            item.read = false
+            return item
         }
     }
     

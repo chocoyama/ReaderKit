@@ -41,14 +41,14 @@ class SubscribedListTableViewCell: UITableViewCell {
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.titleLabel.text = summary.title
-            strongSelf.linkLabel.text = summary.link.absoluteString
+            strongSelf.linkLabel.text = summary.link?.absoluteString ?? ""
         }
     }
 
     @IBAction func didTappedUnsubscribeButton(_ sender: UIButton) {
         guard let documentLink = documentSummary?.link,
-            let document = DocumentRepository.shared.get(documentLink) else { return }
-        let result = document.unSubscribe()
+            let document = DocumentRepository.shared.get(documentLink.absoluteString) else { return }
+        let result = DocumentRepository.shared.unsubscribe(document)
         if result == true {
             delegate?.didUnsubscribed(document: document)
         }

@@ -21,8 +21,9 @@ class DocumentViewController: UIViewController, UITableViewDelegate, UITableView
         didSet {
             DispatchQueue.main.async { [weak self] in
                 if let document = self?.document {
+                    let isSubscribed = DocumentRepository.shared.checkSubscribed(link: document.link)
                     self?.navigationItem.title = document.title
-                    self?.navigationItem.rightBarButtonItem?.title = document.subscribed ? "購読解除" : "購読する"
+                    self?.navigationItem.rightBarButtonItem?.title = isSubscribed ? "購読解除" : "購読する"
                 } else {
                     self?.navigationItem.title = "検索"
                     self?.navigationItem.rightBarButtonItem?.title = ""
@@ -60,10 +61,11 @@ class DocumentViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let item = document?.items[indexPath.row] else {
+        guard let item = document?.items[indexPath.row],
+            let url = URL(string: item.link) else {
             return
         }
-        let safariVC = SFSafariViewController.init(url: item.link)
+        let safariVC = SFSafariViewController.init(url: url)
         present(safariVC, animated: true, completion: nil)
     }
 
@@ -85,10 +87,11 @@ class DocumentViewController: UIViewController, UITableViewDelegate, UITableView
             return
         }
         
-        if document.subscribed {
-            let _ = document.unSubscribe()
+        let isSubscribed = DocumentRepository.shared.checkSubscribed(link: document.link)
+        if isSubscribed {
+            let _ = DocumentRepository.shared.unsubscribe(document)
         } else {
-            let _ = document.subscribe()
+            let _ = DocumentRepository.shared.subscribe(document)
         }
         
         self.document = document

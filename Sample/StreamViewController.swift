@@ -105,8 +105,10 @@ extension StreamViewController: UITableViewDelegate {
         switch indexPath.section {
         case Section.item.hashValue:
             let item = items[indexPath.row]
-            let safariVC = SFSafariViewController.init(url: item.link)
-            present(safariVC, animated: true, completion: nil)
+            if let url = URL(string: item.link) {
+                let safariVC = SFSafariViewController.init(url: url)
+                present(safariVC, animated: true, completion: nil)
+            }
         case Section.loading.hashValue: break
         default: break
         }

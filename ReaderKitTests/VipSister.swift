@@ -5,7 +5,6 @@
 //  Created by takyokoy on 2016/11/01.
 //  Copyright © 2016年 chocoyama. All rights reserved.
 //
-
 import Foundation
 
 @testable import ReaderKit
@@ -14,8 +13,9 @@ extension ReaderKitTestsResources {
     static var vipSister: Document {
         let documentTitle = "妹はVipper"
         let documentLink = URL(string: "http://vipsister23.com/index.rdf")!
+        
         let items: [DocumentItem] = [
-            .init(
+            ReaderKitTestsResources.createItem(
                 documentTitle: documentTitle,
                 documentLink: documentLink,
                 title: "【画像あり】ノゾキアナとかいクソビッチ一般漫画ｗｗｗｗｗｗ",
@@ -24,7 +24,7 @@ extension ReaderKitTestsResources {
                 date: "2016-11-01T11:05:05Z".toDate(format: "yyyy-MM-dd'T'HH:mm:ssZ")!,
                 read: false
             ),
-            .init(
+            ReaderKitTestsResources.createItem(
                 documentTitle: documentTitle,
                 documentLink: documentLink,
                 title: "【画像あり】ツイッターで『エロ写メ』とかで検索してるお前らｗｗｗｗｗｗｗｗｗｗｗｗｗ",
@@ -33,7 +33,7 @@ extension ReaderKitTestsResources {
                 date: "2016-11-01T11:03:10Z".toDate(format: "yyyy-MM-dd'T'HH:mm:ssZ")!,
                 read: false
             ),
-            .init(
+            ReaderKitTestsResources.createItem(
                 documentTitle: documentTitle,
                 documentLink: documentLink,
                 title: "【悲報】性の悦びおじさん、面白くない奴らに見つかり終了",
@@ -42,7 +42,7 @@ extension ReaderKitTestsResources {
                 date: "2016-11-01T10:23:48Z".toDate(format: "yyyy-MM-dd'T'HH:mm:ssZ")!,
                 read: false
             ),
-            .init(
+            ReaderKitTestsResources.createItem(
                 documentTitle: documentTitle,
                 documentLink: documentLink,
                 title: "【エロ注意】今月のToLOVEるもうエッロエロｗｗｗｗｗｗｗｗｗ",
@@ -51,7 +51,7 @@ extension ReaderKitTestsResources {
                 date: "2016-11-01T11:00:56Z".toDate(format: "yyyy-MM-dd'T'HH:mm:ssZ")!,
                 read: false
             ),
-            .init(
+            ReaderKitTestsResources.createItem(
                 documentTitle: documentTitle,
                 documentLink: documentLink,
                 title: "【GIF】なんJ民の87%が笑うgifｗｗｗｗｗｗｗｗｗ",
@@ -61,11 +61,10 @@ extension ReaderKitTestsResources {
                 read: false
             )
         ]
-        let vipSister = Document.init(
-            title: documentTitle,
-            link: documentLink,
-            items: items
-        )
+        let vipSister = Document()
+        vipSister.title = documentTitle
+        vipSister.link = documentLink.absoluteString
+        vipSister.items.append(objectsIn: items)
         return vipSister
     }
 }

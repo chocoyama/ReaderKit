@@ -53,7 +53,8 @@ extension SubscribedListViewController: UITableViewDataSource {
 
 extension SubscribedListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let safariVC = SFSafariViewController.init(url: summaries[indexPath.row].link)
+        guard let url = summaries[indexPath.row].link else { return }
+        let safariVC = SFSafariViewController.init(url: url)
         present(safariVC, animated: true, completion: nil)
     }
 }

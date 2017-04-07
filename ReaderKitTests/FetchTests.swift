@@ -5,15 +5,15 @@
 //  Created by chocoyama on 2016/11/01.
 //  Copyright © 2016年 chocoyama. All rights reserved.
 //
-
 import XCTest
 @testable import ReaderKit
+import Realm
+import RealmSwift
 
 class FetchTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        deleteAll()
     }
     
     override func tearDown() {
@@ -22,7 +22,7 @@ class FetchTests: XCTestCase {
     }
     
     private func deleteAll() {
-        let result = RealmManager.deleteAll()
+        let result = DocumentRepository.shared.unsubscriveAll()
         if result == false {
             XCTFail()
         }
@@ -37,18 +37,20 @@ class FetchTests: XCTestCase {
                 XCTFail()
             }
             
-            let document  = DocumentRepository.shared.get(link)
-            XCTAssertTrue(document?.link == link)
+            let document  = DocumentRepository.shared.get(link.absoluteString)
+            XCTAssertTrue(document?.link == link.absoluteString)
         }
         waitForExpectations(timeout: 2.0, handler: nil)
     }
     
     func testFetchAll() {
         let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
+        let oldThinkBigActLocalCount = thinkBigActLocal.items.count
         let vipSister = ReaderKitTestsResources.vipSister
+        let oldVipSisterCount = vipSister.items.count
         
-        let result1 = thinkBigActLocal.subscribe()
-        let result2 = vipSister.subscribe()
+        let result1 = DocumentRepository.shared.subscribe(thinkBigActLocal)
+        let result2 = DocumentRepository.shared.subscribe(vipSister)
         if result1 == false || result2 == false {
             XCTFail()
         }
@@ -62,8 +64,8 @@ class FetchTests: XCTestCase {
             
             let updatedThinkBigActLocal = DocumentRepository.shared.get(thinkBigActLocal.link)
             let updatedVipSister = DocumentRepository.shared.get(vipSister.link)
-            XCTAssertTrue(updatedThinkBigActLocal?.items.count ?? 0 > thinkBigActLocal.items.count)
-            XCTAssertTrue(updatedVipSister?.items.count ?? 0 > vipSister.items.count)
+            XCTAssertTrue(updatedThinkBigActLocal?.items.count ?? 0 > oldThinkBigActLocalCount)
+            XCTAssertTrue(updatedVipSister?.items.count ?? 0 > oldVipSisterCount)
         }
         waitForExpectations(timeout: 2.0, handler: nil)
     }
@@ -74,44 +76,50 @@ class FetchTests: XCTestCase {
         
         let itemCount = 100
         let itemUrls = (0..<itemCount).map { URL(string: "http://www.yahoo.co.jp/\($0)")! }
-        let items = (0..<itemCount).map {
-            DocumentItem.init(
-                documentTitle: documentTitle,
-                documentLink: documentLink,
-                title: "test",
-                link: itemUrls[$0],
-                desc: "test",
-                date: Date.init(),
-                read: false
-            )
+        let items = (0..<itemCount).map { (offset) -> DocumentItem in
+            let item = DocumentItem()
+            item.documentTitle = documentTitle
+            item.documentLink = documentLink.absoluteString
+            item.title = "test"
+            item.link = itemUrls[offset].absoluteString
+            item.desc = "test"
+            item.date = Date()
+            item.read = false
+            return item
         }
         
-        let result1 = DocumentRepository.shared.update(.init(title: "test", link: documentLink, items: items))
+        let document = Document()
+        document.title = "test"
+        document.link = documentLink.absoluteString
+        document.items.append(objectsIn: items)
+        let result1 = DocumentRepository.shared.update(document)
         if result1 == false {
             XCTFail()
         }
-        let gotDocument = DocumentRepository.shared.get(documentLink)
+        let gotDocument = DocumentRepository.shared.get(documentLink.absoluteString)
         XCTAssertTrue(gotDocument?.items.count == itemCount)
         
         var newItems = items.enumerated().filter{ $0.offset < 10 }.map{ $0.element }
         let newlink = URL(string: "http://www.yahoo.co.jp/new")!
-        newItems.append(
-            DocumentItem.init(
-                documentTitle: gotDocument!.title,
-                documentLink: gotDocument!.link,
-                title: "test",
-                link: newlink,
-                desc: "test",
-                date: Date.init(),
-                read: false
-            )
-        )
+        let item = DocumentItem()
+        item.documentTitle = gotDocument!.title
+        item.documentLink = gotDocument!.link
+        item.title = "test"
+        item.link = newlink.absoluteString
+        item.desc = "test"
+        item.date = Date()
+        item.read = false
+        newItems.append(item)
         
-        let result2 = DocumentRepository.shared.update(.init(title: "test", link: documentLink, items: newItems))
+        let document2 = Document()
+        document2.title = "test"
+        document2.link = documentLink.absoluteString
+        document2.items.append(objectsIn: newItems)
+        let result2 = DocumentRepository.shared.update(document2)
         if result2 == false {
             XCTFail()
         }
-        let newGotDocument = DocumentRepository.shared.get(documentLink)
+        let newGotDocument = DocumentRepository.shared.get(documentLink.absoluteString)
         XCTAssertTrue(newGotDocument?.items.count == itemCount + 1)
     }
     

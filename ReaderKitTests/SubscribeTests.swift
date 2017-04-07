@@ -5,9 +5,10 @@
 //  Created by chocoyama on 2016/11/01.
 //  Copyright © 2016年 chocoyama. All rights reserved.
 //
-
 import XCTest
 @testable import ReaderKit
+import Realm
+import RealmSwift
 
 class SubscribeTests: XCTestCase {
     
@@ -15,7 +16,6 @@ class SubscribeTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        deleteAll()
     }
     
     override func tearDown() {
@@ -47,73 +47,29 @@ class SubscribeTests: XCTestCase {
                 return
             }
             
-            let result = document.subscribe()
+            let result = DocumentRepository.shared.subscribe(document)
             if result == false {
                 XCTFail()
             }
         }
-        waitForExpectations(timeout: 2.0, handler: nil)
+        waitForExpectations(timeout: 3.0, handler: nil)
     }
     
     func testUnsubscribe() {
-        let expectation: XCTestExpectation? = self.expectation(description: "fetch")
-        let url = ReaderKitTestsResources.atomSiteUrl
-        reader.read(url) { (document, error) in
-            defer { expectation?.fulfill() }
-            guard let document = document else {
-                XCTFail()
-                return
-            }
-            
-            // 購読してないものを削除
-            let result = document.unSubscribe()
-            if result == false {
-                XCTFail()
-            }
-            
-            // 購読
-            let result2 = document.subscribe()
-            if result2 == false {
-                XCTFail()
-            }
-            
-            // 購読済みのものを削除
-            let result3 = document.unSubscribe()
-            if result3 == false {
-                XCTFail()
-            }
-        }
-        waitForExpectations(timeout: 2.0, handler: nil)
+        let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
+        let _ = DocumentRepository.shared.subscribe(thinkBigActLocal)
+        XCTAssertEqual(DocumentRepository.shared.subscribedDocumentCount, 1)
+        let _ = DocumentRepository.shared.unsubscribe(thinkBigActLocal)
+        XCTAssertEqual(DocumentRepository.shared.subscribedDocumentCount, 0)
     }
     
     func testSubscribed() {
-        let expectation: XCTestExpectation? = self.expectation(description: "fetch")
-        let url = ReaderKitTestsResources.atomSiteUrl
-        reader.read(url) { (document, error) in
-            defer { expectation?.fulfill() }
-            guard let document = document else {
-                XCTFail()
-                return
-            }
-            
-            // 購読してない
-            XCTAssertFalse(document.subscribed)
-            
-            // 購読
-            let result = document.subscribe()
-            if result == false {
-                XCTFail()
-            }
-            XCTAssertTrue(document.subscribed)
-            
-            // 購読済みのものを削除
-            let result2 = document.unSubscribe()
-            if result2 == false {
-                XCTFail()
-            }
-            XCTAssertFalse(document.subscribed)
-        }
-        waitForExpectations(timeout: 2.0, handler: nil)
+        let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
+        let link = thinkBigActLocal.link
+        let _ = DocumentRepository.shared.subscribe(thinkBigActLocal)
+        XCTAssertTrue(DocumentRepository.shared.checkSubscribed(link: link))
+        let _ = DocumentRepository.shared.unsubscribe(thinkBigActLocal)
+        XCTAssertFalse(DocumentRepository.shared.checkSubscribed(link: link))
     }
     
     func testAccessAllSubscribedDocument() {
@@ -128,27 +84,26 @@ class SubscribeTests: XCTestCase {
         for offset in (0..<documentsCount) {
             let documentTitle = documentTitles[offset]
             let documentUrl = documentUrls[offset]
-            let items = (0..<itemCount).map {
-                DocumentItem.init(
-                    documentTitle: documentTitle,
-                    documentLink: documentUrl,
-                    title: "test",
-                    link: urls[$0],
-                    desc: "test",
-                    date: Date.init(),
-                    read: false
-                )
+            let items = (0..<itemCount).map { (offset) -> DocumentItem in
+                let item = DocumentItem()
+                item.documentTitle = documentTitle
+                item.documentLink = documentUrl.absoluteString
+                item.title = "test"
+                item.link = urls[offset].absoluteString
+                item.desc = "test"
+                item.date = Date()
+                item.read = false
+                return item
             }
-            let document = Document.init(
-                title: documentTitle,
-                link: documentUrl,
-                items: items
-            )
+            let document = Document()
+            document.title = documentTitle
+            document.link = documentUrl.absoluteString
+            document.items.append(objectsIn: items)
             documents.append(document)
         }
         
         documents.forEach {
-            let result = $0.subscribe()
+            let result = DocumentRepository.shared.subscribe($0)
             if result == false {
                 XCTFail()
             }

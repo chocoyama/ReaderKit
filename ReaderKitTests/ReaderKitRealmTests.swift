@@ -5,9 +5,10 @@
 //  Created by chocoyama on 2016/10/30.
 //  Copyright © 2016年 chocoyama. All rights reserved.
 //
-
 import XCTest
 @testable import ReaderKit
+import Realm
+import RealmSwift
 
 class ReaderKitRealmTests: XCTestCase {
     
@@ -37,7 +38,7 @@ class ReaderKitRealmTests: XCTestCase {
             defer { expectation?.fulfill() }
             
             if let document = document {
-                XCTAssertTrue(document.link == link)
+                XCTAssertTrue(document.link == link.absoluteString)
             } else {
                 XCTFail()
             }
@@ -49,8 +50,8 @@ class ReaderKitRealmTests: XCTestCase {
         let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
         let vipSister = ReaderKitTestsResources.vipSister
         
-        let result1 = thinkBigActLocal.subscribe()
-        let result2 = vipSister.subscribe()
+        let result1 = DocumentRepository.shared.subscribe(thinkBigActLocal)
+        let result2 = DocumentRepository.shared.subscribe(vipSister)
         if result1 == false || result2 == false {
             XCTFail()
         }
@@ -71,8 +72,8 @@ class ReaderKitRealmTests: XCTestCase {
         let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
         let vipSister = ReaderKitTestsResources.vipSister
         
-        let result1 = thinkBigActLocal.subscribe()
-        let result2 = vipSister.subscribe()
+        let result1 = DocumentRepository.shared.subscribe(thinkBigActLocal)
+        let result2 = DocumentRepository.shared.subscribe(vipSister)
         if result1 == false || result2 == false {
             XCTFail()
         }

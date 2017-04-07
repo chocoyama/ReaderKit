@@ -10,7 +10,6 @@ import XCTest
 @testable import ReaderKit
 
 class ReaderKitTests: XCTestCase {
-    
     private let reader = Reader.init()
     
     override func setUp() {
@@ -75,5 +74,4 @@ class ReaderKitTests: XCTestCase {
         XCTAssertTrue(rss2_0Entity.documentItems.count > 0)
         XCTAssertTrue(atomEntity.documentItems.count > 0)
     }
-    
 }

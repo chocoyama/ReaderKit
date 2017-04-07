@@ -18,10 +18,10 @@ public protocol Documentable {
 
 extension Documentable {
     func toDocument() -> Document {
-        return Document(
-            title: documentTitle,
-            link: documentLink,
-            items: documentItems
-        )
+        let document = Document()
+        document.title = documentTitle
+        document.link = documentLink.absoluteString
+        document.items.append(objectsIn: documentItems)
+        return document
     }
 }

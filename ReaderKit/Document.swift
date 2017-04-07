@@ -1,44 +1,49 @@
 //
-//  Document.swift
+//  RealmDocument.swift
 //  ReaderKit
 //
-//  Created by chocoyama on 2016/10/27.
+//  Created by chocoyama on 2016/10/29.
 //  Copyright © 2016年 chocoyama. All rights reserved.
 //
 
 import Foundation
+import Realm
+import RealmSwift
 
-public struct Document {
+open class Document: Object {
     
-    public let id: String
-    public let title: String
-    public let link: URL
-    public let items: [DocumentItem]
+    open dynamic var title = ""
+    open dynamic var link = ""
+    open let items = List<DocumentItem>()
     
-    init(title: String, link: URL, items: [DocumentItem]) {
-        self.id = link.absoluteString
-        self.title = title
-        self.link = link
-        self.items = items
+    override open static func primaryKey() -> String? {
+        return "link"
+    }
+    
+    override open static func indexedProperties() -> [String] {
+        return ["link"]
+    }
+    
+    open var itemLinks: [String] {
+        return items.map{ $0.link }
     }
     
     public struct Summary {
-        public let id: String
         public let title: String
-        public let link: URL
+        public let link: URL?
         public let itemCount: Int
         public let unreadCount: Int
         public let lastUpdated: Date?
     }
     
-    var summary: Summary {
+    open var summary: Summary {
         return Summary.init(
-            id: id,
             title: title,
-            link: link,
+            link: URL(string: link),
             itemCount: items.count,
             unreadCount: items.filter{ $0.read == false }.count,
             lastUpdated: items.sorted{ $0.0.date > $0.1.date }.first?.date
         )
     }
-}
+    }
+

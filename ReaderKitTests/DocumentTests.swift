@@ -5,32 +5,25 @@
 //  Created by takyokoy on 2016/11/23.
 //  Copyright © 2016年 chocoyama. All rights reserved.
 //
-
 import XCTest
 @testable import ReaderKit
+import Realm
+import RealmSwift
 
 class DocumentTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        deleteAll()
     }
     
     override func tearDown() {
-        deleteAll()
+        let _ = DocumentRepository.shared.unsubscriveAll()
         super.tearDown()
-    }
-    
-    private func deleteAll() {
-        let result = DocumentRepository.shared.unsubscriveAll()
-        if result == false {
-            XCTFail()
-        }
     }
     
     func testSummary() {
         let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
-        let result = thinkBigActLocal.subscribe()
+        let result = DocumentRepository.shared.subscribe(thinkBigActLocal)
         if result == false {
             XCTFail()
         }
@@ -38,7 +31,6 @@ class DocumentTests: XCTestCase {
         let document = DocumentRepository.shared.get(thinkBigActLocal.link)!
         let summary = document.summary
         
-        XCTAssertEqual(summary.id, "http://himaratsu.hatenablog.com/feed")
         XCTAssertEqual(summary.title, "Think Big Act Local")
         XCTAssertEqual(summary.link, URL.init(string: "http://himaratsu.hatenablog.com/feed"))
         XCTAssertEqual(summary.itemCount, 5)
@@ -48,17 +40,17 @@ class DocumentTests: XCTestCase {
     
     func testReadFlag() {
         let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
-        let result = thinkBigActLocal.subscribe()
+        let result = DocumentRepository.shared.subscribe(thinkBigActLocal)
         if result == false {
             XCTFail()
         }
         
         let document = DocumentRepository.shared.get(thinkBigActLocal.link)!
-        var item = document.items.first!
-        item.read = true
+        let item = document.items.first!
 
+        let _ = DocumentRepository.shared.read(item, read: true)
+        
         let summary = document.summary
-        XCTAssertEqual(summary.id, "http://himaratsu.hatenablog.com/feed")
         XCTAssertEqual(summary.title, "Think Big Act Local")
         XCTAssertEqual(summary.link, URL.init(string: "http://himaratsu.hatenablog.com/feed"))
         XCTAssertEqual(summary.itemCount, 5)
