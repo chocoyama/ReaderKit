@@ -56,9 +56,13 @@ open class DocumentRepository {
 }
 
 extension DocumentRepository {
-    open func subscribe(_ url: URL, completion: @escaping (Bool) -> Void) {
+    open func subscribe(_ link: String, completion: @escaping (Bool) -> Void) {
         let reader = Reader()
-        guard let feedUrl = reader.choices(from: url).first?.url else { completion(false); return }
+        guard let url = URL(string: link), let feedUrl = reader.choices(from: url).first?.url else {
+            completion(false);
+            return
+        }
+        
         reader.read(feedUrl) { (document, error) in
             guard let document = document, error == nil else { completion(false); return }
             let result = DocumentRepository.shared.subscribe(document)
@@ -73,8 +77,8 @@ extension DocumentRepository {
         }
     }
     
-    open func unsubscribe(_ url: URL) -> Bool {
-        guard let document = get(url.absoluteString) else { return false }
+    open func unsubscribe(_ link: String) -> Bool {
+        guard let document = get(link) else { return false }
         return unsubscribe(document)
     }
     
@@ -135,7 +139,7 @@ extension DocumentRepository {
         
         subscribedDocumentUrls.forEach { (url) in
             group.enter()
-            queue.async { [weak self] in
+            queue.async(group: group) { [weak self] in
                 self?.fetch(url) { _ in group.leave() }
             }
         }
