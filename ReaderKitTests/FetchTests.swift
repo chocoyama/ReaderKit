@@ -23,7 +23,7 @@ class FetchTests: XCTestCase {
     
     private func deleteAll() {
         let result = DocumentRepository.shared.unsubscriveAll()
-        if result == false {
+        if result != nil {
             XCTFail()
         }
     }
@@ -33,7 +33,7 @@ class FetchTests: XCTestCase {
         let expectation: XCTestExpectation? = self.expectation(description: "fetch")
         DocumentRepository.shared.fetch(link) { (result) in
             defer { expectation?.fulfill() }
-            if result == false {
+            if result != nil {
                 XCTFail()
             }
             
@@ -51,7 +51,7 @@ class FetchTests: XCTestCase {
         
         let result1 = DocumentRepository.shared.subscribe(thinkBigActLocal)
         let result2 = DocumentRepository.shared.subscribe(vipSister)
-        if result1 == false || result2 == false {
+        if result1 != nil || result2 != nil {
             XCTFail()
         }
         
@@ -93,7 +93,7 @@ class FetchTests: XCTestCase {
         document.link = documentLink.absoluteString
         document.items.append(objectsIn: items)
         let result1 = DocumentRepository.shared.update(document)
-        if result1 == false {
+        if result1 != nil {
             XCTFail()
         }
         let gotDocument = DocumentRepository.shared.get(documentLink.absoluteString)
@@ -116,7 +116,7 @@ class FetchTests: XCTestCase {
         document2.link = documentLink.absoluteString
         document2.items.append(objectsIn: newItems)
         let result2 = DocumentRepository.shared.update(document2)
-        if result2 == false {
+        if result2 != nil {
             XCTFail()
         }
         let newGotDocument = DocumentRepository.shared.get(documentLink.absoluteString)

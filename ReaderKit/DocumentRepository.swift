@@ -9,6 +9,18 @@
 import Foundation
 import RealmSwift
 
+public enum ReaderKitError: Error {
+    case cannotExtractFeedUrl
+    case cannotGetDocument
+    case updateDocumentFailed
+    case deleteItemFailed
+    case deleteDocumentFailed
+    case subscribeFailed
+    case unsubscribeFailed
+    case changeReadFlagFailed
+    case realmError
+}
+
 open class DocumentRepository {
     private init() {}
     open static let shared = DocumentRepository()
@@ -16,7 +28,7 @@ open class DocumentRepository {
     fileprivate let reader = Reader()
     
     open func recent(_ link: URL, completion: @escaping (Document?) -> Void) {
-        fetch(link) { [weak self] (result) in
+        fetch(link) { [weak self] (error) in
             let document = self?.get(link.absoluteString)
             completion(document)
         }
@@ -57,54 +69,58 @@ open class DocumentRepository {
 }
 
 extension DocumentRepository {
-    open func subscribe(_ link: String, completion: @escaping (Bool) -> Void) {
+    open func subscribe(_ link: String, completion: @escaping (ReaderKitError?) -> Void) {
         guard let url = URL(string: link), let feedUrl = reader.choices(from: url).first?.url else {
-            completion(false);
+            completion(.cannotExtractFeedUrl);
             return
         }
         
         reader.read(feedUrl) { (document, error) in
-            guard let document = document, error == nil else { completion(false); return }
-            let result = DocumentRepository.shared.subscribe(document)
-            completion(result)
+            guard let document = document, error == nil else { completion(.cannotGetDocument); return }
+            let error = DocumentRepository.shared.subscribe(document)
+            completion(error)
         }
     }
     
-    open func subscribe(_ document: Document) -> Bool {
-        guard let realm = RealmHelper.create() else { return false }
-        return RealmHelper.write(realm) {
+    open func subscribe(_ document: Document) -> ReaderKitError? {
+        guard let realm = RealmHelper.create() else { return .realmError }
+        let success = RealmHelper.write(realm) {
             realm.add(document, update: true)
         }
+        return success ? nil : .subscribeFailed
     }
     
-    open func unsubscribe(_ link: String) -> Bool {
-        guard let document = get(link) else { return false }
+    open func unsubscribe(_ link: String) -> ReaderKitError? {
+        guard let document = get(link) else { return .cannotGetDocument }
         return unsubscribe(document)
     }
     
-    open func unsubscribe(_ document: Document) -> Bool {
-        guard let realm = RealmHelper.create() else { return false }
+    open func unsubscribe(_ document: Document) -> ReaderKitError? {
+        guard let realm = RealmHelper.create() else { return .realmError }
         let isSucceeded = RealmHelper.write(realm) {
             realm.delete(document.items)
         }
         
         if isSucceeded == false {
-            return false
+            return .deleteItemFailed
         }
         
-        return RealmHelper.write(realm) {
+        let success = RealmHelper.write(realm) {
             realm.delete(document)
         }
+        return success ? nil : .deleteDocumentFailed
     }
     
-    open func unsubscriveAll() -> Bool {
-        return RealmHelper.deleteAll()
+    open func unsubscriveAll() -> ReaderKitError? {
+        let success = RealmHelper.deleteAll()
+        return success ? nil : .realmError
     }
     
-    open func read(_ documentItem: DocumentItem, read: Bool) -> Bool {
-        return RealmHelper.write {
+    open func read(_ documentItem: DocumentItem, read: Bool) -> ReaderKitError? {
+        let success = RealmHelper.write {
             documentItem.read = read
         }
+        return success ? nil : .changeReadFlagFailed
     }
 }
 
@@ -117,16 +133,16 @@ extension DocumentRepository {
 }
 
 extension DocumentRepository {
-    internal func fetch(_ link: URL, completion: @escaping (_ result: Bool) -> Void) {
+    internal func fetch(_ link: URL, completion: @escaping (_ error: ReaderKitError?) -> Void) {
         documentProvider.get(from: link) { [weak self] (document, error) in
             guard let document = document else {
-                completion(false)
+                completion(.cannotGetDocument)
                 return
             }
             
             DispatchQueue.main.async {
-                let result = self?.update(document) ?? false
-                completion(result)
+                let error = self?.update(document)
+                completion(error)
             }
         }
     }
@@ -149,14 +165,15 @@ extension DocumentRepository {
         }
     }
     
-    internal func update(_ document: Document) -> Bool {
+    internal func update(_ document: Document) -> ReaderKitError? {
         let isSubscribed = checkSubscribed(link: document.link)
         if isSubscribed {
-            guard let storedDocument = get(document.link) else { return false }
+            guard let storedDocument = get(document.link) else { return .cannotGetDocument }
             let newItems = document.items.filter{ !storedDocument.itemLinks.contains($0.link) }
-            return RealmHelper.write {
+            let success = RealmHelper.write {
                 storedDocument.items.append(objectsIn: newItems)
             }
+            return success ? nil : .updateDocumentFailed
         } else {
             return subscribe(document)
         }

@@ -24,7 +24,7 @@ class DocumentTests: XCTestCase {
     func testSummary() {
         let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
         let result = DocumentRepository.shared.subscribe(thinkBigActLocal)
-        if result == false {
+        if result != nil {
             XCTFail()
         }
         
@@ -41,7 +41,7 @@ class DocumentTests: XCTestCase {
     func testReadFlag() {
         let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
         let result = DocumentRepository.shared.subscribe(thinkBigActLocal)
-        if result == false {
+        if result != nil {
             XCTFail()
         }
         

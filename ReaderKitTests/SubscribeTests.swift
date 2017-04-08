@@ -25,14 +25,14 @@ class SubscribeTests: XCTestCase {
     
     private func deleteAll() {
         let result = DocumentRepository.shared.unsubscriveAll()
-        if result == false {
+        if result != nil {
             XCTFail()
         }
     }
     
     func testDeleteAll() {
         let result = DocumentRepository.shared.unsubscriveAll()
-        if result == false {
+        if result != nil {
             XCTFail()
         }
     }
@@ -48,7 +48,7 @@ class SubscribeTests: XCTestCase {
             }
             
             let result = DocumentRepository.shared.subscribe(document)
-            if result == false {
+            if result != nil {
                 XCTFail()
             }
         }
@@ -104,7 +104,7 @@ class SubscribeTests: XCTestCase {
         
         documents.forEach {
             let result = DocumentRepository.shared.subscribe($0)
-            if result == false {
+            if result != nil {
                 XCTFail()
             }
         }
@@ -114,4 +114,17 @@ class SubscribeTests: XCTestCase {
             XCTAssertTrue(subscribedCount == documentsCount)
         }
     }
+    
+    func testSubscribeUrl() {
+        let expectation = self.expectation(description: "subscribe")
+        
+        let vipSisterUrl = "http://vipsister23.com"
+        DocumentRepository.shared.subscribe(vipSisterUrl) { (error) in
+            defer { expectation.fulfill() }
+            XCTAssertTrue(error == nil)
+        }
+        
+        waitForExpectations(timeout: 2.0, handler: nil)
+    }
+    
 }

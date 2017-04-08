@@ -26,7 +26,7 @@ class ReaderKitRealmTests: XCTestCase {
     
     private func deleteAll() {
         let result = DocumentRepository.shared.unsubscriveAll()
-        if result == false {
+        if result != nil {
             XCTFail()
         }
     }
@@ -52,7 +52,7 @@ class ReaderKitRealmTests: XCTestCase {
         
         let result1 = DocumentRepository.shared.subscribe(thinkBigActLocal)
         let result2 = DocumentRepository.shared.subscribe(vipSister)
-        if result1 == false || result2 == false {
+        if result1 != nil || result2 != nil {
             XCTFail()
         }
         
@@ -74,7 +74,7 @@ class ReaderKitRealmTests: XCTestCase {
         
         let result1 = DocumentRepository.shared.subscribe(thinkBigActLocal)
         let result2 = DocumentRepository.shared.subscribe(vipSister)
-        if result1 == false || result2 == false {
+        if result1 != nil || result2 != nil {
             XCTFail()
         }
         
