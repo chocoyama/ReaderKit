@@ -13,6 +13,7 @@ open class DocumentRepository {
     private init() {}
     open static let shared = DocumentRepository()
     fileprivate let documentProvider = DocumentProvider.init()
+    fileprivate let reader = Reader()
     
     open func recent(_ link: URL, completion: @escaping (Document?) -> Void) {
         fetch(link) { [weak self] (result) in
@@ -57,7 +58,6 @@ open class DocumentRepository {
 
 extension DocumentRepository {
     open func subscribe(_ link: String, completion: @escaping (Bool) -> Void) {
-        let reader = Reader()
         guard let url = URL(string: link), let feedUrl = reader.choices(from: url).first?.url else {
             completion(false);
             return
