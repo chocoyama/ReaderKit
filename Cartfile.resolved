@@ -1,5 +1,5 @@
 github "chocoyama/ImageDissector" "0.1.2"
 github "honghaoz/Ji" "2.0.1"
 github "yahoojapan/SwiftyXMLParser" "3.0.1"
-github "realm/realm-cocoa" "b8fc43e6d41627dd24be8e77239997701f6ad20e"
+github "realm/realm-cocoa" "899c0ada49e178e917e69680949f494ffe7f2f8a"
 github "chocoyama/ScrapingKit" "0.0.12"

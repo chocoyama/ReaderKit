@@ -56,11 +56,26 @@ open class DocumentRepository {
 }
 
 extension DocumentRepository {
+    open func subscribe(_ url: URL, completion: @escaping (Bool) -> Void) {
+        let reader = Reader()
+        guard let feedUrl = reader.choices(from: url).first?.url else { completion(false); return }
+        reader.read(feedUrl) { (document, error) in
+            guard let document = document, error == nil else { completion(false); return }
+            let result = DocumentRepository.shared.subscribe(document)
+            completion(result)
+        }
+    }
+    
     open func subscribe(_ document: Document) -> Bool {
         guard let realm = RealmHelper.create() else { return false }
         return RealmHelper.write(realm) {
             realm.add(document, update: true)
         }
+    }
+    
+    open func unsubscribe(_ url: URL) -> Bool {
+        guard let document = get(url.absoluteString) else { return false }
+        return unsubscribe(document)
     }
     
     open func unsubscribe(_ document: Document) -> Bool {
