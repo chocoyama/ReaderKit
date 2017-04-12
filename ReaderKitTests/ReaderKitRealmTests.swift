@@ -82,7 +82,7 @@ class ReaderKitRealmTests: XCTestCase {
         DocumentRepository.shared.recent(to: 20) { (items) in
             defer { expectation.fulfill() }
             
-            XCTAssertTrue(items.count == 20)
+            XCTAssertEqual(items.count, 20)
         }
         waitForExpectations(timeout: 2.0, handler: nil)
     }

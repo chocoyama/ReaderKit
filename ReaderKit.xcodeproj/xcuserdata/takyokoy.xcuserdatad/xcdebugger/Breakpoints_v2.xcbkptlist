@@ -13,5 +13,53 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ReaderKitTests/FetchTests.swift"
+            timestampString = "513686326.681123"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "testFetch()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReaderKitTests.FetchTests.(testFetch () -&gt; ()).(closure #1)"
+                  moduleName = "ReaderKitTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/takyokoy/Documents/public/ReaderKit/ReaderKitTests/FetchTests.swift"
+                  timestampString = "513686332.685828"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "478">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ReaderKitTests.FetchTests.(testFetch () -&gt; ()).(closure #1).($defer #1) () -&gt; ()"
+                  moduleName = "ReaderKitTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/takyokoy/Documents/public/ReaderKit/ReaderKitTests/FetchTests.swift"
+                  timestampString = "513686332.687113"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

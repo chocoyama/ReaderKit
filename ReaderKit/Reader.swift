@@ -25,6 +25,14 @@ open class Reader {
         }
     }
     
+    open func readNew(_ url: URL, handler: @escaping (_ document: Document?, _ error: Error?) -> Void) {
+        documentProvider.getNewArrival(from: url) { (document, error) in
+            DispatchQueue.main.async {
+                handler(document, error)
+            }
+        }
+    }
+    
     open func choices(from url: URL) -> [Choice] {
         let extractor = Extractor()
         let choices = extractor.extractChoices(from: url)

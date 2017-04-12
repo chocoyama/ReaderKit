@@ -31,9 +31,9 @@ class FetchTests: XCTestCase {
     func testFetch() {
         let link = ReaderKitTestsResources.rss1_0url
         let expectation: XCTestExpectation? = self.expectation(description: "fetch")
-        DocumentRepository.shared.fetch(link) { (result) in
+        DocumentRepository.shared.fetch(link) { (error) in
             defer { expectation?.fulfill() }
-            if result != nil {
+            if error != nil {
                 XCTFail()
             }
             

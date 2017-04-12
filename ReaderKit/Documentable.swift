@@ -24,4 +24,20 @@ extension Documentable {
         document.items.append(objectsIn: documentItems)
         return document
     }
+    
+    
+    /// DBに保存されているDocumentItemと同様の情報は除外した上でDocumentオブジェクトを作成する
+    ///
+    /// - Returns: Documentオブジェクト
+    func toDiffDocument() -> Document {
+        let storedDocument = DocumentRepository.shared.get(documentLink.absoluteString)
+        let storedLinks = storedDocument?.itemLinks
+        let newDocumentItems = documentItems.filter{ storedLinks?.contains($0.link) == false }
+        
+        let document = Document()
+        document.title = documentTitle
+        document.link = documentLink.absoluteString
+        document.items.append(objectsIn: newDocumentItems)
+        return document
+    }
 }

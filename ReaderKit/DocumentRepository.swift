@@ -12,6 +12,7 @@ import RealmSwift
 public enum ReaderKitError: Error {
     case cannotExtractFeedUrl
     case cannotGetDocument
+    case noDocumentItem
     case updateDocumentFailed
     case deleteItemFailed
     case deleteDocumentFailed
@@ -134,7 +135,7 @@ extension DocumentRepository {
 
 extension DocumentRepository {
     internal func fetch(_ link: URL, completion: @escaping (_ error: ReaderKitError?) -> Void) {
-        documentProvider.get(from: link) { [weak self] (document, error) in
+        documentProvider.getNewArrival(from: link) { [weak self] (document, error) in
             guard let document = document else {
                 completion(.cannotGetDocument)
                 return
@@ -166,12 +167,12 @@ extension DocumentRepository {
     }
     
     internal func update(_ document: Document) -> ReaderKitError? {
+        guard document.items.count > 0 else { return .noDocumentItem }
         let isSubscribed = checkSubscribed(link: document.link)
         if isSubscribed {
             guard let storedDocument = get(document.link) else { return .cannotGetDocument }
-            let newItems = document.items.filter{ !storedDocument.itemLinks.contains($0.link) }
             let success = RealmHelper.write {
-                storedDocument.items.append(objectsIn: newItems)
+                storedDocument.items.append(objectsIn: document.items)
             }
             return success ? nil : .updateDocumentFailed
         } else {
