@@ -38,7 +38,7 @@ class ReaderKitRealmTests: XCTestCase {
             defer { expectation?.fulfill() }
             
             if let document = document {
-                XCTAssertTrue(document.link == link.absoluteString)
+                XCTAssertEqual(document.link, link.absoluteString)
             } else {
                 XCTFail()
             }

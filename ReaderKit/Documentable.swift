@@ -31,8 +31,12 @@ extension Documentable {
     /// - Returns: Documentオブジェクト
     func toDiffDocument() -> Document {
         let storedDocument = DocumentRepository.shared.get(documentLink.absoluteString)
-        let storedLinks = storedDocument?.itemLinks
-        let newDocumentItems = documentItems.filter{ storedLinks?.contains($0.link) == false }
+        let newDocumentItems: [DocumentItem]
+        if let storedLinks = storedDocument?.itemLinks {
+            newDocumentItems = documentItems.filter{ !storedLinks.contains($0.link) }
+        } else {
+            newDocumentItems = documentItems
+        }
         
         let document = Document()
         document.title = documentTitle

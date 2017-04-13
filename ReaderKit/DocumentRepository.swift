@@ -171,8 +171,10 @@ extension DocumentRepository {
         let isSubscribed = checkSubscribed(link: document.link)
         if isSubscribed {
             guard let storedDocument = get(document.link) else { return .cannotGetDocument }
+            let itemLinks = storedDocument.itemLinks
+            let newItems = document.items.filter{ !itemLinks.contains($0.link) }
             let success = RealmHelper.write {
-                storedDocument.items.append(objectsIn: document.items)
+                storedDocument.items.append(objectsIn: newItems)
             }
             return success ? nil : .updateDocumentFailed
         } else {

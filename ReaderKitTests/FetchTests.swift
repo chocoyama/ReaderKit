@@ -92,12 +92,12 @@ class FetchTests: XCTestCase {
         document.title = "test"
         document.link = documentLink.absoluteString
         document.items.append(objectsIn: items)
-        let result1 = DocumentRepository.shared.update(document)
-        if result1 != nil {
+        let error1 = DocumentRepository.shared.update(document)
+        if error1 != nil {
             XCTFail()
         }
         let gotDocument = DocumentRepository.shared.get(documentLink.absoluteString)
-        XCTAssertTrue(gotDocument?.items.count == itemCount)
+        XCTAssertEqual(gotDocument?.items.count, itemCount)
         
         var newItems = items.enumerated().filter{ $0.offset < 10 }.map{ $0.element }
         let newlink = URL(string: "http://www.yahoo.co.jp/new")!
@@ -115,12 +115,12 @@ class FetchTests: XCTestCase {
         document2.title = "test"
         document2.link = documentLink.absoluteString
         document2.items.append(objectsIn: newItems)
-        let result2 = DocumentRepository.shared.update(document2)
-        if result2 != nil {
+        let error2 = DocumentRepository.shared.update(document2)
+        if error2 != nil {
             XCTFail()
         }
         let newGotDocument = DocumentRepository.shared.get(documentLink.absoluteString)
-        XCTAssertTrue(newGotDocument?.items.count == itemCount + 1)
+        XCTAssertEqual(newGotDocument?.items.count, itemCount + 1)
     }
     
 }
