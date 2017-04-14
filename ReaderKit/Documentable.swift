@@ -24,4 +24,22 @@ extension Documentable {
             items: documentItems
         )
     }
+    
+    func toDiffDocument() -> Document {
+        return Document(
+            title: documentTitle,
+            link: documentLink,
+            items: getNewDocumentItem(by: documentLink)
+        )
+    }
+    
+    private func getNewDocumentItem(by link: URL) -> [DocumentItem] {
+        let storedDocument = DocumentRepository.shared.get(link)
+        let storedLinks = storedDocument?.items.map{ $0.link }
+        if let storedLinks = storedLinks {
+            return documentItems.filter{ !storedLinks.contains($0.link) }
+        } else {
+            return documentItems
+        }
+    }
 }

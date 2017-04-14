@@ -24,14 +24,14 @@ class SubscribeTests: XCTestCase {
     }
     
     private func deleteAll() {
-        let result = DocumentRepository.shared.unsubscriveAll()
+        let result = DocumentRepository.shared.unSubscribeAll()
         if result == false {
             XCTFail()
         }
     }
     
     func testDeleteAll() {
-        let result = DocumentRepository.shared.unsubscriveAll()
+        let result = DocumentRepository.shared.unSubscribeAll()
         if result == false {
             XCTFail()
         }
@@ -47,7 +47,7 @@ class SubscribeTests: XCTestCase {
                 return
             }
             
-            let result = document.subscribe()
+            let result = DocumentRepository.shared.subscribe(document)
             if result == false {
                 XCTFail()
             }
@@ -66,22 +66,16 @@ class SubscribeTests: XCTestCase {
             }
             
             // 購読してないものを削除
-            let result = document.unSubscribe()
-            if result == false {
-                XCTFail()
-            }
+            let result = DocumentRepository.shared.unSubscribe(document)
+            XCTAssertFalse(result)
             
             // 購読
-            let result2 = document.subscribe()
-            if result2 == false {
-                XCTFail()
-            }
+            let result2 = DocumentRepository.shared.subscribe(document)
+            XCTAssertTrue(result2)
             
             // 購読済みのものを削除
-            let result3 = document.unSubscribe()
-            if result3 == false {
-                XCTFail()
-            }
+            let result3 = DocumentRepository.shared.unSubscribe(document)
+            XCTAssertTrue(result3)
         }
         waitForExpectations(timeout: 2.0, handler: nil)
     }
@@ -97,21 +91,21 @@ class SubscribeTests: XCTestCase {
             }
             
             // 購読してない
-            XCTAssertFalse(document.subscribed)
+            XCTAssertFalse(DocumentRepository.shared.isSubscribed(document))
             
             // 購読
-            let result = document.subscribe()
+            let result = DocumentRepository.shared.subscribe(document)
             if result == false {
                 XCTFail()
             }
-            XCTAssertTrue(document.subscribed)
+            XCTAssertTrue(DocumentRepository.shared.isSubscribed(document))
             
             // 購読済みのものを削除
-            let result2 = document.unSubscribe()
+            let result2 = DocumentRepository.shared.unSubscribe(document)
             if result2 == false {
                 XCTFail()
             }
-            XCTAssertFalse(document.subscribed)
+            XCTAssertFalse(DocumentRepository.shared.isSubscribed(document))
         }
         waitForExpectations(timeout: 2.0, handler: nil)
     }
@@ -148,7 +142,7 @@ class SubscribeTests: XCTestCase {
         }
         
         documents.forEach {
-            let result = $0.subscribe()
+            let result = DocumentRepository.shared.subscribe($0)
             if result == false {
                 XCTFail()
             }

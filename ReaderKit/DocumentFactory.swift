@@ -18,6 +18,11 @@ open class DocumentFactory {
         return documentable?.toDocument()
     }
     
+    open func createDiffDocument(from data: Data, response: URLResponse) -> Document? {
+        let documentable = createDocumentable(from: data, response: response)
+        return documentable?.toDiffDocument()
+    }
+    
     open func createDocumentable(from data: Data, response: URLResponse) -> Documentable? {
         let isXml = detector.determineXmlType(from: response)
         return isXml ? create(fromXmlData: data, response: response) : create(fromHtmlData: data, response: response)

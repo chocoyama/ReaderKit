@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import RealmSwift
 
 open class DocumentRepository {
     private init() {}
     open static let shared = DocumentRepository()
-    fileprivate let documentProvider = DocumentProvider.init()
+    fileprivate let reader = Reader()
     
     open func recent(_ link: URL, completion: @escaping (Document?) -> Void) {
         fetch(link) { [weak self] (result) in
@@ -33,7 +34,7 @@ open class DocumentRepository {
     }
     
     open func get(_ link: URL) -> Document? {
-        guard let realmDocument = RealmManager.getRealmDocument(from: link) else { return nil }
+        guard let realmDocument = RealmManager.makeRealm()?.object(ofType: RealmDocument.self, forPrimaryKey: link.absoluteString) else { return nil }
         var documentItems: [DocumentItem] = []
         realmDocument.items
             .flatMap{ $0.toDocumentItem() }
@@ -42,7 +43,17 @@ open class DocumentRepository {
     }
     
     open func get(from: Int, to: Int) -> [DocumentItem] {
-        let realmDocumentItems = RealmManager.getRealmDocumentItems(from: from, to: to)
+        let realmDocumentItems = RealmManager
+                                    .makeRealm()?
+                                    .objects(RealmDocumentItem.self)
+                                    .sorted(byKeyPath: "date", ascending: false)
+                                    .enumerated()
+                                    .filter({ (offset, element) -> Bool in
+                                        return from <= offset && offset < to
+                                    })
+                                    .map{ $0.element }
+                                    ?? []
+        
         var documentItems: [DocumentItem] = []
         realmDocumentItems
             .flatMap{ $0.toDocumentItem() }
@@ -51,7 +62,7 @@ open class DocumentRepository {
     }
     
     open var subscribedDocumentSummaries: [Document.Summary] {
-        guard let result = RealmManager.getRealmDocumentResult() else { return [] }
+        guard let result = RealmManager.makeRealm()?.objects(RealmDocument.self) else { return [] }
         
         var summaries = Array<Document.Summary>()
         result.forEach {
@@ -62,15 +73,51 @@ open class DocumentRepository {
         return summaries
     }
     
-    open func unsubscriveAll() -> Bool {
-        return RealmManager.deleteAll()
+}
+
+extension DocumentRepository {
+    open func subscribe(_ document: Document) -> Bool {
+        guard let realm = RealmManager.makeRealm() else { return false }
+        return RealmManager.write(realm: realm) {
+            realm.add(document.toRealmObject(), update: true)
+        }
     }
     
+    open func unSubscribe(_ document: Document) -> Bool {
+        guard let realm = RealmManager.makeRealm(),
+            let storedDocument = realm.object(ofType: RealmDocument.self, forPrimaryKey: document.id) else { return false }
+        
+        let success = RealmManager.write(realm: realm) {
+            realm.delete(storedDocument.items)
+        }
+        
+        if success == false {
+            return false
+        }
+        
+        return RealmManager.write(realm: realm) {
+            realm.delete(storedDocument)
+        }
+    }
+    
+    open func unSubscribeAll() -> Bool {
+        guard let realm = RealmManager.makeRealm() else { return false }
+        Realm.Configuration.defaultConfiguration.deleteRealmIfMigrationNeeded = true
+        return RealmManager.write(realm: realm) {
+            realm.deleteAll()
+        }
+    }
+    
+    open func isSubscribed(_ document: Document) -> Bool {
+        return RealmManager
+                .makeRealm()?
+                .object(ofType: RealmDocument.self, forPrimaryKey: document.id) != nil
+    }
 }
 
 extension DocumentRepository {
     internal func fetch(_ link: URL, completion: @escaping (_ result: Bool) -> Void) {
-        documentProvider.get(from: link, handler: { [weak self] (document, error) in
+        reader.readNew(link) { [weak self] (document, error) in
             guard let document = document else {
                 completion(false)
                 return
@@ -80,7 +127,7 @@ extension DocumentRepository {
                 let result = self?.update(document) ?? false
                 completion(result)
             }
-        })
+        }
     }
     
     internal func fetchAll(completion: @escaping () -> Void) {
@@ -98,9 +145,9 @@ extension DocumentRepository {
     }
     
     internal func update(_ document: Document) -> Bool {
-        guard let realmDocument = RealmManager.getRealmDocument(from: document.link),
-            let realm = RealmManager.makeRealm() else {
-                return RealmManager.subscribe(document: document)
+        guard let realm = RealmManager.makeRealm(),
+            let realmDocument = realm.object(ofType: RealmDocument.self, forPrimaryKey: document.link.absoluteString) else {
+            return subscribe(document)
         }
         
         let newItems = document.realmItems.filter { !realmDocument.itemIds.contains($0.id) }

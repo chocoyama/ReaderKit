@@ -22,7 +22,7 @@ class DocumentTests: XCTestCase {
     }
     
     private func deleteAll() {
-        let result = DocumentRepository.shared.unsubscriveAll()
+        let result = DocumentRepository.shared.unSubscribeAll()
         if result == false {
             XCTFail()
         }
@@ -30,7 +30,7 @@ class DocumentTests: XCTestCase {
     
     func testSummary() {
         let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
-        let result = thinkBigActLocal.subscribe()
+        let result = DocumentRepository.shared.subscribe(thinkBigActLocal)
         if result == false {
             XCTFail()
         }
@@ -48,7 +48,7 @@ class DocumentTests: XCTestCase {
     
     func testReadFlag() {
         let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
-        let result = thinkBigActLocal.subscribe()
+        let result = DocumentRepository.shared.subscribe(thinkBigActLocal)
         if result == false {
             XCTFail()
         }

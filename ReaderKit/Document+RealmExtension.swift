@@ -10,23 +10,10 @@ import Foundation
 import RealmSwift
 
 extension Document {
-    public var subscribed: Bool {
-        return RealmManager.checkSubscribed(document: self)
-    }
-    
-    public func subscribe() -> Bool {
-        return RealmManager.subscribe(document: self)
-        
-    }
-    
-    public func unSubscribe() -> Bool {
-        return RealmManager.unSubscribe(document: self)
-        
-    }
     
     public func toRealmObject() -> RealmDocument {
         let realmItems = items.map{ $0.toRealmObject() }
-        let realmDoc = RealmDocument.init(value: [
+        let realmDoc = RealmDocument(value: [
             "id": id,
             "title": title,
             "link": link.absoluteString,

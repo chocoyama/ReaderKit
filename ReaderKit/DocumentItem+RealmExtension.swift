@@ -24,10 +24,14 @@ extension DocumentItem {
     }
     
     func getReadFlag() -> Bool {
-        return RealmManager.checkRead(item: self)
+        return RealmManager.makeRealm()?.object(ofType: RealmDocumentItem.self, forPrimaryKey: id)?.read ?? false
     }
     
     func setReadFlag(_ read: Bool) -> Bool {
-        return RealmManager.setRead(isRead: read, item: self)
+        guard let realm = RealmManager.makeRealm(),
+            let savedItem = RealmManager.makeRealm()?.object(ofType: RealmDocumentItem.self, forPrimaryKey: id) else { return false }
+        return RealmManager.write(realm: realm) {
+            savedItem.read = read
+        }
     }
 }

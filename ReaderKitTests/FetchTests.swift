@@ -22,7 +22,7 @@ class FetchTests: XCTestCase {
     }
     
     private func deleteAll() {
-        let result = RealmManager.deleteAll()
+        let result = DocumentRepository.shared.unSubscribeAll()
         if result == false {
             XCTFail()
         }
@@ -47,8 +47,8 @@ class FetchTests: XCTestCase {
         let thinkBigActLocal = ReaderKitTestsResources.thinkBigActLocal
         let vipSister = ReaderKitTestsResources.vipSister
         
-        let result1 = thinkBigActLocal.subscribe()
-        let result2 = vipSister.subscribe()
+        let result1 = DocumentRepository.shared.subscribe(thinkBigActLocal)
+        let result2 = DocumentRepository.shared.subscribe(vipSister)
         if result1 == false || result2 == false {
             XCTFail()
         }
